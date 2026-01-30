@@ -1,0 +1,114 @@
+{
+  "name": "Rikonim Enterprise",
+  "tagline": "Building & Civil Engineering Company",
+  "industry": "Construction & Civil Engineering",
+  "businessType": "Private Company",
+  "headquarters": "Accra, Ghana",
+  "founded": "2013",
+  "heroVideos": {
+    "home": "https://videos.pexels.com/video-files/13921040/13921040-uhd_2560_1440_30fps.mp4",
+    "company": "https://videos.pexels.com/video-files/5579145/5579145-uhd_2560_1440_30fps.mp4",
+    "services": "https://videos.pexels.com/video-files/20686633/20686633-uhd_2560_1440_30fps.mp4",
+    "projects": "https://videos.pexels.com/video-files/4430417/4430417-uhd_2560_1440_24fps.mp4",
+    "contact": "https://videos.pexels.com/video-files/4430419/4430419-uhd_2560_1440_24fps.mp4",
+    "leadership": "https://videos.pexels.com/video-files/13921040/13921040-uhd_2560_1440_30fps.mp4",
+    "legal": "https://videos.pexels.com/video-files/20686633/20686633-uhd_2560_1440_30fps.mp4"
+  },
+  "overview": "Rikonim Enterprise is a well-established building and civil engineering company headquartered in Accra, Ghana. Founded in 2013, the company delivers high-quality construction, infrastructure, and engineering solutions to both public and private sector clients.",
+  "vision": "To become a leading construction and civil engineering company in Ghana and West Africa, known for excellence, innovation, and sustainable development.",
+  "missionBullets": [
+    "To deliver durable, cost-effective, and high-quality construction projects",
+    "To meet and exceed client expectations through professionalism and integrity",
+    "To maintain the highest standards of safety and environmental responsibility",
+    "To build long-term partnerships with clients and stakeholders"
+  ],
+  "services": [
+    {
+      "slug": "building-construction",
+      "title": "Building Construction",
+      "summary": "End-to-end delivery for residential, commercial, and institutional buildings.",
+      "bullets": [
+        "Structural works and finishing",
+        "Quality control and compliance",
+        "Schedule and cost discipline",
+        "Site safety management"
+      ],
+      "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=2400",
+      "video": "https://videos.pexels.com/video-files/1861780/1861780-uhd_2560_1440_25fps.mp4"
+    },
+    {
+      "slug": "civil-engineering-works",
+      "title": "Civil Engineering Works",
+      "summary": "Infrastructure and heavy civil works executed with durability and long-term performance in mind.",
+      "bullets": [
+        "Roads, drainage, and earthworks",
+        "Concrete works and structures",
+        "Utilities coordination",
+        "Testing and documentation"
+      ],
+      "image": "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=2400",
+      "video": "https://videos.pexels.com/video-files/20531043/20531043-uhd_2560_1440_30fps.mp4"
+    },
+    {
+      "slug": "project-management",
+      "title": "Project Management",
+      "summary": "Clear planning, controls, and reporting to keep stakeholders aligned from start to closeout.",
+      "bullets": [
+        "Work breakdown and scheduling",
+        "Procurement and subcontract coordination",
+        "Progress reporting and change control",
+        "Handover documentation"
+      ],
+      "image": "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=2400",
+      "video": "https://videos.pexels.com/video-files/3195530/3195530-uhd_2560_1440_30fps.mp4"
+    },
+    {
+      "slug": "renovation-refurbishment",
+      "title": "Renovation & Refurbishment",
+      "summary": "Upgrades, reconfiguration, and lifecycle improvements with minimal disruption to operations.",
+      "bullets": [
+        "Condition surveys and scope definition",
+        "Phased execution planning",
+        "Finishes, MEP upgrades, and repairs",
+        "Quality inspections and snagging"
+      ],
+      "image": "https://images.pexels.com/photos/6474474/pexels-photo-6474474.jpeg?auto=compress&cs=tinysrgb&w=2400",
+      "video": "https://videos.pexels.com/video-files/3230517/3230517-uhd_2560_1440_30fps.mp4"
+    }
+  ],
+  "leadership": [
+    {
+      "role": "Chief Executive Officer (CEO)",
+      "name": "Mr. Kofi Nimo Donkor",
+      "bio": "Mr. Kofi Nimo Donkor provides overall strategic direction for Rikonim Enterprise, with a focus on disciplined delivery, client trust, and sustainable growth. He leads executive oversight across operations, finance, and stakeholder engagement to ensure every project meets quality and safety expectations.",
+      "highlights": [
+        "Strategic leadership and governance",
+        "Client and stakeholder relationship management",
+        "Quality and safety accountability",
+        "Long-term business development"
+      ],
+      "image": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    },
+    {
+      "role": "Project Director",
+      "name": "Ms. Gifty Sai-Odoi",
+      "bio": "Ms. Gifty Sai-Odoi leads project execution across planning, coordination, and site delivery. She works closely with clients and partners to manage scope, schedule, and cost controls while maintaining high standards in workmanship and documentation.",
+      "highlights": [
+        "Project planning and controls",
+        "Site coordination and subcontract oversight",
+        "Schedule, cost, and risk management",
+        "Progress reporting and closeout"
+      ],
+      "image": "https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    }
+  ],
+  "contact": {
+    "phone": "0243549376 / 0203251631",
+    "email": "your-email@gmail.com",
+    "headOffice": "Accra, Ghana",
+    "addressLines": [
+      "Accra, Ghana"
+    ],
+    "mapQuery": "Accra, Ghana"
+  }
+}

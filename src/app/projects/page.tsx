@@ -1,0 +1,181 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { PageBreadcrumb } from '@/components/PageBreadcrumb';
+import { PageHero } from '@/components/PageHero';
+import { Container } from '@/components/layout/Container';
+import { Section } from '@/components/layout/Section';
+import { getProjects } from '@/lib/projects';
+import { site } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'Projects'
+};
+
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
+  return (
+    <>
+      <PageHero
+        title="Projects"
+        subtitle="Current work and selected engagements."
+        imageUrl="https://images.pexels.com/photos/8961065/pexels-photo-8961065.jpeg?auto=compress&cs=tinysrgb&w=2400"
+        videoUrl={site.heroVideos.projects}
+      />
+
+      <PageBreadcrumb current="Projects" />
+
+      <Section>
+        <Container>
+          <div className="grid gap-10 md:grid-cols-12">
+            <div className="md:col-span-5">
+              <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">Projects</p>
+            </div>
+            <div className="md:col-span-7">
+              <p className="text-base leading-relaxed text-brand-steel">
+                Explore current work and selected engagements delivered with disciplined planning, quality controls, and safety leadership.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <div className="border-t border-brand-ink/10">
+            {projects.map((p, idx) => (
+              <div
+                key={p.slug}
+                className="grid gap-4 border-b border-brand-ink/10 py-8 md:grid-cols-12 md:items-start"
+              >
+                {idx % 3 === 0 ? (
+                  <>
+                    <div className="md:col-span-4">
+                      <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">
+                        {p.year ? p.year : '—'} {p.status ? `• ${p.status}` : ''}
+                      </p>
+                      <h2 className="mt-3 text-lg font-semibold text-brand-ink">
+                        <Link href={`/projects/${p.slug}`} className="hover:underline">
+                          {p.title}
+                        </Link>
+                      </h2>
+                      {p.location ? (
+                        <p className="mt-2 text-sm text-brand-steel">{p.location}</p>
+                      ) : null}
+                    </div>
+
+                    <div className="md:col-span-8">
+                      {p.image ? (
+                        <Link
+                          href={`/projects/${p.slug}`}
+                          className="mb-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
+                          aria-label={`Open project ${p.title}`}
+                        >
+                          <div className="aspect-[16/7]">
+                            <img src={p.image} alt="" className="h-full w-full object-cover" />
+                          </div>
+                        </Link>
+                      ) : null}
+                      {p.summary ? (
+                        <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
+                      ) : null}
+                      <div className="mt-4">
+                        <Link
+                          href={`/projects/${p.slug}`}
+                          className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
+                        >
+                          View details
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                ) : idx % 3 === 1 ? (
+                  <>
+                    <div className="md:col-span-8 md:order-1">
+                      {p.image ? (
+                        <Link
+                          href={`/projects/${p.slug}`}
+                          className="mb-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
+                          aria-label={`Open project ${p.title}`}
+                        >
+                          <div className="aspect-[16/7]">
+                            <img src={p.image} alt="" className="h-full w-full object-cover" />
+                          </div>
+                        </Link>
+                      ) : null}
+                      {p.summary ? (
+                        <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
+                      ) : null}
+                      <div className="mt-4">
+                        <Link
+                          href={`/projects/${p.slug}`}
+                          className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
+                        >
+                          View details
+                        </Link>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-4 md:order-2">
+                      <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">
+                        {p.year ? p.year : '—'} {p.status ? `• ${p.status}` : ''}
+                      </p>
+                      <h2 className="mt-3 text-lg font-semibold text-brand-ink">
+                        <Link href={`/projects/${p.slug}`} className="hover:underline">
+                          {p.title}
+                        </Link>
+                      </h2>
+                      {p.location ? (
+                        <p className="mt-2 text-sm text-brand-steel">{p.location}</p>
+                      ) : null}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="md:col-span-8 md:col-start-3">
+                      <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">
+                        {[p.year ? p.year : '—', p.status ? p.status : '', p.location ? p.location : '']
+                          .filter(Boolean)
+                          .join(' • ')}
+                      </p>
+                      <h2 className="mt-3 text-lg font-semibold text-brand-ink">
+                        <Link href={`/projects/${p.slug}`} className="hover:underline">
+                          {p.title}
+                        </Link>
+                      </h2>
+                    </div>
+
+                    <div className="md:col-span-8 md:col-start-3">
+                      {p.image ? (
+                        <Link
+                          href={`/projects/${p.slug}`}
+                          className="mb-5 mt-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
+                          aria-label={`Open project ${p.title}`}
+                        >
+                          <div className="aspect-[16/7]">
+                            <img src={p.image} alt="" className="h-full w-full object-cover" />
+                          </div>
+                        </Link>
+                      ) : null}
+                      {p.summary ? (
+                        <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
+                      ) : null}
+                      <div className="mt-4">
+                        <Link
+                          href={`/projects/${p.slug}`}
+                          className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
+                        >
+                          View details
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+    </>
+  );
+}

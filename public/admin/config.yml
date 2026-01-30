@@ -1,0 +1,96 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_ORG_OR_USER/YOUR_REPO
+  branch: main
+  base_url: http://localhost:3000
+  auth_endpoint: api/auth
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "Site"
+        file: "content/settings/site.json"
+        format: "json"
+        fields:
+          - { name: "name", label: "Company Name" }
+          - { name: "tagline", label: "Tagline" }
+          - { name: "industry", label: "Industry" }
+          - { name: "businessType", label: "Business Type" }
+          - { name: "headquarters", label: "Headquarters" }
+          - { name: "founded", label: "Founded" }
+          - { name: "overview", label: "Company Overview", widget: "text" }
+          - { name: "vision", label: "Vision", widget: "text" }
+          - name: "missionBullets"
+            label: "Mission Bullets"
+            widget: "list"
+            field: { name: "bullet", label: "Bullet", widget: "string" }
+          - name: "heroVideos"
+            label: "Hero Videos"
+            widget: "object"
+            fields:
+              - { name: "home", label: "Home Video URL", required: false }
+              - { name: "company", label: "Company Video URL", required: false }
+              - { name: "services", label: "Services Video URL", required: false }
+              - { name: "projects", label: "Projects Video URL", required: false }
+              - { name: "contact", label: "Contact Video URL", required: false }
+              - { name: "leadership", label: "Leadership Video URL", required: false }
+              - { name: "legal", label: "Legal Video URL", required: false }
+          - name: "services"
+            label: "Services"
+            widget: "list"
+            fields:
+              - { name: "slug", label: "Slug" }
+              - { name: "title", label: "Title" }
+              - { name: "summary", label: "Summary", widget: "text" }
+              - { name: "image", label: "Image", widget: "image", required: false }
+              - { name: "video", label: "Video URL", required: false }
+              - name: "bullets"
+                label: "Bullets"
+                widget: "list"
+                field: { name: "bullet", label: "Bullet", widget: "string" }
+          - name: "leadership"
+            label: "Leadership"
+            widget: "list"
+            fields:
+              - { name: "role", label: "Role" }
+              - { name: "name", label: "Name" }
+              - { name: "image", label: "Photo", widget: "image", required: false }
+              - { name: "bio", label: "Bio", widget: "text", required: false }
+              - name: "highlights"
+                label: "Highlights"
+                widget: "list"
+                required: false
+                field: { name: "highlight", label: "Highlight", widget: "string" }
+          - name: "contact"
+            label: "Contact"
+            widget: "object"
+            fields:
+              - { name: "phone", label: "Phone" }
+              - { name: "email", label: "Email" }
+              - { name: "headOffice", label: "Head Office" }
+              - name: "addressLines"
+                label: "Address Lines"
+                widget: "list"
+                field: { name: "line", label: "Line", widget: "string" }
+              - { name: "mapQuery", label: "Map Query (for embed/search)", required: false }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Title" }
+      - { name: "image", label: "Image", widget: "image", required: false }
+      - { name: "location", label: "Location", required: false }
+      - { name: "year", label: "Year", required: false }
+      - { name: "status", label: "Status", required: false }
+      - { name: "summary", label: "Summary", widget: "text", required: false }
+      - { name: "body", label: "Details", widget: "markdown", required: false }

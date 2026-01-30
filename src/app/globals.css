@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-white font-sans text-brand-ink antialiased text-[16px] leading-[1.55];
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(11, 18, 32, 0.08) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(11, 18, 32, 0.14) 1px,
+    transparent 0
+  );
+  background-size: 22px 22px;
+  opacity: 0.14;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+html {
+  scrollbar-width: auto;
+  scrollbar-color: #E36A1B rgba(227, 106, 27, 0.12);
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(227, 106, 27, 0.12);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E36A1B;
+  border-radius: 999px;
+  border: 3px solid rgba(227, 106, 27, 0.12);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(227, 106, 27, 0.9);
+}
+
+::selection {
+  background: rgba(227, 106, 27, 0.25);
+}
+
+a {
+  text-underline-offset: 0.18em;
+}
+
+:where(a, button, [role='button']) {
+  transition:
+    box-shadow 180ms ease,
+    outline-color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+:where(a, button, [role='button']) {
+  cursor: pointer;
+}
+
+:where(a, button, [role='button'], input, select, textarea):focus-visible {
+  outline: 2px solid rgba(227, 106, 27, 0.55);
+  outline-offset: 3px;
+}
+
+:where(button, [role='button']):hover {
+  box-shadow:
+    0 0 0 3px rgba(227, 106, 27, 0.16),
+    0 14px 40px rgba(227, 106, 27, 0.08);
+}
+
+.footer-link {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 100%;
+  height: 2px;
+  background: rgba(227, 106, 27, 0.95);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+
+.footer-link:hover::after,
+.footer-link:focus-visible::after {
+  transform: scaleX(1);
+}
