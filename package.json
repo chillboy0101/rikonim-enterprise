@@ -2,6 +2,9 @@
   "name": "rikonim-enterprise",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20 <21"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,10 +13,10 @@
   },
   "dependencies": {
     "gray-matter": "4.0.3",
-    "next": "latest",
+    "next": "16.1.4",
     "nodemailer": "6.9.8",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "remark": "15.0.1",
     "remark-html": "16.0.1",
     "sharp": "0.33.1"
@@ -21,11 +24,11 @@
   "devDependencies": {
     "@types/node": "20.11.30",
     "@types/nodemailer": "6.4.14",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
+    "@types/react": "19.2.9",
+    "@types/react-dom": "19.2.3",
     "autoprefixer": "10.4.19",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
+    "eslint": "9.39.2",
+    "eslint-config-next": "16.1.4",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.3",
     "typescript": "5.4.5"
