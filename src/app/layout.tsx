@@ -20,13 +20,28 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`
   },
   description: site.overview,
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/brand/logo.png' }]
+  },
   openGraph: {
     title: site.name,
     description: `${site.tagline} headquartered in ${site.headquarters}.`,
-    type: 'website'
+    type: 'website',
+    url: '/',
+    siteName: site.name,
+    images: [
+      {
+        url: '/brand/logo.png',
+        width: 1200,
+        height: 630,
+        alt: site.name
+      }
+    ]
   },
   twitter: {
-    card: 'summary_large_image'
+    card: 'summary_large_image',
+    images: ['/brand/logo.png']
   }
 };
 
