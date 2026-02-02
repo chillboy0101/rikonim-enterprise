@@ -21,7 +21,10 @@ export const metadata: Metadata = {
   },
   description: site.overview,
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' }
+    ],
     apple: [{ url: '/brand/logo.png' }]
   },
   openGraph: {
