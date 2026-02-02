@@ -21,7 +21,8 @@ export default async function HomePage() {
           muted
           playsInline
           loop
-          preload="auto"
+          preload="metadata"
+          poster="/videos/rikonim-home-hero.jpg"
         >
           <source src={site.heroVideos.home} type="video/mp4" />
         </video>
