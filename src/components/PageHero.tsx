@@ -11,6 +11,10 @@ export function PageHero({
   imageUrl: string;
   videoUrl?: string;
 }) {
+  const posterUrl = videoUrl?.startsWith('/videos/')
+    ? videoUrl.replace(/\.mp4$/, '.jpg')
+    : undefined;
+
   return (
     <section
       id="page-hero"
@@ -25,6 +29,7 @@ export function PageHero({
             playsInline
             loop
             preload="metadata"
+            poster={posterUrl}
           >
             <source src={videoUrl} type="video/mp4" />
           </video>
