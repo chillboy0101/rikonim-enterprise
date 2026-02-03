@@ -18,7 +18,7 @@ export function SiteFooter() {
             aria-label="footer navigation"
           >
             <div>
-              <Link href="/about" className="footer-link text-base font-semibold">
+              <Link href="/about" className="footer-link text-base font-semibold md:text-lg">
                 People
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
@@ -35,7 +35,7 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <Link href="/projects" className="footer-link text-base font-semibold">
+              <Link href="/projects" className="footer-link text-base font-semibold md:text-lg">
                 Projects
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
@@ -52,7 +52,7 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <Link href="/about" className="footer-link text-base font-semibold">
+              <Link href="/about" className="footer-link text-base font-semibold md:text-lg">
                 Approach
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
@@ -72,7 +72,7 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <Link href="/careers" className="footer-link text-base font-semibold">
+              <Link href="/careers" className="footer-link text-base font-semibold md:text-lg">
                 Careers
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
@@ -90,7 +90,7 @@ export function SiteFooter() {
           </nav>
 
           <div className="md:col-span-2 md:justify-self-end">
-            <div className="flex flex-col gap-4 text-base font-semibold">
+            <div className="flex flex-col gap-4 text-base font-semibold md:text-lg">
               <Link href="/history" className="footer-link hover:text-white/90">
                 History
               </Link>
@@ -119,12 +119,12 @@ export function SiteFooter() {
 
         <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:py-24">
           <div className="md:col-span-4">
-            <div className="flex flex-col items-start sm:flex-row sm:items-start sm:gap-4">
+            <div className="flex flex-col items-start sm:flex-row sm:items-center sm:gap-6">
               <Link href="/" className="inline-flex items-center">
                 <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px] brightness-0 invert" />
               </Link>
 
-              <div className="mt-3 text-sm font-semibold leading-5 text-white/90 sm:mt-0">
+              <div className="mt-4 flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:mt-0 sm:text-lg sm:leading-7">
                 {phoneParts.map((p) => (
                   <a
                     key={p}
@@ -134,18 +134,18 @@ export function SiteFooter() {
                     {p}
                   </a>
                 ))}
-                <a
-                  className="footer-link mt-1 block whitespace-nowrap hover:text-white"
-                  href={`mailto:${site.contact.email}`}
-                >
+                <a className="footer-link block whitespace-nowrap hover:text-white" href={`mailto:${site.contact.email}`}>
                   {site.contact.email}
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="md:col-span-3 md:col-start-6 md:pl-2">
-            <nav className="flex flex-col gap-5 text-sm font-semibold text-white/85" aria-label="legal navigation">
+          <div className="md:col-span-4 md:col-start-5 md:pl-4">
+            <nav
+              className="flex flex-col gap-5 text-sm font-semibold text-white/85 sm:flex-row sm:justify-between sm:gap-10"
+              aria-label="legal navigation"
+            >
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
               </Link>
@@ -205,7 +205,7 @@ export function SiteFooter() {
                 </svg>
               </a>
             </div>
-            <p className="mt-10 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
+            <p className="mt-12 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
           </div>
         </div>
       </Container>
