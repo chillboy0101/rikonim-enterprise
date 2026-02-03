@@ -12,9 +12,9 @@ export function SiteFooter() {
   return (
     <footer className="bg-brand-blueDark text-white">
       <Container className="flex min-h-screen flex-col">
-        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16">
+        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-20">
           <nav
-            className="grid gap-y-14 sm:grid-cols-2 md:col-span-10 md:grid-cols-4 md:gap-x-16"
+            className="grid gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-4 md:gap-x-20"
             aria-label="footer navigation"
           >
             <div>
@@ -89,7 +89,7 @@ export function SiteFooter() {
             </div>
           </nav>
 
-          <div className="md:col-span-2 md:justify-self-end">
+          <div className="md:col-span-3 md:justify-self-end">
             <div className="flex flex-col gap-4 text-base font-semibold md:text-lg">
               <Link href="/history" className="footer-link hover:text-white/90">
                 History
@@ -155,7 +155,7 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          <div className="flex flex-col md:col-span-3 md:justify-self-end">
+          <div className="flex flex-col md:col-span-3">
             <div className="flex items-center gap-4">
               <a
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
