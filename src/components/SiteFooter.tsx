@@ -117,14 +117,14 @@ export function SiteFooter() {
 
         <div className="h-px w-full bg-white/20" />
 
-        <div className="grid gap-10 py-16 md:grid-cols-12 md:items-start">
+        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:py-24">
           <div className="md:col-span-4">
-            <div className="flex flex-col items-start sm:flex-row sm:items-start sm:gap-7">
+            <div className="flex flex-col items-start sm:flex-row sm:items-start sm:gap-4">
               <Link href="/" className="inline-flex items-center">
                 <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px] brightness-0 invert" />
               </Link>
 
-              <div className="mt-6 text-sm font-semibold leading-6 text-white/90 sm:mt-0">
+              <div className="mt-3 text-sm font-semibold leading-5 text-white/90 sm:mt-0">
                 {phoneParts.map((p) => (
                   <a
                     key={p}
@@ -145,24 +145,20 @@ export function SiteFooter() {
           </div>
 
           <div className="md:col-span-4">
-            <nav className="grid gap-x-24 gap-y-6 text-sm font-semibold text-white/85 sm:grid-cols-2" aria-label="legal navigation">
-              <div className="flex flex-col gap-5">
-                <Link className="footer-link hover:text-white" href="/privacy-policy">
-                  Privacy Policy
-                </Link>
-                <Link className="footer-link hover:text-white" href="/terms-of-use">
-                  Ethics
-                </Link>
-              </div>
-              <div className="flex flex-col gap-5">
-                <Link className="footer-link hover:text-white" href="/terms-of-use">
-                  Terms of Use
-                </Link>
-              </div>
+            <nav className="flex flex-col gap-5 text-sm font-semibold text-white/85" aria-label="legal navigation">
+              <Link className="footer-link hover:text-white" href="/privacy-policy">
+                Privacy Policy
+              </Link>
+              <Link className="footer-link hover:text-white" href="/terms-of-use">
+                Ethics
+              </Link>
+              <Link className="footer-link hover:text-white" href="/terms-of-use">
+                Terms of Use
+              </Link>
             </nav>
           </div>
 
-          <div className="flex flex-col md:col-span-4 md:items-end">
+          <div className="flex flex-col md:col-span-4 md:justify-self-end">
             <div className="flex items-center gap-4">
               <a
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
@@ -209,7 +205,7 @@ export function SiteFooter() {
                 </svg>
               </a>
             </div>
-            <p className="mt-8 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
+            <p className="mt-6 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
           </div>
         </div>
       </Container>
