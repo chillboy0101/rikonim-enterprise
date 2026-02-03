@@ -7,7 +7,7 @@ const config: Config = {
       colors: {
         brand: {
           blue: '#0A4C86',
-          blueDark: '#1E333C',
+          blueDark: '#203B43',
           orange: '#E36A1B',
           ink: '#0B1220',
           steel: '#2A3A52',

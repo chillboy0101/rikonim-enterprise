@@ -39,7 +39,7 @@ export default async function HomePage() {
               </h1>
             </div>
 
-            <div className="md:col-span-5">
+            <div className="md:col-span-5 md:mt-10">
               <FeaturedProjectCarousel />
             </div>
           </div>
