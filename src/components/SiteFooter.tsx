@@ -119,20 +119,25 @@ export function SiteFooter() {
 
         <div className="grid gap-10 py-16 md:grid-cols-12 md:items-start">
           <div className="md:col-span-4">
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start sm:flex-row sm:items-start sm:gap-7">
               <Link href="/" className="inline-flex items-center">
                 <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px] brightness-0 invert" />
               </Link>
 
-              <div className="mt-6 text-sm font-semibold leading-6 text-white/90">
-                <a className="footer-link block hover:text-white" href={`tel:${phoneParts[0] ?? site.contact.phone}`}>
-                  {phoneParts.map((p) => (
-                    <span key={p} className="block whitespace-nowrap">
-                      {p}
-                    </span>
-                  ))}
-                </a>
-                <a className="footer-link mt-4 block whitespace-nowrap hover:text-white" href={`mailto:${site.contact.email}`}>
+              <div className="mt-6 text-sm font-semibold leading-6 text-white/90 sm:mt-0">
+                {phoneParts.map((p) => (
+                  <a
+                    key={p}
+                    className="footer-link block whitespace-nowrap hover:text-white"
+                    href={`tel:${p.replace(/\s+/g, '')}`}
+                  >
+                    {p}
+                  </a>
+                ))}
+                <a
+                  className="footer-link mt-1 block whitespace-nowrap hover:text-white"
+                  href={`mailto:${site.contact.email}`}
+                >
                   {site.contact.email}
                 </a>
               </div>
@@ -144,9 +149,6 @@ export function SiteFooter() {
               <div className="flex flex-col gap-5">
                 <Link className="footer-link hover:text-white" href="/privacy-policy">
                   Privacy Policy
-                </Link>
-                <Link className="footer-link hover:text-white" href="/terms-of-use">
-                  Modern Slavery Act Statement
                 </Link>
                 <Link className="footer-link hover:text-white" href="/terms-of-use">
                   Ethics
