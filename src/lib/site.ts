@@ -8,13 +8,13 @@ const defaultSite = {
   headquarters: 'Accra, Ghana',
   founded: '2013',
   heroVideos: {
-    home: 'https://videos.pexels.com/video-files/13921040/13921040-uhd_2560_1440_30fps.mp4',
-    company: 'https://videos.pexels.com/video-files/5579145/5579145-uhd_2560_1440_30fps.mp4',
-    services: 'https://videos.pexels.com/video-files/20686633/20686633-uhd_2560_1440_30fps.mp4',
-    projects: 'https://videos.pexels.com/video-files/4430417/4430417-uhd_2560_1440_24fps.mp4',
-    contact: 'https://videos.pexels.com/video-files/4430419/4430419-uhd_2560_1440_24fps.mp4',
-    leadership: 'https://videos.pexels.com/video-files/13921040/13921040-uhd_2560_1440_30fps.mp4',
-    legal: 'https://videos.pexels.com/video-files/20686633/20686633-uhd_2560_1440_30fps.mp4'
+    home: '/videos/rikonim-home-hero.mp4',
+    company: '/videos/rikonim-company-hero.mp4',
+    services: '/videos/rikonim-services-hero.mp4',
+    projects: '/videos/rikonim-projects-hero.mp4',
+    contact: '/videos/rikonim-contact-hero.mp4',
+    leadership: '/videos/rikonim-leadership-hero.mp4',
+    legal: '/videos/rikonim-legal-hero.mp4'
   },
   overview:
     'Rikonim Enterprise is a well-established building and civil engineering company headquartered in Accra, Ghana. Founded in 2013, the company delivers high-quality construction, infrastructure, and engineering solutions to both public and private sector clients.',
