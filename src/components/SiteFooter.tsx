@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BrandLogo } from '@/components/BrandLogo';
+import { FooterLogo } from '@/components/FooterLogo';
 import { Container } from '@/components/layout/Container';
 import { site } from '@/lib/site';
 
@@ -12,9 +12,9 @@ export function SiteFooter() {
   return (
     <footer className="bg-brand-blueDark text-white subpixel-antialiased">
       <Container className="flex min-h-screen flex-col">
-        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16">
+        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-24">
           <nav
-            className="grid gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-4 md:gap-x-16"
+            className="grid gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-4 md:gap-x-24"
             aria-label="footer navigation"
           >
             <div>
@@ -117,10 +117,10 @@ export function SiteFooter() {
 
         <div className="mt-2 h-px w-full bg-white/20" />
 
-        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24">
+        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:gap-x-24 md:py-24">
           <div className="md:col-span-3">
             <Link href="/" className="inline-flex items-start">
-              <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
+              <FooterLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
             </Link>
           </div>
 
