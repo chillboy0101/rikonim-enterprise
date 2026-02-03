@@ -144,7 +144,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="md:col-span-4">
+          <div className="md:col-span-3 md:col-start-6 md:pl-2">
             <nav className="flex flex-col gap-5 text-sm font-semibold text-white/85" aria-label="legal navigation">
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
@@ -205,7 +205,7 @@ export function SiteFooter() {
                 </svg>
               </a>
             </div>
-            <p className="mt-6 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
+            <p className="mt-10 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
           </div>
         </div>
       </Container>
