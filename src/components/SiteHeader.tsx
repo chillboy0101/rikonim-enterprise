@@ -220,35 +220,35 @@ export function SiteHeader() {
         <div className="absolute inset-x-0 bottom-0 h-px bg-brand-ink/10" />
       </div>
       <Container>
-        <div className="relative z-10 flex items-center justify-between py-4 md:py-5">
+        <div className="relative z-10 flex items-center py-4 md:py-5">
           <Link href="/" className="flex items-center gap-3">
             <BrandLogo className="h-10 w-[200px] sm:h-11 sm:w-[240px] md:h-12 md:w-[300px]" />
           </Link>
 
-          <nav className="hidden items-center gap-8 lg:gap-10 md:flex">
-            {nav.map((n) => {
-              const active = isHome ? n.href === activeHref : false;
-              return (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className={`relative text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
-                    heroTransparent
-                      ? active
-                        ? 'text-white after:scale-x-100'
-                        : 'text-white/80 hover:text-white'
-                      : active
-                        ? 'text-brand-ink after:scale-x-100'
-                        : 'text-brand-steel hover:text-brand-ink'
-                  }`}
-                >
-                  {n.label}
-                </Link>
-              );
-            })}
-          </nav>
+          <div className="ml-auto hidden items-center gap-6 md:flex">
+            <nav className="hidden items-center gap-8 lg:gap-10 md:flex">
+              {nav.map((n) => {
+                const active = isHome ? n.href === activeHref : false;
+                return (
+                  <Link
+                    key={n.href}
+                    href={n.href}
+                    className={`relative text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
+                      heroTransparent
+                        ? active
+                          ? 'text-white after:scale-x-100'
+                          : 'text-white/80 hover:text-white'
+                        : active
+                          ? 'text-brand-ink after:scale-x-100'
+                          : 'text-brand-steel hover:text-brand-ink'
+                    }`}
+                  >
+                    {n.label}
+                  </Link>
+                );
+              })}
+            </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
             <button
               type="button"
               className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition ${
