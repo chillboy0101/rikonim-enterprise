@@ -117,35 +117,32 @@ export function SiteFooter() {
 
         <div className="h-px w-full bg-white/20" />
 
-        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:py-24">
-          <div className="md:col-span-4">
-            <div className="flex flex-col items-start sm:flex-row sm:items-center sm:gap-6">
-              <Link href="/" className="inline-flex items-center">
-                <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px] brightness-0 invert" />
-              </Link>
+        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24">
+          <div className="md:col-span-3">
+            <Link href="/" className="inline-flex items-start">
+              <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px] brightness-0 invert" />
+            </Link>
+          </div>
 
-              <div className="mt-4 flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:mt-0 sm:text-lg sm:leading-7">
-                {phoneParts.map((p) => (
-                  <a
-                    key={p}
-                    className="footer-link block whitespace-nowrap hover:text-white"
-                    href={`tel:${p.replace(/\s+/g, '')}`}
-                  >
-                    {p}
-                  </a>
-                ))}
-                <a className="footer-link block whitespace-nowrap hover:text-white" href={`mailto:${site.contact.email}`}>
-                  {site.contact.email}
+          <div className="md:col-span-3">
+            <div className="flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:text-lg sm:leading-7">
+              {phoneParts.map((p) => (
+                <a
+                  key={p}
+                  className="footer-link block whitespace-nowrap hover:text-white"
+                  href={`tel:${p.replace(/\s+/g, '')}`}
+                >
+                  {p}
                 </a>
-              </div>
+              ))}
+              <a className="footer-link block whitespace-nowrap hover:text-white" href={`mailto:${site.contact.email}`}>
+                {site.contact.email}
+              </a>
             </div>
           </div>
 
-          <div className="md:col-span-4 md:col-start-5 md:pl-4">
-            <nav
-              className="flex flex-col gap-5 text-sm font-semibold text-white/85 sm:flex-row sm:justify-between sm:gap-10"
-              aria-label="legal navigation"
-            >
+          <div className="md:col-span-3">
+            <nav className="flex flex-col gap-5 text-sm font-semibold text-white/85" aria-label="legal navigation">
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
               </Link>
@@ -158,7 +155,7 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          <div className="flex flex-col md:col-span-4 md:justify-self-end">
+          <div className="flex flex-col md:col-span-3 md:justify-self-end">
             <div className="flex items-center gap-4">
               <a
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
