@@ -113,7 +113,7 @@ const defaultSite = {
     }
   ],
   contact: {
-    phone: '0243549376 / 0203251631',
+    phone: '+233243549376 / +233203251631',
     email: 'info@rikonim.com',
     headOffice: 'Accra, Ghana',
     addressLines: ['Accra, Ghana'],

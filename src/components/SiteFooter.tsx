@@ -10,7 +10,7 @@ export function SiteFooter() {
     .filter(Boolean);
 
   return (
-    <footer className="bg-brand-blueDark text-white">
+    <footer className="bg-brand-blueDark text-white subpixel-antialiased">
       <Container className="flex min-h-screen flex-col">
         <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16">
           <nav
@@ -18,10 +18,10 @@ export function SiteFooter() {
             aria-label="footer navigation"
           >
             <div>
-              <Link href="/about" className="footer-link text-base font-semibold md:text-lg">
+              <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
                 People
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
+              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
                 <Link href="/about" className="footer-link hover:text-white md:whitespace-nowrap">
                   Vision, Values &amp; Commitments
                 </Link>
@@ -35,10 +35,10 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <Link href="/projects" className="footer-link text-base font-semibold md:text-lg">
+              <Link href="/projects" className="footer-link text-base font-semibold md:text-xl">
                 Projects
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
+              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
                 <Link href="/projects" className="footer-link hover:text-white">
                   View More Projects
                 </Link>
@@ -52,10 +52,10 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <Link href="/about" className="footer-link text-base font-semibold md:text-lg">
+              <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
                 Approach
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
+              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
                 <Link href="/about" className="footer-link hover:text-white">
                   Safety
                 </Link>
@@ -72,10 +72,10 @@ export function SiteFooter() {
             </div>
 
             <div>
-              <Link href="/careers" className="footer-link text-base font-semibold md:text-lg">
+              <Link href="/careers" className="footer-link text-base font-semibold md:text-xl">
                 Careers
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/85">
+              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
                 <Link href="/careers" className="footer-link hover:text-white">
                   Why Rikonim
                 </Link>
@@ -90,7 +90,7 @@ export function SiteFooter() {
           </nav>
 
           <div className="md:col-span-3">
-            <div className="flex flex-col gap-4 text-base font-semibold md:text-lg">
+            <div className="flex flex-col gap-4 text-base font-semibold md:text-xl">
               <Link href="/history" className="footer-link hover:text-white/90">
                 History
               </Link>
@@ -142,7 +142,7 @@ export function SiteFooter() {
           </div>
 
           <div className="md:col-span-3">
-            <nav className="flex flex-col gap-5 text-sm font-semibold text-white/85" aria-label="legal navigation">
+            <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
               </Link>
@@ -155,7 +155,7 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          <div className="flex flex-col md:col-span-3 md:pl-6">
+          <div className="flex flex-col md:col-span-3 md:pl-14">
             <div className="flex items-center gap-4">
               <a
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
