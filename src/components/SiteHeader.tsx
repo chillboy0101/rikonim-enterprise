@@ -18,56 +18,116 @@ const nav = [
 const megaMenu = {
   '/about': {
     title: 'Company',
-    items: [
-      { href: '/about', label: 'Company Overview', description: 'Who we are and how we work.' },
-      { href: '/leadership', label: 'Leadership', description: 'Meet the team leading delivery.' },
-      { href: '/history', label: 'History', description: 'Our story and milestones.' },
-      { href: '/impact-reports', label: 'Impact Reports', description: 'Commitments, progress, and reporting.' }
+    description:
+      'Our ultimate differentiator is the quality of our people and the discipline behind our delivery—built to serve clients and communities.',
+    cta: { href: '/about', label: 'Get to Know Our Company' },
+    cards: [
+      {
+        href: '/impact-reports',
+        title: 'Vision, Values & Commitments',
+        description: 'How we guide actions and deliver on commitments.',
+        image: '/uploads/company-1.jpeg'
+      },
+      {
+        href: '/leadership',
+        title: 'Leadership',
+        description: 'The team accountable for quality and performance.',
+        image: '/uploads/company-2.jpeg'
+      },
+      {
+        href: '/history',
+        title: 'History',
+        description: 'Our story, milestones, and growth over time.',
+        image: '/uploads/company-3.jpeg'
+      }
     ]
   },
   '/services': {
     title: 'Services',
-    items: [
-      { href: '/services', label: 'Our Services', description: 'What we deliver, end-to-end.' },
-      { href: '/projects', label: 'Projects', description: 'See work delivered across sectors.' },
-      { href: '/suppliers', label: 'Suppliers', description: 'Working with suppliers and partners.' },
-      { href: '/contact', label: 'Contact', description: 'Talk to us about your next project.' }
+    description:
+      'Integrated services across the project lifecycle—engineering, procurement support, construction delivery, and disciplined project management.',
+    cta: { href: '/services', label: 'Explore Our Services' },
+    cards: [
+      {
+        href: '/services#building-construction',
+        title: 'Building Construction',
+        description: 'Durable structures delivered with safety and quality control.',
+        image: '/uploads/services-1.jpeg'
+      },
+      {
+        href: '/services#civil-engineering',
+        title: 'Civil Engineering',
+        description: 'Roadworks, drainage, and infrastructure built to last.',
+        image: '/uploads/services-2.jpeg'
+      },
+      {
+        href: '/services#renovation-refurbishment',
+        title: 'Renovation & Refurbishment',
+        description: 'Upgrades with minimal disruption to operations.',
+        image: '/uploads/services-3.jpeg'
+      }
     ]
   },
   '/projects': {
     title: 'Projects',
-    items: [
-      { href: '/projects', label: 'All Projects', description: 'Explore our completed and proposed work.' },
-      { href: '/media', label: 'Media', description: 'Updates, photos, and highlights.' },
-      { href: '/blog', label: 'Insights', description: 'News and articles.' },
-      { href: '/search', label: 'Search', description: 'Find projects, pages, and more.' }
-    ]
+    description:
+      'Explore selected work across sectors—planned and delivered with discipline, quality assurance, and transparent reporting.',
+    cta: { href: '/projects', label: 'See All Projects' },
+    cards: [] as Array<never>
   },
   '/leadership': {
     title: 'Leadership',
-    items: [
-      { href: '/leadership', label: 'Leadership', description: 'Our leadership team.' },
-      { href: '/careers', label: 'Careers', description: 'Join the team and grow with us.' },
-      { href: '/about', label: 'Company', description: 'Learn more about our company.' },
-      { href: '/contact', label: 'Contact', description: 'Let’s discuss your project needs.' }
+    description:
+      'Leadership that sets standards, builds capability, and ensures projects are executed safely, ethically, and effectively.',
+    cta: { href: '/leadership', label: 'Meet Our Leadership' },
+    cards: [
+      {
+        href: '/leadership',
+        title: 'Leadership Team',
+        description: 'Experienced professionals driving delivery excellence.',
+        image: '/uploads/company-2.jpeg'
+      },
+      {
+        href: '/careers',
+        title: 'Careers',
+        description: 'Build your career with meaningful work and growth.',
+        image: '/uploads/company-1.jpeg'
+      },
+      {
+        href: '/contact',
+        title: 'Contact',
+        description: 'Talk to us about your next project.',
+        image: '/uploads/company-3.jpeg'
+      }
     ]
   },
   '/contact': {
     title: 'Contact',
-    items: [
-      { href: '/contact', label: 'Contact', description: 'Let’s discuss your project needs.' },
-      { href: '/careers', label: 'Careers', description: 'Open roles and opportunities.' },
-      { href: '/projects', label: 'Projects', description: 'View our portfolio.' },
-      { href: '/services', label: 'Services', description: 'See what we can deliver for you.' }
+    description:
+      'Connect with us to discuss scope, timelines, and the delivery approach that best fits your project needs.',
+    cta: { href: '/contact', label: 'Contact Us' },
+    cards: [
+      {
+        href: '/projects',
+        title: 'Projects',
+        description: 'View our portfolio and recent work.',
+        image: '/uploads/services-1.jpeg'
+      },
+      {
+        href: '/services',
+        title: 'Services',
+        description: 'See what we can deliver for you.',
+        image: '/uploads/services-2.jpeg'
+      },
+      {
+        href: '/careers',
+        title: 'Careers',
+        description: 'Explore opportunities to join our team.',
+        image: '/uploads/services-3.jpeg'
+      }
     ]
   }
-} satisfies Record<
-  string,
-  {
-    title: string;
-    items: Array<{ href: string; label: string; description: string }>;
-  }
->;
+} as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -95,6 +155,7 @@ export function SiteHeader() {
   const [featuredLoading, setFeaturedLoading] = useState(false);
   const headerRef = useRef<HTMLElement | null>(null);
   const lastScrollY = useRef(0);
+  const megaCloseTimeout = useRef<number | null>(null);
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -228,6 +289,15 @@ export function SiteHeader() {
   const heroTransparent = hasHero && !solid && !forceSolid;
   const activeMega = megaOpen ? megaMenu[megaOpen] : null;
 
+  useEffect(() => {
+    if (!megaOpen) return;
+    if (searchOpen || menuOpen) return;
+    if (megaOpen === '/projects') {
+      void loadFeaturedProjects();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [megaOpen]);
+
   const onSubmitSearch = (value: string) => {
     const q = value.trim();
     setSearchOpen(false);
@@ -243,12 +313,7 @@ export function SiteHeader() {
     setSearchValue('');
   };
 
-  const openMenu = async () => {
-    setCollapsed(false);
-    setSearchOpen(false);
-    setMegaOpen(null);
-    setMenuOpen(true);
-
+  const loadFeaturedProjects = async () => {
     if (featuredProjects.length) return;
     try {
       setFeaturedLoading(true);
@@ -261,6 +326,15 @@ export function SiteHeader() {
     }
   };
 
+  const openMenu = async () => {
+    setCollapsed(false);
+    setSearchOpen(false);
+    setMegaOpen(null);
+    setMenuOpen(true);
+
+    await loadFeaturedProjects();
+  };
+
   return (
     <header
       ref={headerRef}
@@ -268,7 +342,13 @@ export function SiteHeader() {
       onMouseEnter={() => setHoveringHeader(true)}
       onMouseLeave={() => {
         setHoveringHeader(false);
-        setMegaOpen(null);
+        if (megaCloseTimeout.current) {
+          window.clearTimeout(megaCloseTimeout.current);
+        }
+
+        megaCloseTimeout.current = window.setTimeout(() => {
+          setMegaOpen(null);
+        }, 140);
       }}
       onFocusCapture={() => setHoveringHeader(true)}
       onBlurCapture={() => setHoveringHeader(false)}
@@ -310,10 +390,18 @@ export function SiteHeader() {
                     href={n.href}
                     onMouseEnter={() => {
                       if (searchOpen || menuOpen) return;
+                      if (megaCloseTimeout.current) {
+                        window.clearTimeout(megaCloseTimeout.current);
+                        megaCloseTimeout.current = null;
+                      }
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
                     onFocus={() => {
                       if (searchOpen || menuOpen) return;
+                      if (megaCloseTimeout.current) {
+                        window.clearTimeout(megaCloseTimeout.current);
+                        megaCloseTimeout.current = null;
+                      }
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
                     onClick={() => setMegaOpen(null)}
@@ -557,40 +645,116 @@ export function SiteHeader() {
         <div
           className="fixed left-0 right-0 z-40 border-b border-brand-ink/10 bg-white"
           style={{ top: headerOffset }}
+          onMouseEnter={() => {
+            if (megaCloseTimeout.current) {
+              window.clearTimeout(megaCloseTimeout.current);
+              megaCloseTimeout.current = null;
+            }
+          }}
+          onMouseLeave={() => {
+            setMegaOpen(null);
+          }}
         >
           <Container>
-            <div className="grid gap-8 py-8 md:grid-cols-12">
+            <div className="grid gap-10 py-10 md:grid-cols-12">
               <div className="md:col-span-4">
-                <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">EXPLORE</p>
-                <p className="mt-3 text-2xl font-bold tracking-tightest text-brand-ink">{activeMega.title}</p>
-                <p className="mt-3 max-w-sm text-sm leading-relaxed text-brand-steel">
-                  Navigate quickly to the pages you need.
-                </p>
-              </div>
-              <div className="md:col-span-8">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {activeMega.items.map((item) => (
-                    <Link
-                      key={item.href + item.label}
-                      href={item.href}
-                      className="group rounded-2xl border border-brand-ink/10 bg-white p-5 transition hover:border-brand-orange/30 hover:shadow-[0_16px_40px_rgba(11,18,32,0.08)]"
-                      onClick={() => setMegaOpen(null)}
+                <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">{activeMega.title}</p>
+                <p className="mt-5 text-sm leading-relaxed text-brand-steel">{activeMega.description}</p>
+
+                <Link
+                  href={activeMega.cta.href}
+                  className="group mt-8 inline-flex items-center gap-4 text-sm font-semibold text-brand-orange"
+                  onClick={() => setMegaOpen(null)}
+                >
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange text-white transition group-hover:bg-brand-orange/90">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <p className="text-sm font-bold text-brand-ink group-hover:text-brand-orange">{item.label}</p>
-                          <p className="mt-1 text-sm leading-relaxed text-brand-steel">{item.description}</p>
+                      <path d="M5 12h13" />
+                      <path d="M13 6l6 6-6 6" />
+                    </svg>
+                  </span>
+                  <span className="text-[13px] font-semibold uppercase tracking-[0.14em]">{activeMega.cta.label}</span>
+                </Link>
+              </div>
+
+              <div className="md:col-span-8">
+                {megaOpen === '/projects' ? (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Featured projects</p>
+                      <Link
+                        href="/projects"
+                        className="text-xs font-semibold tracking-[0.14em] text-brand-orange hover:underline"
+                        onClick={() => setMegaOpen(null)}
+                      >
+                        See all projects
+                      </Link>
+                    </div>
+
+                    <div className="mt-6 grid gap-6 md:grid-cols-3">
+                      {featuredLoading ? (
+                        <div className="text-sm font-semibold text-brand-steel">Loading…</div>
+                      ) : null}
+
+                      {!featuredLoading && featuredProjects.length === 0 ? (
+                        <div className="text-sm font-semibold text-brand-steel">
+                          Featured projects will appear here.
                         </div>
-                        <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-orange/10 text-brand-orange transition group-hover:bg-brand-orange group-hover:text-white">
-                          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M5 12h13" />
-                            <path d="M13 6l6 6-6 6" />
-                          </svg>
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+                      ) : null}
+
+                      {featuredProjects.slice(0, 3).map((p) => (
+                        <Link
+                          key={p.slug}
+                          href={`/projects/${p.slug}`}
+                          className="group overflow-hidden rounded-2xl border border-brand-ink/10 bg-white"
+                          onClick={() => setMegaOpen(null)}
+                        >
+                          <div className="aspect-[4/3] w-full bg-brand-mist">
+                            {p.image ? <img src={p.image} alt="" className="h-full w-full object-cover" /> : null}
+                          </div>
+                          <div className="p-5">
+                            <p className="text-[11px] font-semibold tracking-[0.14em] text-brand-steel">
+                              {[p.location, p.year].filter(Boolean).join(' • ') || 'Project'}
+                            </p>
+                            <p className="mt-2 text-base font-semibold text-brand-ink group-hover:underline">{p.title}</p>
+                            {p.summary ? (
+                              <p className="mt-2 text-sm leading-relaxed text-brand-steel">{p.summary}</p>
+                            ) : null}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="grid gap-6 md:grid-cols-3">
+                    {activeMega.cards.map((card) => (
+                      <Link
+                        key={card.href + card.title}
+                        href={card.href}
+                        className="group overflow-hidden rounded-2xl border border-brand-ink/10 bg-white"
+                        onClick={() => setMegaOpen(null)}
+                      >
+                        <div className="aspect-[4/3] w-full bg-brand-mist">
+                          {card.image ? <img src={card.image} alt="" className="h-full w-full object-cover" /> : null}
+                        </div>
+                        <div className="p-5">
+                          <p className="text-base font-semibold text-brand-ink group-hover:text-brand-orange">
+                            {card.title}
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-brand-steel">{card.description}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </Container>
