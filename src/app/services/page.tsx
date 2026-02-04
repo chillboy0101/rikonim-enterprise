@@ -83,71 +83,79 @@ export default function ServicesPage() {
       </Section>
 
       <div>
-        {site.services.map((s, idx) => (
-          <div key={s.slug}>
-            <section className="relative overflow-hidden">
-              <div id={s.slug} className="scroll-mt-32" />
-              {s.video ? (
-                <video
-                  className="absolute inset-0 h-full w-full object-cover"
-                  autoPlay
-                  muted
-                  playsInline
-                  loop
-                  preload="metadata"
-                  poster={s.image || fallbackImage}
-                >
-                  <source src={s.video} type="video/mp4" />
-                </video>
-              ) : (
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    backgroundImage: `url('${s.image || fallbackImage}')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
-                />
-              )}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
-              <Container className="relative">
-                <Reveal>
-                  <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
-                    <div className="md:col-span-7">
-                      <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Service</p>
-                      <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
-                        {s.title}
-                      </h2>
-                      <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">{s.summary}</p>
+        {site.services.map((s, idx) => {
+          const pointsAlignClass =
+            idx % 3 === 0
+              ? 'md:justify-start'
+              : idx % 3 === 1
+                ? 'md:justify-end'
+                : 'md:justify-center';
+
+          return (
+            <div key={s.slug} className={idx === 0 ? 'mt-10 md:mt-14' : undefined}>
+              <section className="relative overflow-hidden">
+                <div id={s.slug} className="scroll-mt-32" />
+                {s.video ? (
+                  <video
+                    className="absolute inset-0 h-full w-full object-cover"
+                    autoPlay
+                    muted
+                    playsInline
+                    loop
+                    preload="metadata"
+                    poster={s.image || fallbackImage}
+                  >
+                    <source src={s.video} type="video/mp4" />
+                  </video>
+                ) : (
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `url('${s.image || fallbackImage}')`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  />
+                )}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
+                <Container className="relative">
+                  <Reveal>
+                    <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
+                      <div className="md:col-span-7">
+                        <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Service</p>
+                        <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
+                          {s.title}
+                        </h2>
+                        <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">{s.summary}</p>
+                      </div>
                     </div>
-                  </div>
-                </Reveal>
-              </Container>
-            </section>
+                  </Reveal>
+                </Container>
+              </section>
 
             {idx < site.services.length - 1 ? (
-              <section className="bg-brand-ink">
+              <section className="bg-brand-ink mb-14 md:mb-20">
                 <Container>
                   <Reveal>
-                    <div className="grid place-items-center py-12 md:py-16 lg:py-20">
-                      <ul className="w-full max-w-2xl space-y-4">
-                        {s.bullets.map((b) => (
-                          <li
-                            key={b}
-                            className="text-base leading-relaxed text-white/80 md:text-lg"
-                          >
-                            <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="flex py-12 md:py-16 lg:py-20">
+                      <div className={`flex w-full ${pointsAlignClass}`}>
+                        <ul className="w-full max-w-2xl space-y-4">
+                          {s.bullets.map((b) => (
+                            <li key={b} className="text-base leading-relaxed text-white/80 md:text-lg">
+                              <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </Reveal>
                 </Container>
               </section>
             ) : null}
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
 
       <Section className="bg-brand-mist">
