@@ -23,21 +23,21 @@ const megaMenu = {
     cta: { href: '/about', label: 'Get to Know Our Company' },
     cards: [
       {
-        href: '/impact-reports',
-        title: 'Vision, Values & Commitments',
-        description: 'How we guide actions and deliver on commitments.',
+        href: '/about',
+        title: 'Who We Are',
+        description: 'A Ghana-based construction partner focused on durable outcomes and trusted delivery.',
         image: '/uploads/company-1.jpeg'
       },
       {
-        href: '/leadership',
-        title: 'Leadership',
-        description: 'The team accountable for quality and performance.',
+        href: '/about',
+        title: 'How We Deliver',
+        description: 'Safety, quality controls, and planning discipline across every workfront.',
         image: '/uploads/company-2.jpeg'
       },
       {
-        href: '/history',
-        title: 'History',
-        description: 'Our story, milestones, and growth over time.',
+        href: '/about',
+        title: 'Capabilities',
+        description: 'Building, civil works, renovation, and coordinated project management.',
         image: '/uploads/company-3.jpeg'
       }
     ]
@@ -156,6 +156,7 @@ export function SiteHeader() {
   const headerRef = useRef<HTMLElement | null>(null);
   const lastScrollY = useRef(0);
   const megaCloseTimeout = useRef<number | null>(null);
+  const overlayLockedScrollY = useRef(0);
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -184,9 +185,40 @@ export function SiteHeader() {
 
   useEffect(() => {
     const anyOverlayOpen = searchOpen || menuOpen || !!megaOpen;
-    document.body.style.overflow = anyOverlayOpen ? 'hidden' : '';
-    return () => {
+    const wasLocked = anyOverlayOpen;
+
+    if (anyOverlayOpen) {
+      overlayLockedScrollY.current = window.scrollY || 0;
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${overlayLockedScrollY.current}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    } else {
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, overlayLockedScrollY.current);
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+
+      if (wasLocked) {
+        window.scrollTo(0, overlayLockedScrollY.current);
+      }
     };
   }, [searchOpen, menuOpen, megaOpen]);
 
@@ -385,9 +417,11 @@ export function SiteHeader() {
               {nav.map((n) => {
                 const active = isHome ? n.href === activeHref : false;
                 return (
-                  <Link
+                  <button
                     key={n.href}
-                    href={n.href}
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-expanded={megaOpen === (n.href as keyof typeof megaMenu)}
                     onMouseEnter={() => {
                       if (searchOpen || menuOpen) return;
                       if (megaCloseTimeout.current) {
@@ -404,7 +438,15 @@ export function SiteHeader() {
                       }
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
-                    onClick={() => setMegaOpen(null)}
+                    onClick={() => {
+                      if (megaCloseTimeout.current) {
+                        window.clearTimeout(megaCloseTimeout.current);
+                        megaCloseTimeout.current = null;
+                      }
+                      setSearchOpen(false);
+                      setMenuOpen(false);
+                      setMegaOpen((prev) => (prev === n.href ? null : (n.href as keyof typeof megaMenu)));
+                    }}
                     className={`relative text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
                       heroTransparent
                         ? active
@@ -416,7 +458,7 @@ export function SiteHeader() {
                     }`}
                   >
                     {n.label}
-                  </Link>
+                  </button>
                 );
               })}
             </nav>
@@ -643,7 +685,7 @@ export function SiteHeader() {
 
       {activeMega && !searchOpen && !menuOpen ? (
         <div
-          className="fixed inset-0 z-40 overflow-y-auto bg-white"
+          className="fixed inset-0 z-40 overscroll-contain overflow-y-auto bg-white"
           style={{ top: headerOffset }}
           onMouseEnter={() => {
             if (megaCloseTimeout.current) {
