@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
@@ -135,21 +136,42 @@ export default function AboutPage() {
                       />
                     </div>
                   </div>
-
-                  <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-black shadow-[0_18px_50px_rgba(11,18,32,0.10)] md:col-span-12">
-                    <div className="relative aspect-[16/7] w-full">
-                      <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
-                        <source src="/videos/company-gallery.mp4" type="video/mp4" />
-                      </video>
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/10 via-brand-ink/35 to-brand-ink/75" />
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </Reveal>
         </Container>
       </Section>
+
+      <section className="relative overflow-hidden">
+        <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
+          <source src="/videos/company-gallery.mp4" type="video/mp4" />
+        </video>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/80" />
+        <Container className="relative">
+          <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
+            <div className="md:col-span-6">
+              <p className="text-sm font-semibold tracking-[0.16em] text-white/70">On Site</p>
+              <h2 className="text-balance text-5xl font-semibold tracking-tightest text-white md:text-6xl">
+                Work that shows up on site.
+              </h2>
+              <div className="mt-7">
+                <Link
+                  href="/projects"
+                  className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-brand-ink transition hover:bg-white/90 md:text-base"
+                >
+                  View projects
+                </Link>
+              </div>
+            </div>
+            <div className="md:col-span-6">
+              <p className="text-base leading-relaxed text-white/80 md:text-lg">
+                From planning through closeout, we emphasize visible discipline on site—coordination, workmanship, and safety leadership.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       <Section>
         <Container>

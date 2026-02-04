@@ -134,63 +134,57 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      {site.services.map((s, idx) => (
-        <Section key={s.slug} className={idx % 2 === 1 ? 'bg-brand-mist' : ''}>
-          <Container>
-            <div id={s.slug} className="scroll-mt-32" />
+      {site.services.map((s) => (
+        <section key={s.slug} className="relative overflow-hidden">
+          <div id={s.slug} className="scroll-mt-32" />
+          {s.video ? (
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay
+              muted
+              playsInline
+              loop
+              preload="metadata"
+              poster={s.image || fallbackImage}
+            >
+              <source src={s.video} type="video/mp4" />
+            </video>
+          ) : (
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url('${s.image || fallbackImage}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            />
+          )}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
+          <Container className="relative">
             <Reveal>
-              <div className="grid gap-10 md:grid-cols-12 md:items-center">
-                <div className={idx % 2 === 1 ? 'md:col-span-6 md:order-2' : 'md:col-span-6'}>
-                  <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Service</p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+              <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
+                <div className="md:col-span-6">
+                  <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Service</p>
+                  <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
                     {s.title}
                   </h2>
-                  <p className="mt-5 text-base leading-relaxed text-brand-steel">{s.summary}</p>
-                  <ul className="mt-6 space-y-3">
+                  <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">{s.summary}</p>
+                </div>
+
+                <div className="md:col-span-6">
+                  <ul className="space-y-3">
                     {s.bullets.map((b) => (
-                      <li key={b} className="text-sm leading-relaxed text-brand-steel">
+                      <li key={b} className="text-sm leading-relaxed text-white/80 md:text-base">
                         <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
                         {b}
                       </li>
                     ))}
                   </ul>
                 </div>
-
-                <div className={idx % 2 === 1 ? 'md:col-span-6 md:order-1' : 'md:col-span-6'}>
-                  <div className="overflow-hidden rounded-3xl bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.12)]">
-                    {s.video ? (
-                      <div className="relative aspect-[16/10] w-full bg-black">
-                        <video
-                          className="absolute inset-0 h-full w-full object-cover"
-                          autoPlay
-                          muted
-                          playsInline
-                          loop
-                          preload="metadata"
-                          poster={s.image || fallbackImage}
-                        >
-                          <source src={s.video} type="video/mp4" />
-                        </video>
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/10 via-brand-ink/30 to-brand-ink/70" />
-                      </div>
-                    ) : (
-                      <div className="aspect-[16/10] w-full bg-brand-mist">
-                        <img
-                          src={s.image || fallbackImage}
-                          alt=""
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                          decoding="async"
-                          referrerPolicy="no-referrer"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
               </div>
             </Reveal>
           </Container>
-        </Section>
+        </section>
       ))}
 
       <Section className="bg-brand-mist">
