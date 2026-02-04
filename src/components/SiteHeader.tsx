@@ -157,6 +157,8 @@ export function SiteHeader() {
   const lastScrollY = useRef(0);
   const megaCloseTimeout = useRef<number | null>(null);
   const overlayLockedScrollY = useRef(0);
+  const overlayLockedBodyPaddingRight = useRef('');
+  const overlayLockedHeaderPaddingRight = useRef('');
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -189,6 +191,16 @@ export function SiteHeader() {
 
     if (anyOverlayOpen) {
       overlayLockedScrollY.current = window.scrollY || 0;
+
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      overlayLockedBodyPaddingRight.current = document.body.style.paddingRight;
+      overlayLockedHeaderPaddingRight.current = headerRef.current?.style.paddingRight ?? '';
+      if (scrollbarWidth > 0) {
+        const pr = `${scrollbarWidth}px`;
+        document.body.style.paddingRight = pr;
+        if (headerRef.current) headerRef.current.style.paddingRight = pr;
+      }
+
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
@@ -204,6 +216,8 @@ export function SiteHeader() {
       document.body.style.left = '';
       document.body.style.right = '';
       document.body.style.width = '';
+      document.body.style.paddingRight = overlayLockedBodyPaddingRight.current;
+      if (headerRef.current) headerRef.current.style.paddingRight = overlayLockedHeaderPaddingRight.current;
       window.scrollTo(0, overlayLockedScrollY.current);
     }
 
@@ -215,6 +229,8 @@ export function SiteHeader() {
       document.body.style.left = '';
       document.body.style.right = '';
       document.body.style.width = '';
+      document.body.style.paddingRight = overlayLockedBodyPaddingRight.current;
+      if (headerRef.current) headerRef.current.style.paddingRight = overlayLockedHeaderPaddingRight.current;
 
       if (wasLocked) {
         window.scrollTo(0, overlayLockedScrollY.current);
