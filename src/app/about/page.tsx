@@ -143,7 +143,7 @@ export default function AboutPage() {
         </Container>
       </Section>
 
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden mt-10 md:mt-14">
         <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
           <source src="/videos/company-gallery.mp4" type="video/mp4" />
         </video>
