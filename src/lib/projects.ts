@@ -6,6 +6,8 @@ export type Project = {
   slug: string;
   title: string;
   image?: string;
+  video?: string;
+  draft?: boolean;
   location?: string;
   year?: string;
   status?: string;
@@ -30,6 +32,8 @@ export async function getProjects(): Promise<Project[]> {
         slug,
         title: String(parsed.data.title ?? slug),
         image: parsed.data.image ? String(parsed.data.image) : undefined,
+        video: parsed.data.video ? String(parsed.data.video) : undefined,
+        draft: Boolean(parsed.data.draft ?? false),
         location: parsed.data.location ? String(parsed.data.location) : undefined,
         year: parsed.data.year ? String(parsed.data.year) : undefined,
         status: parsed.data.status ? String(parsed.data.status) : undefined,
@@ -39,5 +43,7 @@ export async function getProjects(): Promise<Project[]> {
     })
   );
 
-  return projects.sort((a, b) => (b.year ?? '').localeCompare(a.year ?? ''));
+  return projects
+    .filter((p) => !p.draft)
+    .sort((a, b) => (b.year ?? '').localeCompare(a.year ?? ''));
 }

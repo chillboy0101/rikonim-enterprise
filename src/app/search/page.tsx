@@ -19,7 +19,9 @@ type ResultItem = {
 };
 
 export const metadata: Metadata = {
-  title: 'Search'
+  title: 'Search',
+  description:
+    'Search Rikonim Enterprise projects and services—building construction, civil engineering works, project management and renovations delivered in Ghana.'
 };
 
 function normalize(value: string) {

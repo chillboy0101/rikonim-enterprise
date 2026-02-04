@@ -22,7 +22,7 @@ export function SiteFooter() {
                 People
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/about" className="footer-link hover:text-white md:whitespace-nowrap">
+                <Link href="/about" className="footer-link max-w-[22ch] whitespace-normal hover:text-white">
                   Vision, Values &amp; Commitments
                 </Link>
                 <Link href="/leadership" className="footer-link hover:text-white">
@@ -156,9 +156,10 @@ export function SiteFooter() {
           </div>
 
           <div className="flex flex-col md:col-span-3 md:pl-14">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <a
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
+                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition hover:bg-white/90"
+                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
                 href="https://www.linkedin.com"
                 target="_blank"
                 rel="noreferrer"
@@ -166,10 +167,11 @@ export function SiteFooter() {
               >
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
                   <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3c0-2.6-1.4-3.8-3.3-3.8-1.5 0-2.2.8-2.6 1.4v-1.2H10v8.9h2.6v-5c0-1.3.2-2.5 1.8-2.5s1.6 1.5 1.6 2.6v4.9h2.5zM7.9 8.4c.9 0 1.6-.7 1.6-1.6S8.8 5.2 7.9 5.2s-1.6.7-1.6 1.6.7 1.6 1.6 1.6zM9.2 18.5V9.6H6.6v8.9h2.6z" />
-                </svg>
+                  </svg>
               </a>
               <a
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
+                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition hover:bg-white/90"
+                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
                 href="https://www.facebook.com"
                 target="_blank"
                 rel="noreferrer"
@@ -180,7 +182,8 @@ export function SiteFooter() {
                 </svg>
               </a>
               <a
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
+                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition hover:bg-white/90"
+                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
                 href="https://x.com"
                 target="_blank"
                 rel="noreferrer"
@@ -191,7 +194,8 @@ export function SiteFooter() {
                 </svg>
               </a>
               <a
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-blueDark transition hover:bg-white/85"
+                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition hover:bg-white/90"
+                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
                 href="https://www.youtube.com"
                 target="_blank"
                 rel="noreferrer"

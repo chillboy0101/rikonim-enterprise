@@ -16,6 +16,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date()
     },
     {
+      url: `${base}/history`,
+      lastModified: new Date()
+    },
+    {
       url: `${base}/services`,
       lastModified: new Date()
     },
@@ -24,11 +28,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date()
     },
     {
+      url: `${base}/media`,
+      lastModified: new Date()
+    },
+    {
+      url: `${base}/blog`,
+      lastModified: new Date()
+    },
+    {
+      url: `${base}/impact-reports`,
+      lastModified: new Date()
+    },
+    {
+      url: `${base}/suppliers`,
+      lastModified: new Date()
+    },
+    {
+      url: `${base}/careers`,
+      lastModified: new Date()
+    },
+    {
       url: `${base}/leadership`,
       lastModified: new Date()
     },
     {
       url: `${base}/contact`,
+      lastModified: new Date()
+    },
+    {
+      url: `${base}/privacy-policy`,
+      lastModified: new Date()
+    },
+    {
+      url: `${base}/terms-of-use`,
       lastModified: new Date()
     }
   ];

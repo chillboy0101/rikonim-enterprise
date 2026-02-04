@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Careers'
+  title: 'Careers',
+  description:
+    'Careers at Rikonim Enterprise in Ghana. Join a construction and civil engineering team focused on safety, quality workmanship and reliable project delivery.'
 };
 
 export default function CareersPage() {

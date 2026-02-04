@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Leadership'
+  title: 'Leadership',
+  description:
+    'Meet the leadership of Rikonim Enterprise—experienced construction professionals driving safety, quality, accountability and client outcomes in Ghana.'
 };
 
 export default function LeadershipPage() {

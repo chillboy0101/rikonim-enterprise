@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'History'
+  title: 'History',
+  description:
+    'Our story since 2013. Learn how Rikonim Enterprise has grown as a building and civil engineering contractor delivering construction in Ghana.'
 };
 
 export default function HistoryPage() {

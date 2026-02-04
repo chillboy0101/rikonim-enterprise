@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Services'
+  title: 'Services',
+  description:
+    'Construction services in Ghana: building construction, civil engineering works, project management and renovation—delivered with safety and quality control.'
 };
 
 export default function ServicesPage() {

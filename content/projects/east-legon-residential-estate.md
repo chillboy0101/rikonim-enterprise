@@ -1,5 +1,6 @@
 ---
 title: East Legon Residential Estate Infrastructure
+draft: true
 location: Accra, Ghana
 year: 2024
 status: Completed

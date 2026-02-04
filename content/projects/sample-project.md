@@ -1,5 +1,6 @@
 ---
 title: Airport Road Overpass & Drainage Works
+draft: true
 location: Accra, Ghana
 year: 2026
 status: Ongoing

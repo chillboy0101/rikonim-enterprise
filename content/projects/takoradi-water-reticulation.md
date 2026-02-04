@@ -1,5 +1,6 @@
 ---
 title: Takoradi Water Reticulation Improvement
+draft: true
 location: Takoradi, Ghana
 year: 2023
 status: Completed

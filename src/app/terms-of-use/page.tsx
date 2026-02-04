@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use'
+  title: 'Terms of Use',
+  description:
+    'Review the terms of use for the Rikonim Enterprise website, including general information, updates and enquiry contact details.'
 };
 
 export default function TermsOfUsePage() {

@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Blog'
+  title: 'Blog',
+  description:
+    'Construction insights from Rikonim Enterprise—engineering methods, quality control, scheduling and safety culture for projects in Ghana.'
 };
 
 export default function BlogPage() {

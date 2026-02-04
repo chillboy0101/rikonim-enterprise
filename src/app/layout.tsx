@@ -16,17 +16,27 @@ const fontSans = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: site.name,
+    default: `${site.name} | ${site.tagline} in ${site.headquarters}`,
     template: `%s | ${site.name}`
   },
   description: site.overview,
+  keywords: [
+    'construction company in Ghana',
+    'civil engineering company in Ghana',
+    'building construction in Accra',
+    'road construction Ghana',
+    'drainage works Ghana',
+    'project management Ghana',
+    'renovation and refurbishment Ghana',
+    site.name
+  ],
   icons: {
     icon: [{ url: '/favicon.png', type: 'image/png' }],
     apple: [{ url: '/brand/logo.png' }]
   },
   openGraph: {
-    title: site.name,
-    description: `${site.tagline} headquartered in ${site.headquarters}.`,
+    title: `${site.name} | ${site.tagline} in ${site.headquarters}`,
+    description: site.overview,
     type: 'website',
     url: '/',
     siteName: site.name,
@@ -41,6 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    title: `${site.name} | ${site.tagline} in ${site.headquarters}`,
+    description: site.overview,
     images: ['/brand/logo.png']
   }
 };

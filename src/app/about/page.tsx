@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Company'
+  title: 'Company',
+  description:
+    'Company profile of Rikonim Enterprise—an Accra, Ghana building and civil engineering contractor delivering quality construction, infrastructure and renovations.'
 };
 
 export default function AboutPage() {

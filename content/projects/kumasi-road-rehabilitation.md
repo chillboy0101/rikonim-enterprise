@@ -1,5 +1,6 @@
 ---
 title: Kumasi Arterial Road Rehabilitation
+draft: true
 location: Kumasi, Ghana
 year: 2025
 status: Completed

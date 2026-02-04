@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Suppliers'
+  title: 'Suppliers',
+  description:
+    'Supplier information for Rikonim Enterprise. Partner with our construction and civil engineering teams in Ghana on materials, equipment and services.'
 };
 
 export default function SuppliersPage() {

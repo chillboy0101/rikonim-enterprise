@@ -7,7 +7,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Contact'
+  title: 'Contact',
+  description:
+    'Contact Rikonim Enterprise for construction and civil engineering enquiries in Ghana. Request a consultation for buildings, roads, drainage or renovations.'
 };
 
 export default function ContactPage() {

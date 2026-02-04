@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Impact Reports'
+  title: 'Impact Reports',
+  description:
+    'Impact reports from Rikonim Enterprise—safety performance, sustainability and community outcomes across construction and civil engineering work in Ghana.'
 };
 
 export default function ImpactReportsPage() {

@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy'
+  title: 'Privacy Policy',
+  description:
+    'Read the privacy policy for the Rikonim Enterprise website, including how we handle enquiries, basic analytics and submitted information.'
 };
 
 export default function PrivacyPolicyPage() {

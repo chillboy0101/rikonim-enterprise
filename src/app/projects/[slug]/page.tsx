@@ -10,7 +10,7 @@ import { markdownToHtml } from '@/lib/markdownToHtml';
 import { site } from '@/lib/site';
 
 type Props = {
-  params: { slug: string };
+  params: { slug: string } | Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const projects = await getProjects();
-  const rawSlug = typeof params.slug === 'string' ? params.slug : '';
+  const resolvedParams = await params;
+  const rawSlug = typeof resolvedParams.slug === 'string' ? resolvedParams.slug : '';
   const normalizedSlug = decodeURIComponent(rawSlug).trim().replace(/\/+$/, '');
   const project =
     projects.find((p) => p.slug === normalizedSlug) ??
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectDetailPage({ params }: Props) {
   const projects = await getProjects();
-  const rawSlug = typeof params.slug === 'string' ? params.slug : '';
+  const resolvedParams = await params;
+  const rawSlug = typeof resolvedParams.slug === 'string' ? resolvedParams.slug : '';
   const normalizedSlug = decodeURIComponent(rawSlug).trim().replace(/\/+$/, '');
   const project =
     projects.find((p) => p.slug === normalizedSlug) ??
@@ -84,6 +86,20 @@ export default async function ProjectDetailPage({ params }: Props) {
                   <div className="mb-7 overflow-hidden border border-brand-ink/10 bg-brand-mist">
                     <div className="aspect-[16/7]">
                       <img src={project.image} alt="" className="h-full w-full object-cover" />
+                    </div>
+                  </div>
+                ) : null}
+                {project.video ? (
+                  <div className="mb-7 overflow-hidden border border-brand-ink/10 bg-black">
+                    <div className="aspect-[16/9]">
+                      <video
+                        className="h-full w-full object-cover"
+                        controls
+                        preload="metadata"
+                        poster={project.image ?? undefined}
+                      >
+                        <source src={project.video} type="video/mp4" />
+                      </video>
                     </div>
                   </div>
                 ) : null}

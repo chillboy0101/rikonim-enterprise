@@ -8,8 +8,50 @@ import { getProjects } from '@/lib/projects';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Projects'
+  title: 'Projects',
+  description:
+    'Explore building and civil engineering projects delivered in Ghana—construction, roads and drainage works completed with disciplined planning and safety.'
 };
+
+function ProjectMedia({
+  title,
+  href,
+  image,
+  hasVideo
+}: {
+  title: string;
+  href: string;
+  image?: string;
+  hasVideo: boolean;
+}) {
+  if (!image) return null;
+
+  return (
+    <Link
+      href={href}
+      className="mb-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
+      aria-label={`Open project ${title}`}
+    >
+      <div className="relative aspect-[16/7]">
+        <img src={image} alt="" className="h-full w-full object-cover" />
+        {hasVideo ? (
+          <>
+            <div className="absolute left-4 top-4 rounded-full bg-brand-blueDark/90 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-white">
+              VIDEO
+            </div>
+            <div className="absolute inset-0 grid place-items-center">
+              <div className="grid h-14 w-14 place-items-center rounded-full bg-white/95 text-brand-blueDark shadow-[0_18px_50px_rgba(0,0,0,0.25)]">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </>
+        ) : null}
+      </div>
+    </Link>
+  );
+}
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
@@ -65,17 +107,12 @@ export default async function ProjectsPage() {
                     </div>
 
                     <div className="md:col-span-8">
-                      {p.image ? (
-                        <Link
-                          href={`/projects/${p.slug}`}
-                          className="mb-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
-                          aria-label={`Open project ${p.title}`}
-                        >
-                          <div className="aspect-[16/7]">
-                            <img src={p.image} alt="" className="h-full w-full object-cover" />
-                          </div>
-                        </Link>
-                      ) : null}
+                      <ProjectMedia
+                        title={p.title}
+                        href={`/projects/${p.slug}`}
+                        image={p.image}
+                        hasVideo={Boolean(p.video)}
+                      />
                       {p.summary ? (
                         <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
                       ) : null}
@@ -92,17 +129,12 @@ export default async function ProjectsPage() {
                 ) : idx % 3 === 1 ? (
                   <>
                     <div className="md:col-span-8 md:order-1">
-                      {p.image ? (
-                        <Link
-                          href={`/projects/${p.slug}`}
-                          className="mb-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
-                          aria-label={`Open project ${p.title}`}
-                        >
-                          <div className="aspect-[16/7]">
-                            <img src={p.image} alt="" className="h-full w-full object-cover" />
-                          </div>
-                        </Link>
-                      ) : null}
+                      <ProjectMedia
+                        title={p.title}
+                        href={`/projects/${p.slug}`}
+                        image={p.image}
+                        hasVideo={Boolean(p.video)}
+                      />
                       {p.summary ? (
                         <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
                       ) : null}
@@ -146,17 +178,14 @@ export default async function ProjectsPage() {
                     </div>
 
                     <div className="md:col-span-8 md:col-start-3">
-                      {p.image ? (
-                        <Link
+                      <div className="mt-5">
+                        <ProjectMedia
+                          title={p.title}
                           href={`/projects/${p.slug}`}
-                          className="mb-5 mt-5 block overflow-hidden border border-brand-ink/10 bg-brand-mist"
-                          aria-label={`Open project ${p.title}`}
-                        >
-                          <div className="aspect-[16/7]">
-                            <img src={p.image} alt="" className="h-full w-full object-cover" />
-                          </div>
-                        </Link>
-                      ) : null}
+                          image={p.image}
+                          hasVideo={Boolean(p.video)}
+                        />
+                      </div>
                       {p.summary ? (
                         <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
                       ) : null}

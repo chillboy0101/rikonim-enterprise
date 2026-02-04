@@ -1,5 +1,6 @@
 ---
 title: Tema Logistics Warehouse & Yard Works
+draft: true
 location: Tema, Ghana
 year: 2024
 status: Completed

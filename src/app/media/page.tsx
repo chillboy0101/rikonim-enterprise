@@ -6,7 +6,9 @@ import { Section } from '@/components/layout/Section';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Media'
+  title: 'Media',
+  description:
+    'Media and updates from Rikonim Enterprise—news, photos and construction progress highlights from building and civil engineering projects in Ghana.'
 };
 
 export default function MediaPage() {
