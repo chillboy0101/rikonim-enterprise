@@ -439,19 +439,21 @@ export function SiteHeader() {
                     aria-haspopup="dialog"
                     aria-expanded={megaOpen === (n.href as keyof typeof megaMenu)}
                     onMouseEnter={() => {
-                      if (searchOpen || menuOpen) return;
                       if (megaCloseTimeout.current) {
                         window.clearTimeout(megaCloseTimeout.current);
                         megaCloseTimeout.current = null;
                       }
+                      setSearchOpen(false);
+                      setMenuOpen(false);
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
                     onFocus={() => {
-                      if (searchOpen || menuOpen) return;
                       if (megaCloseTimeout.current) {
                         window.clearTimeout(megaCloseTimeout.current);
                         megaCloseTimeout.current = null;
                       }
+                      setSearchOpen(false);
+                      setMenuOpen(false);
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
                     onClick={() => {
@@ -702,7 +704,7 @@ export function SiteHeader() {
       {activeMega && !searchOpen && !menuOpen ? (
         <div
           className="fixed inset-0 z-40 overscroll-contain overflow-y-auto bg-white"
-          style={{ top: headerOffset }}
+          style={{ top: headerOffset, ...( { scrollbarGutter: 'stable' } as any ) }}
           onMouseEnter={() => {
             if (megaCloseTimeout.current) {
               window.clearTimeout(megaCloseTimeout.current);
