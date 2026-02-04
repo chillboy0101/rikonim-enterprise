@@ -183,12 +183,12 @@ export function SiteHeader() {
   }, [pathname]);
 
   useEffect(() => {
-    const anyOverlayOpen = searchOpen || menuOpen;
+    const anyOverlayOpen = searchOpen || menuOpen || !!megaOpen;
     document.body.style.overflow = anyOverlayOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [searchOpen, menuOpen]);
+  }, [searchOpen, menuOpen, megaOpen]);
 
   useEffect(() => {
     if (!searchOpen && !menuOpen) return;
@@ -643,7 +643,7 @@ export function SiteHeader() {
 
       {activeMega && !searchOpen && !menuOpen ? (
         <div
-          className="fixed left-0 right-0 z-40 border-b border-brand-ink/10 bg-white"
+          className="fixed inset-0 z-40 overflow-y-auto bg-white"
           style={{ top: headerOffset }}
           onMouseEnter={() => {
             if (megaCloseTimeout.current) {
@@ -738,7 +738,7 @@ export function SiteHeader() {
                     {activeMega.cards.map((card) => (
                       <Link
                         key={card.href + card.title}
-                        href={card.href}
+                        href={activeMega.cta.href}
                         className="group overflow-hidden rounded-2xl border border-brand-ink/10 bg-white"
                         onClick={() => setMegaOpen(null)}
                       >
