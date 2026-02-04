@@ -134,10 +134,10 @@ export default function ServicesPage() {
               </section>
 
             {idx < site.services.length - 1 ? (
-              <section className="bg-brand-ink mb-14 md:mb-20">
+              <section className="bg-brand-ink mb-24 md:mb-32">
                 <Container>
                   <Reveal>
-                    <div className="flex py-12 md:py-16 lg:py-20">
+                    <div className="flex py-14 md:py-16 lg:py-20">
                       <div className={`flex w-full ${pointsAlignClass}`}>
                         <ul className="w-full max-w-2xl space-y-4">
                           {s.bullets.map((b) => (
@@ -147,6 +147,18 @@ export default function ServicesPage() {
                             </li>
                           ))}
                         </ul>
+                      </div>
+                    </div>
+
+                    <div className="pb-14 md:pb-16 lg:pb-20">
+                      <div className="flex w-full justify-center">
+                        <div className="grid place-items-center">
+                          <div className="animate-bounce text-brand-orange">
+                            <svg aria-hidden="true" viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M6 9l6 6 6-6" />
+                            </svg>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </Reveal>

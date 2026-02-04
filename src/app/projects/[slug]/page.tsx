@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { ProjectVideoPlayer } from '@/components/ProjectVideoPlayer';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
 import { getProjects } from '@/lib/projects';
@@ -61,6 +62,32 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       <PageBreadcrumb current="Projects" />
 
+      {project.video ? (
+        <section className="relative overflow-hidden">
+          <ProjectVideoPlayer
+            src={project.video}
+            poster={project.image ?? undefined}
+            className="absolute inset-0"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
+          <Container className="relative">
+            <div className="grid min-h-[70vh] gap-10 py-14 md:min-h-[82vh] md:grid-cols-12 md:items-end md:py-20">
+              <div className="md:col-span-7">
+                <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Project Video</p>
+                <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
+                  {project.title}
+                </h2>
+                {project.location || project.year ? (
+                  <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">
+                    {[project.location, project.year].filter(Boolean).join(' • ')}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
       <Section>
         <Container>
           <div className="grid gap-10 md:grid-cols-12">
@@ -82,24 +109,10 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
             <div className="md:col-span-7">
               <div className="border-t border-brand-ink/10 pt-7">
-                {project.image ? (
+                {!project.video && project.image ? (
                   <div className="mb-7 overflow-hidden border border-brand-ink/10 bg-brand-mist">
                     <div className="aspect-[16/7]">
                       <img src={project.image} alt="" className="h-full w-full object-cover" />
-                    </div>
-                  </div>
-                ) : null}
-                {project.video ? (
-                  <div className="mb-7 overflow-hidden border border-brand-ink/10 bg-black">
-                    <div className="aspect-[16/9]">
-                      <video
-                        className="h-full w-full object-cover"
-                        controls
-                        preload="metadata"
-                        poster={project.image ?? undefined}
-                      >
-                        <source src={project.video} type="video/mp4" />
-                      </video>
                     </div>
                   </div>
                 ) : null}
