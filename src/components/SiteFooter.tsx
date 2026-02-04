@@ -10,31 +10,31 @@ export function SiteFooter() {
     .filter(Boolean);
 
   return (
-    <footer className="bg-brand-blueDark text-white subpixel-antialiased">
+    <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
       <Container className="flex min-h-screen flex-col">
-        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-24">
+        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16 lg:gap-x-20">
           <nav
-            className="grid gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-4 md:gap-x-24"
+            className="grid min-w-0 gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-[1.25fr_1fr_1fr_1fr] md:gap-x-16 lg:gap-x-20"
             aria-label="footer navigation"
           >
-            <div>
+            <div className="min-w-0">
               <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
                 People
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/about" className="footer-link max-w-[22ch] whitespace-normal hover:text-white">
+                <Link href="/about" className="footer-link hover:text-white md:whitespace-nowrap">
                   Vision, Values &amp; Commitments
                 </Link>
                 <Link href="/leadership" className="footer-link hover:text-white">
                   Leadership
                 </Link>
-                <a href="https://rikonim.org" className="footer-link hover:text-white" target="_blank" rel="noreferrer">
-                  rikonim.org
+                <a href="https://rikonim.com" className="footer-link hover:text-white" target="_blank" rel="noreferrer">
+                  rikonim.com
                 </a>
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <Link href="/projects" className="footer-link text-base font-semibold md:text-xl">
                 Projects
               </Link>
@@ -51,7 +51,7 @@ export function SiteFooter() {
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
                 Approach
               </Link>
@@ -71,7 +71,7 @@ export function SiteFooter() {
               </div>
             </div>
 
-            <div>
+            <div className="min-w-0">
               <Link href="/careers" className="footer-link text-base font-semibold md:text-xl">
                 Careers
               </Link>
@@ -89,7 +89,7 @@ export function SiteFooter() {
             </div>
           </nav>
 
-          <div className="md:col-span-3">
+          <div className="min-w-0 md:col-span-3">
             <div className="flex flex-col gap-4 text-base font-semibold md:text-xl">
               <Link href="/history" className="footer-link hover:text-white/90">
                 History
@@ -117,31 +117,31 @@ export function SiteFooter() {
 
         <div className="mt-2 h-px w-full bg-white/20" />
 
-        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:gap-x-24 md:py-24">
-          <div className="md:col-span-3">
+        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24 lg:gap-x-20">
+          <div className="min-w-0 md:col-span-3">
             <Link href="/" className="inline-flex items-start">
               <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
             </Link>
           </div>
 
-          <div className="md:col-span-3">
+          <div className="min-w-0 md:col-span-3">
             <div className="flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:text-lg sm:leading-7">
               {phoneParts.map((p) => (
                 <a
                   key={p}
-                  className="footer-link block whitespace-nowrap hover:text-white"
+                  className="footer-link block break-words hover:text-white"
                   href={`tel:${p.replace(/\s+/g, '')}`}
                 >
                   {p}
                 </a>
               ))}
-              <a className="footer-link block whitespace-nowrap hover:text-white" href={`mailto:${site.contact.email}`}>
+              <a className="footer-link block break-words hover:text-white" href={`mailto:${site.contact.email}`}>
                 {site.contact.email}
               </a>
             </div>
           </div>
 
-          <div className="md:col-span-3">
+          <div className="min-w-0 md:col-span-3">
             <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
@@ -155,7 +155,7 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          <div className="flex flex-col md:col-span-3 md:pl-14">
+          <div className="flex min-w-0 flex-col md:col-span-3 md:pl-10">
             <div className="flex items-center gap-3">
               <a
                 className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition hover:bg-white/90"

@@ -335,90 +335,92 @@ export function SiteHeader() {
             </button>
           </div>
 
-          <button
-            type="button"
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition md:hidden ${
-              searchOpen
-                ? 'bg-brand-orange text-white'
-                : heroTransparent
-                  ? 'text-white/90 hover:bg-brand-orange hover:text-white'
-                  : 'text-brand-ink/70 hover:bg-brand-orange/20 hover:text-brand-orange'
-            }`}
-            aria-label="Search"
-            onClick={searchOpen ? () => setSearchOpen(false) : openSearch}
-          >
-            <span className="relative block h-5 w-5">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
-                  searchOpen ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
-                }`}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.5-3.5" />
-              </svg>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
-                  searchOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
-                }`}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M6 6l12 12" />
-                <path d="M18 6l-12 12" />
-              </svg>
-            </span>
-          </button>
+          <div className="ml-auto flex items-center gap-3 md:hidden">
+            <button
+              type="button"
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition ${
+                searchOpen
+                  ? 'bg-brand-orange text-white'
+                  : heroTransparent
+                    ? 'text-white/90 hover:bg-brand-orange hover:text-white'
+                    : 'text-brand-ink/70 hover:bg-brand-orange/20 hover:text-brand-orange'
+              }`}
+              aria-label="Search"
+              onClick={searchOpen ? () => setSearchOpen(false) : openSearch}
+            >
+              <span className="relative block h-5 w-5">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
+                    searchOpen ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M20 20l-3.5-3.5" />
+                </svg>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
+                    searchOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M6 6l12 12" />
+                  <path d="M18 6l-12 12" />
+                </svg>
+              </span>
+            </button>
 
-          <button
-            type="button"
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition md:hidden ${
-              menuOpen
-                ? 'bg-brand-orange text-white'
-                : heroTransparent
-                  ? 'bg-brand-ink/55 text-white hover:bg-brand-ink/70'
-                  : 'bg-brand-orange/15 text-brand-orange hover:bg-brand-orange hover:text-white'
-            }`}
-            aria-label="Menu"
-            onClick={menuOpen ? () => setMenuOpen(false) : openMenu}
-          >
-            <span className="relative block h-5 w-5">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
-                  menuOpen ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
-                }`}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M4 7h16" />
-                <path d="M4 12h16" />
-                <path d="M4 17h16" />
-              </svg>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
-                  menuOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
-                }`}
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M6 6l12 12" />
-                <path d="M18 6l-12 12" />
-              </svg>
-            </span>
-          </button>
+            <button
+              type="button"
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition ${
+                menuOpen
+                  ? 'bg-brand-orange text-white'
+                  : heroTransparent
+                    ? 'bg-brand-ink/55 text-white hover:bg-brand-ink/70'
+                    : 'bg-brand-orange/15 text-brand-orange hover:bg-brand-orange hover:text-white'
+              }`}
+              aria-label="Menu"
+              onClick={menuOpen ? () => setMenuOpen(false) : openMenu}
+            >
+              <span className="relative block h-5 w-5">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
+                    menuOpen ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M4 7h16" />
+                  <path d="M4 12h16" />
+                  <path d="M4 17h16" />
+                </svg>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  className={`absolute inset-0 h-5 w-5 transition-all duration-200 ${
+                    menuOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
+                  }`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M6 6l12 12" />
+                  <path d="M18 6l-12 12" />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </Container>
       </div>

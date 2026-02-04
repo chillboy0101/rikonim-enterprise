@@ -87,7 +87,7 @@ export default async function HomePage() {
               <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_22px_70px_rgba(11,18,32,0.12)]">
                 <div className="h-[280px] sm:h-[380px] md:h-[540px]">
                   <video className="h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
-                    <source src={site.heroVideos.services} type="video/mp4" />
+                    <source src="/videos/home-services-section.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export default async function HomePage() {
 
       <section className="relative overflow-hidden">
         <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
-          <source src={site.heroVideos.company} type="video/mp4" />
+          <source src="/videos/home-company-section.mp4" type="video/mp4" />
         </video>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/80" />
         <Container className="relative">
@@ -142,7 +142,7 @@ export default async function HomePage() {
               <div className="overflow-hidden rounded-3xl border border-white/10 bg-black shadow-[0_22px_70px_rgba(0,0,0,0.35)]">
                 <div className="h-[280px] sm:h-[380px] md:h-[520px]">
                   <video className="h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
-                    <source src={site.heroVideos.projects} type="video/mp4" />
+                    <source src="/videos/home-approach-section.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>

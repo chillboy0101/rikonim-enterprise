@@ -16,13 +16,17 @@ export default function ContactPage() {
   const mapQuery = site.contact.mapQuery || site.contact.headOffice;
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+  const phoneParts = site.contact.phone
+    .split('/')
+    .map((p) => p.trim())
+    .filter(Boolean);
 
   return (
     <>
       <PageHero
         title="Contact"
         subtitle="Reach out for project enquiries, partnerships, or a consultation."
-        imageUrl="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=2400"
+        imageUrl="/uploads/company-2.jpeg"
         videoUrl={site.heroVideos.contact}
       />
 
@@ -39,12 +43,17 @@ export default function ContactPage() {
 
               <div className="mt-8 border-t border-brand-ink/10 pt-6">
                 <p className="text-sm font-semibold text-brand-ink">Phone</p>
-                <a
-                  className="mt-3 inline-block text-sm font-semibold text-brand-blue hover:underline"
-                  href={`tel:${site.contact.phone.split('/')[0].trim()}`}
-                >
-                  {site.contact.phone}
-                </a>
+                <div className="mt-3 flex flex-col gap-2">
+                  {phoneParts.map((p) => (
+                    <a
+                      key={p}
+                      className="inline-block text-sm font-semibold text-brand-blue hover:underline"
+                      href={`tel:${p.replace(/\s+/g, '')}`}
+                    >
+                      {p}
+                    </a>
+                  ))}
+                </div>
               </div>
 
               <div className="mt-8 border-t border-brand-ink/10 pt-6">
@@ -55,15 +64,6 @@ export default function ContactPage() {
                 >
                   {site.contact.email}
                 </a>
-              </div>
-
-              <div className="mt-8 border-t border-brand-ink/10 pt-6">
-                <p className="text-sm font-semibold text-brand-ink">Location</p>
-                <div className="mt-3 text-sm text-brand-steel">
-                  {(site.contact.addressLines ?? [site.contact.headOffice]).map((line) => (
-                    <div key={line}>{line}</div>
-                  ))}
-                </div>
               </div>
             </div>
 
