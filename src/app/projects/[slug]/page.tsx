@@ -62,37 +62,10 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       <PageBreadcrumb current="Projects" />
 
-      {project.video ? (
-        <section className="relative overflow-hidden">
-          <ProjectVideoPlayer
-            src={project.video}
-            poster={project.image ?? undefined}
-            buttonPlacement="bottomLeft"
-            className="absolute inset-0"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
-          <Container className="relative">
-            <div className="grid h-[320px] gap-10 py-12 sm:h-[380px] md:h-[460px] md:grid-cols-12 md:items-end md:py-16 lg:h-[520px]">
-              <div className="md:col-span-7">
-                <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Project Video</p>
-                <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
-                  {project.title}
-                </h2>
-                {project.location || project.year ? (
-                  <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">
-                    {[project.location, project.year].filter(Boolean).join(' • ')}
-                  </p>
-                ) : null}
-              </div>
-            </div>
-          </Container>
-        </section>
-      ) : null}
-
       <Section>
         <Container>
           <div className="grid gap-10 md:grid-cols-12">
-            <div className="md:col-span-5">
+            <div className="md:sticky md:top-28 md:self-start md:col-span-4 lg:col-span-3">
               <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel">Project</p>
               <div className="mt-6 space-y-2 text-sm text-brand-steel">
                 {project.location ? <p>{project.location}</p> : null}
@@ -108,8 +81,20 @@ export default async function ProjectDetailPage({ params }: Props) {
                 </Link>
               </div>
             </div>
-            <div className="md:col-span-7">
+            <div className="md:col-span-8 lg:col-span-9">
               <div className="border-t border-brand-ink/10 pt-7">
+                {project.video ? (
+                  <div className="mb-7 overflow-hidden rounded-3xl border border-brand-ink/10 bg-black shadow-[0_18px_50px_rgba(11,18,32,0.12)]">
+                    <div className="aspect-[16/9] w-full">
+                      <ProjectVideoPlayer
+                        src={project.video}
+                        poster={project.image ?? undefined}
+                        buttonPlacement="bottomLeft"
+                        className="h-full w-full"
+                      />
+                    </div>
+                  </div>
+                ) : null}
                 {!project.video && project.image ? (
                   <div className="mb-7 overflow-hidden border border-brand-ink/10 bg-brand-mist">
                     <div className="aspect-[16/7]">
@@ -118,7 +103,8 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </div>
                 ) : null}
                 <div
-                  className="prose prose-slate max-w-none prose-p:leading-relaxed prose-a:text-brand-blue"
+                  dir="ltr"
+                  className="prose prose-slate max-w-none text-left prose-p:leading-relaxed prose-a:text-brand-blue prose-headings:font-bold prose-headings:text-brand-ink prose-h2:text-2xl prose-h2:tracking-tightest prose-h3:text-xl prose-h3:tracking-tightest"
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
               </div>

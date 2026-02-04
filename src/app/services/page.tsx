@@ -133,7 +133,6 @@ export default function ServicesPage() {
                 </Container>
               </section>
 
-            {idx < site.services.length - 1 ? (
               <section className="bg-brand-ink mb-24 md:mb-32">
                 <Container>
                   <Reveal>
@@ -164,7 +163,6 @@ export default function ServicesPage() {
                   </Reveal>
                 </Container>
               </section>
-            ) : null}
             </div>
           );
         })}

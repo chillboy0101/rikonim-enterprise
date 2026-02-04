@@ -15,6 +15,60 @@ const nav = [
   { href: '/contact', label: 'Contact' }
 ];
 
+const megaMenu = {
+  '/about': {
+    title: 'Company',
+    items: [
+      { href: '/about', label: 'Company Overview', description: 'Who we are and how we work.' },
+      { href: '/leadership', label: 'Leadership', description: 'Meet the team leading delivery.' },
+      { href: '/history', label: 'History', description: 'Our story and milestones.' },
+      { href: '/impact-reports', label: 'Impact Reports', description: 'Commitments, progress, and reporting.' }
+    ]
+  },
+  '/services': {
+    title: 'Services',
+    items: [
+      { href: '/services', label: 'Our Services', description: 'What we deliver, end-to-end.' },
+      { href: '/projects', label: 'Projects', description: 'See work delivered across sectors.' },
+      { href: '/suppliers', label: 'Suppliers', description: 'Working with suppliers and partners.' },
+      { href: '/contact', label: 'Contact', description: 'Talk to us about your next project.' }
+    ]
+  },
+  '/projects': {
+    title: 'Projects',
+    items: [
+      { href: '/projects', label: 'All Projects', description: 'Explore our completed and proposed work.' },
+      { href: '/media', label: 'Media', description: 'Updates, photos, and highlights.' },
+      { href: '/blog', label: 'Insights', description: 'News and articles.' },
+      { href: '/search', label: 'Search', description: 'Find projects, pages, and more.' }
+    ]
+  },
+  '/leadership': {
+    title: 'Leadership',
+    items: [
+      { href: '/leadership', label: 'Leadership', description: 'Our leadership team.' },
+      { href: '/careers', label: 'Careers', description: 'Join the team and grow with us.' },
+      { href: '/about', label: 'Company', description: 'Learn more about our company.' },
+      { href: '/contact', label: 'Contact', description: 'Let’s discuss your project needs.' }
+    ]
+  },
+  '/contact': {
+    title: 'Contact',
+    items: [
+      { href: '/contact', label: 'Contact', description: 'Let’s discuss your project needs.' },
+      { href: '/careers', label: 'Careers', description: 'Open roles and opportunities.' },
+      { href: '/projects', label: 'Projects', description: 'View our portfolio.' },
+      { href: '/services', label: 'Services', description: 'See what we can deliver for you.' }
+    ]
+  }
+} satisfies Record<
+  string,
+  {
+    title: string;
+    items: Array<{ href: string; label: string; description: string }>;
+  }
+>;
+
 export function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
@@ -22,6 +76,7 @@ export function SiteHeader() {
   const [collapsed, setCollapsed] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState<keyof typeof megaMenu | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const [hoveringHeader, setHoveringHeader] = useState(false);
   const [hasHero, setHasHero] = useState(false);
@@ -45,6 +100,7 @@ export function SiteHeader() {
   useEffect(() => {
     setSearchOpen(false);
     setMenuOpen(false);
+    setMegaOpen(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -86,6 +142,19 @@ export function SiteHeader() {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [searchOpen, menuOpen]);
+
+  useEffect(() => {
+    if (!megaOpen) return;
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMegaOpen(null);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [megaOpen]);
 
   useEffect(() => {
     let raf = 0;
@@ -155,8 +224,9 @@ export function SiteHeader() {
   }, [isHome]);
 
   const activeHref = useMemo(() => pathname || '/', [pathname]);
-  const forceSolid = hoveringHeader || menuOpen;
+  const forceSolid = hoveringHeader || menuOpen || !!megaOpen;
   const heroTransparent = hasHero && !solid && !forceSolid;
+  const activeMega = megaOpen ? megaMenu[megaOpen] : null;
 
   const onSubmitSearch = (value: string) => {
     const q = value.trim();
@@ -168,6 +238,7 @@ export function SiteHeader() {
   const openSearch = () => {
     setCollapsed(false);
     setMenuOpen(false);
+    setMegaOpen(null);
     setSearchOpen(true);
     setSearchValue('');
   };
@@ -175,6 +246,7 @@ export function SiteHeader() {
   const openMenu = async () => {
     setCollapsed(false);
     setSearchOpen(false);
+    setMegaOpen(null);
     setMenuOpen(true);
 
     if (featuredProjects.length) return;
@@ -194,7 +266,10 @@ export function SiteHeader() {
       ref={headerRef}
       className="fixed top-0 z-50 w-full"
       onMouseEnter={() => setHoveringHeader(true)}
-      onMouseLeave={() => setHoveringHeader(false)}
+      onMouseLeave={() => {
+        setHoveringHeader(false);
+        setMegaOpen(null);
+      }}
       onFocusCapture={() => setHoveringHeader(true)}
       onBlurCapture={() => setHoveringHeader(false)}
     >
@@ -233,6 +308,15 @@ export function SiteHeader() {
                   <Link
                     key={n.href}
                     href={n.href}
+                    onMouseEnter={() => {
+                      if (searchOpen || menuOpen) return;
+                      setMegaOpen(n.href as keyof typeof megaMenu);
+                    }}
+                    onFocus={() => {
+                      if (searchOpen || menuOpen) return;
+                      setMegaOpen(n.href as keyof typeof megaMenu);
+                    }}
+                    onClick={() => setMegaOpen(null)}
                     className={`relative text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
                       heroTransparent
                         ? active
@@ -465,6 +549,50 @@ export function SiteHeader() {
                 </button>
               </div>
             </form>
+          </Container>
+        </div>
+      ) : null}
+
+      {activeMega && !searchOpen && !menuOpen ? (
+        <div
+          className="fixed left-0 right-0 z-40 border-b border-brand-ink/10 bg-white"
+          style={{ top: headerOffset }}
+        >
+          <Container>
+            <div className="grid gap-8 py-8 md:grid-cols-12">
+              <div className="md:col-span-4">
+                <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">EXPLORE</p>
+                <p className="mt-3 text-2xl font-bold tracking-tightest text-brand-ink">{activeMega.title}</p>
+                <p className="mt-3 max-w-sm text-sm leading-relaxed text-brand-steel">
+                  Navigate quickly to the pages you need.
+                </p>
+              </div>
+              <div className="md:col-span-8">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {activeMega.items.map((item) => (
+                    <Link
+                      key={item.href + item.label}
+                      href={item.href}
+                      className="group rounded-2xl border border-brand-ink/10 bg-white p-5 transition hover:border-brand-orange/30 hover:shadow-[0_16px_40px_rgba(11,18,32,0.08)]"
+                      onClick={() => setMegaOpen(null)}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-sm font-bold text-brand-ink group-hover:text-brand-orange">{item.label}</p>
+                          <p className="mt-1 text-sm leading-relaxed text-brand-steel">{item.description}</p>
+                        </div>
+                        <span className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-orange/10 text-brand-orange transition group-hover:bg-brand-orange group-hover:text-white">
+                          <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M5 12h13" />
+                            <path d="M13 6l6 6-6 6" />
+                          </svg>
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           </Container>
         </div>
       ) : null}
