@@ -55,7 +55,7 @@ const megaMenu = {
         image: '/uploads/services-1.jpeg'
       },
       {
-        href: '/services#civil-engineering',
+        href: '/services#civil-engineering-works',
         title: 'Civil Engineering',
         description: 'Roadworks, drainage, and infrastructure built to last.',
         image: '/uploads/services-2.jpeg'
@@ -88,15 +88,15 @@ const megaMenu = {
         image: '/uploads/company-2.jpeg'
       },
       {
-        href: '/careers',
-        title: 'Careers',
-        description: 'Build your career with meaningful work and growth.',
+        href: '/leadership',
+        title: 'Governance',
+        description: 'Clear accountability and decision-making that protects delivery outcomes.',
         image: '/uploads/company-1.jpeg'
       },
       {
-        href: '/contact',
-        title: 'Contact',
-        description: 'Talk to us about your next project.',
+        href: '/leadership',
+        title: 'Performance & Standards',
+        description: 'A leadership culture focused on safety, quality, and continuous improvement.',
         image: '/uploads/company-3.jpeg'
       }
     ]
@@ -108,21 +108,21 @@ const megaMenu = {
     cta: { href: '/contact', label: 'Contact Us' },
     cards: [
       {
-        href: '/projects',
-        title: 'Projects',
-        description: 'View our portfolio and recent work.',
+        href: '/contact',
+        title: 'Project Enquiries',
+        description: 'Reach out to discuss scope, timelines, and constraints.',
         image: '/uploads/services-1.jpeg'
       },
       {
-        href: '/services',
-        title: 'Services',
-        description: 'See what we can deliver for you.',
+        href: '/contact',
+        title: 'Partnerships',
+        description: 'Work with us on delivery, supply, or collaboration opportunities.',
         image: '/uploads/services-2.jpeg'
       },
       {
-        href: '/careers',
-        title: 'Careers',
-        description: 'Explore opportunities to join our team.',
+        href: '/contact',
+        title: 'Consultation',
+        description: 'Request a consultation and we’ll respond as soon as possible.',
         image: '/uploads/services-3.jpeg'
       }
     ]
