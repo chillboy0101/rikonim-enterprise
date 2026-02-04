@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  const fallbackImage = '/uploads/company-1.jpeg';
+  const fallbackImage = '/uploads/services-1.jpeg';
   const highlights = [
     {
       title: 'Safety-led delivery',
@@ -34,7 +34,7 @@ export default function ServicesPage() {
       <PageHero
         title="Services"
         subtitle="Engineering services built for long-term value."
-        imageUrl="/uploads/company-1.jpeg"
+        imageUrl="/uploads/services-1.jpeg"
         videoUrl={site.heroVideos.services}
       />
 
@@ -81,10 +81,10 @@ export default function ServicesPage() {
                   href={`#${s.slug}`}
                   className={`group overflow-hidden rounded-2xl border border-brand-ink/10 bg-white shadow-[0_10px_30px_rgba(11,18,32,0.06)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_50px_rgba(11,18,32,0.12)] ${idx === 0 || idx === 3 ? 'md:col-span-2' : ''}`}
                 >
-                  <div className="aspect-[16/9] w-full bg-brand-mist">
+                  <div className="relative aspect-[16/9] w-full bg-brand-mist">
                     {s.video ? (
                       <video
-                        className="h-full w-full object-cover"
+                        className="absolute inset-0 h-full w-full object-cover"
                         autoPlay
                         muted
                         playsInline
@@ -104,6 +104,9 @@ export default function ServicesPage() {
                         referrerPolicy="no-referrer"
                       />
                     )}
+                    {s.video ? (
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/10 via-brand-ink/35 to-brand-ink/75" />
+                    ) : null}
                   </div>
                   <div className="p-6">
                     <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Service</p>
@@ -156,9 +159,9 @@ export default function ServicesPage() {
                 <div className={idx % 2 === 1 ? 'md:col-span-6 md:order-1' : 'md:col-span-6'}>
                   <div className="overflow-hidden rounded-3xl bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.12)]">
                     {s.video ? (
-                      <div className="aspect-[16/10] w-full bg-black">
+                      <div className="relative aspect-[16/10] w-full bg-black">
                         <video
-                          className="h-full w-full object-cover"
+                          className="absolute inset-0 h-full w-full object-cover"
                           autoPlay
                           muted
                           playsInline
@@ -168,6 +171,7 @@ export default function ServicesPage() {
                         >
                           <source src={s.video} type="video/mp4" />
                         </video>
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/10 via-brand-ink/30 to-brand-ink/70" />
                       </div>
                     ) : (
                       <div className="aspect-[16/10] w-full bg-brand-mist">

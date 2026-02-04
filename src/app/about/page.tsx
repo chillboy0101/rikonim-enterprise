@@ -137,10 +137,11 @@ export default function AboutPage() {
                   </div>
 
                   <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-black shadow-[0_18px_50px_rgba(11,18,32,0.10)] md:col-span-12">
-                    <div className="aspect-[16/7] w-full">
-                      <video className="h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
+                    <div className="relative aspect-[16/7] w-full">
+                      <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
                         <source src="/videos/company-gallery.mp4" type="video/mp4" />
                       </video>
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/10 via-brand-ink/35 to-brand-ink/75" />
                     </div>
                   </div>
                 </div>

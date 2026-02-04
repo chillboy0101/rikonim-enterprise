@@ -37,7 +37,7 @@ const defaultSite = {
         'Schedule and cost discipline',
         'Site safety management'
       ],
-      image: '/uploads/company-1.jpeg',
+      image: '/uploads/services-1.jpeg',
       video: '/videos/service-building.mp4'
     },
     {
@@ -50,7 +50,7 @@ const defaultSite = {
         'Utilities coordination',
         'Testing and documentation'
       ],
-      image: '/uploads/company-2.jpeg',
+      image: '/uploads/services-2.jpeg',
       video: '/videos/service-civil.mp4'
     },
     {
@@ -63,8 +63,8 @@ const defaultSite = {
         'Progress reporting and change control',
         'Handover documentation'
       ],
-      image: '/uploads/company-3.jpeg',
-      video: '/videos/home-approach-section.mp4'
+      image: '/uploads/services-3.jpeg',
+      video: '/videos/service-management.mp4'
     },
     {
       slug: 'renovation-refurbishment',
@@ -76,8 +76,8 @@ const defaultSite = {
         'Finishes, MEP upgrades, and repairs',
         'Quality inspections and snagging'
       ],
-      image: '/uploads/company-2.jpeg',
-      video: '/videos/home-services-section.mp4'
+      image: '/uploads/services-2.jpeg',
+      video: '/videos/service-renovation.mp4'
     }
   ],
   leadership: [
