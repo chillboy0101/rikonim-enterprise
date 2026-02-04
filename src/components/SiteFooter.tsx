@@ -28,9 +28,6 @@ export function SiteFooter() {
                 <Link href="/leadership" className="footer-link hover:text-white">
                   Leadership
                 </Link>
-                <a href="https://rikonim.com" className="footer-link hover:text-white" target="_blank" rel="noreferrer">
-                  rikonim.com
-                </a>
               </div>
             </div>
 
@@ -61,12 +58,6 @@ export function SiteFooter() {
                 </Link>
                 <Link href="/services" className="footer-link hover:text-white">
                   Services
-                </Link>
-                <Link href="/terms-of-use" className="footer-link hover:text-white">
-                  Ethics
-                </Link>
-                <Link href="/about" className="footer-link hover:text-white">
-                  More
                 </Link>
               </div>
             </div>
@@ -145,9 +136,6 @@ export function SiteFooter() {
             <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
-              </Link>
-              <Link className="footer-link hover:text-white" href="/terms-of-use">
-                Ethics
               </Link>
               <Link className="footer-link hover:text-white" href="/terms-of-use">
                 Terms of Use
