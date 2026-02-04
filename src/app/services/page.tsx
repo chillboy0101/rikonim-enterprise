@@ -82,58 +82,71 @@ export default function ServicesPage() {
         </Container>
       </Section>
 
-      <div className="space-y-10 md:space-y-14">
-        {site.services.map((s) => (
-          <section key={s.slug} className="relative overflow-hidden">
-            <div id={s.slug} className="scroll-mt-32" />
-            {s.video ? (
-              <video
-                className="absolute inset-0 h-full w-full object-cover"
-                autoPlay
-                muted
-                playsInline
-                loop
-                preload="metadata"
-                poster={s.image || fallbackImage}
-              >
-                <source src={s.video} type="video/mp4" />
-              </video>
-            ) : (
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `url('${s.image || fallbackImage}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
-                }}
-              />
-            )}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
-            <Container className="relative">
-              <Reveal>
-                <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
-                  <div className="md:col-span-6">
-                    <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Service</p>
-                    <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
-                      {s.title}
-                    </h2>
-                    <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">{s.summary}</p>
+      <div>
+        {site.services.map((s, idx) => (
+          <div key={s.slug}>
+            <section className="relative overflow-hidden">
+              <div id={s.slug} className="scroll-mt-32" />
+              {s.video ? (
+                <video
+                  className="absolute inset-0 h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  preload="metadata"
+                  poster={s.image || fallbackImage}
+                >
+                  <source src={s.video} type="video/mp4" />
+                </video>
+              ) : (
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: `url('${s.image || fallbackImage}')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center'
+                  }}
+                />
+              )}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
+              <Container className="relative">
+                <Reveal>
+                  <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
+                    <div className="md:col-span-7">
+                      <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Service</p>
+                      <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
+                        {s.title}
+                      </h2>
+                      <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">{s.summary}</p>
+                    </div>
                   </div>
+                </Reveal>
+              </Container>
+            </section>
 
-                  <div className="md:col-span-6">
-                    <ul className="space-y-3">
-                      {s.bullets.map((b) => (
-                        <li key={b} className="text-sm leading-relaxed text-white/80 md:text-base">
-                          <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </Reveal>
-            </Container>
-          </section>
+            {idx < site.services.length - 1 ? (
+              <section className="bg-brand-ink">
+                <Container>
+                  <Reveal>
+                    <div className="grid place-items-center py-12 md:py-16 lg:py-20">
+                      <ul className="w-full max-w-2xl space-y-4">
+                        {s.bullets.map((b) => (
+                          <li
+                            key={b}
+                            className="text-base leading-relaxed text-white/80 md:text-lg"
+                          >
+                            <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </Reveal>
+                </Container>
+              </section>
+            ) : null}
+          </div>
         ))}
       </div>
 
