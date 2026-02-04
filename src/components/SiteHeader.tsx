@@ -447,7 +447,7 @@ export function SiteHeader() {
                       setMenuOpen(false);
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
-                    className={`relative outline-none focus:outline-none focus-visible:outline-none focus-visible:after:scale-x-100 text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
+                    className={`relative !outline-0 focus:!outline-0 focus-visible:!outline-0 focus-visible:!outline-offset-0 hover:!shadow-none focus:!shadow-none focus-visible:!shadow-none focus:!ring-0 focus-visible:!ring-0 focus:!ring-offset-0 focus-visible:!ring-offset-0 focus-visible:after:scale-x-100 text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
                       heroTransparent
                         ? active
                           ? 'text-white after:scale-x-100'
