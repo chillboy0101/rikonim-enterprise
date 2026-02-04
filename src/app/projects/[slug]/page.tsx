@@ -67,11 +67,12 @@ export default async function ProjectDetailPage({ params }: Props) {
           <ProjectVideoPlayer
             src={project.video}
             poster={project.image ?? undefined}
+            buttonPlacement="bottomLeft"
             className="absolute inset-0"
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
           <Container className="relative">
-            <div className="grid h-[420px] gap-10 py-14 sm:h-[480px] md:h-[560px] md:grid-cols-12 md:items-end md:py-20 lg:h-[600px]">
+            <div className="grid h-[320px] gap-10 py-12 sm:h-[380px] md:h-[460px] md:grid-cols-12 md:items-end md:py-16 lg:h-[520px]">
               <div className="md:col-span-7">
                 <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Project Video</p>
                 <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">

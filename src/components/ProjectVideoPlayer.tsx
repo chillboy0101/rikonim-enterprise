@@ -6,9 +6,10 @@ type Props = {
   src: string;
   poster?: string;
   className?: string;
+  buttonPlacement?: 'center' | 'bottomLeft';
 };
 
-export function ProjectVideoPlayer({ src, poster, className }: Props) {
+export function ProjectVideoPlayer({ src, poster, className, buttonPlacement = 'center' }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -52,6 +53,13 @@ export function ProjectVideoPlayer({ src, poster, className }: Props) {
     };
   }, [syncPlayingState]);
 
+  const buttonPositionClasses =
+    buttonPlacement === 'bottomLeft'
+      ? 'left-6 bottom-8 top-auto -translate-x-0 -translate-y-0 md:left-10 md:bottom-10'
+      : 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2';
+
+  const buttonSizeClasses = buttonPlacement === 'bottomLeft' ? 'h-16 w-16 md:h-20 md:w-20' : 'h-16 w-16';
+
   return (
     <div className={`relative h-full w-full ${className ?? ''}`}>
       <video
@@ -69,7 +77,7 @@ export function ProjectVideoPlayer({ src, poster, className }: Props) {
         type="button"
         onClick={togglePlay}
         aria-label={isPlaying ? 'Pause video' : 'Play video'}
-        className="absolute left-1/2 top-1/2 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-brand-orange/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.35)] transition hover:bg-brand-orange"
+        className={`absolute ${buttonPositionClasses} grid ${buttonSizeClasses} place-items-center rounded-full bg-brand-orange/90 text-white shadow-[0_18px_50px_rgba(0,0,0,0.35)] transition hover:bg-brand-orange`}
       >
         {isPlaying ? (
           <svg aria-hidden="true" viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor">
