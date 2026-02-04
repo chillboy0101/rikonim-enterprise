@@ -387,13 +387,7 @@ export function SiteHeader() {
     <header
       ref={headerRef}
       className="fixed top-0 z-50 w-full"
-      onMouseEnter={() => {
-        setHoveringHeader(true);
-        if (megaCloseTimeout.current) {
-          window.clearTimeout(megaCloseTimeout.current);
-          megaCloseTimeout.current = null;
-        }
-      }}
+      onMouseEnter={() => setHoveringHeader(true)}
       onMouseLeave={() => {
         setHoveringHeader(false);
         if (megaCloseTimeout.current) {
@@ -434,8 +428,25 @@ export function SiteHeader() {
             <BrandLogo className="h-10 w-[200px] sm:h-11 sm:w-[240px] md:h-12 md:w-[300px]" />
           </Link>
 
-          <div className="ml-auto hidden items-center gap-6 md:flex">
-            <nav className="hidden items-center gap-8 lg:gap-10 md:flex">
+          <div className="ml-auto hidden items-center gap-4 md:flex">
+            <nav
+              className="hidden items-center gap-6 lg:gap-8 md:flex"
+              onMouseEnter={() => {
+                if (megaCloseTimeout.current) {
+                  window.clearTimeout(megaCloseTimeout.current);
+                  megaCloseTimeout.current = null;
+                }
+              }}
+              onMouseLeave={() => {
+                if (megaCloseTimeout.current) {
+                  window.clearTimeout(megaCloseTimeout.current);
+                }
+
+                megaCloseTimeout.current = window.setTimeout(() => {
+                  setMegaOpen(null);
+                }, 140);
+              }}
+            >
               {nav.map((n) => {
                 const active = isHome ? n.href === activeHref : false;
                 return (
@@ -471,7 +482,7 @@ export function SiteHeader() {
                       setMenuOpen(false);
                       setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
-                    className={`relative !outline-0 focus:!outline-0 focus-visible:!outline-0 focus-visible:!outline-offset-0 hover:!shadow-none focus:!shadow-none focus-visible:!shadow-none focus:!ring-0 focus-visible:!ring-0 focus:!ring-offset-0 focus-visible:!ring-offset-0 focus-visible:after:scale-x-100 text-[13px] font-semibold uppercase tracking-[0.14em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
+                    className={`relative !outline-0 focus:!outline-0 focus-visible:!outline-0 focus-visible:!outline-offset-0 hover:!shadow-none focus:!shadow-none focus-visible:!shadow-none focus:!ring-0 focus-visible:!ring-0 focus:!ring-offset-0 focus-visible:!ring-offset-0 focus-visible:after:scale-x-100 text-[13px] font-semibold uppercase tracking-[0.12em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
                       heroTransparent
                         ? active
                           ? 'text-white after:scale-x-100'
