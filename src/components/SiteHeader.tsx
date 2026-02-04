@@ -387,7 +387,13 @@ export function SiteHeader() {
     <header
       ref={headerRef}
       className="fixed top-0 z-50 w-full"
-      onMouseEnter={() => setHoveringHeader(true)}
+      onMouseEnter={() => {
+        setHoveringHeader(true);
+        if (megaCloseTimeout.current) {
+          window.clearTimeout(megaCloseTimeout.current);
+          megaCloseTimeout.current = null;
+        }
+      }}
       onMouseLeave={() => {
         setHoveringHeader(false);
         if (megaCloseTimeout.current) {
@@ -429,24 +435,7 @@ export function SiteHeader() {
           </Link>
 
           <div className="ml-auto hidden items-center gap-6 md:flex">
-            <nav
-              className="hidden items-center gap-8 lg:gap-10 md:flex"
-              onMouseEnter={() => {
-                if (megaCloseTimeout.current) {
-                  window.clearTimeout(megaCloseTimeout.current);
-                  megaCloseTimeout.current = null;
-                }
-              }}
-              onMouseLeave={() => {
-                if (megaCloseTimeout.current) {
-                  window.clearTimeout(megaCloseTimeout.current);
-                }
-
-                megaCloseTimeout.current = window.setTimeout(() => {
-                  setMegaOpen(null);
-                }, 140);
-              }}
-            >
+            <nav className="hidden items-center gap-8 lg:gap-10 md:flex">
               {nav.map((n) => {
                 const active = isHome ? n.href === activeHref : false;
                 return (
