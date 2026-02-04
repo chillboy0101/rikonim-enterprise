@@ -33,8 +33,8 @@
         "Schedule and cost discipline",
         "Site safety management"
       ],
-      "image": "https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=2400",
-      "video": "https://videos.pexels.com/video-files/1861780/1861780-uhd_2560_1440_25fps.mp4"
+      "image": "/uploads/services-1.jpeg",
+      "video": "/videos/service-building.mp4"
     },
     {
       "slug": "civil-engineering-works",
@@ -46,8 +46,8 @@
         "Utilities coordination",
         "Testing and documentation"
       ],
-      "image": "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=2400",
-      "video": "https://videos.pexels.com/video-files/20531043/20531043-uhd_2560_1440_30fps.mp4"
+      "image": "/uploads/services-2.jpeg",
+      "video": "/videos/service-civil.mp4"
     },
     {
       "slug": "project-management",
@@ -59,8 +59,8 @@
         "Progress reporting and change control",
         "Handover documentation"
       ],
-      "image": "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=2400",
-      "video": "https://videos.pexels.com/video-files/3195530/3195530-uhd_2560_1440_30fps.mp4"
+      "image": "/uploads/services-3.jpeg",
+      "video": "/videos/service-management.mp4"
     },
     {
       "slug": "renovation-refurbishment",
@@ -72,8 +72,8 @@
         "Finishes, MEP upgrades, and repairs",
         "Quality inspections and snagging"
       ],
-      "image": "https://images.pexels.com/photos/6474474/pexels-photo-6474474.jpeg?auto=compress&cs=tinysrgb&w=2400",
-      "video": "https://videos.pexels.com/video-files/3230517/3230517-uhd_2560_1440_30fps.mp4"
+      "image": "/uploads/services-2.jpeg",
+      "video": "/videos/service-renovation.mp4"
     }
   ],
   "leadership": [
