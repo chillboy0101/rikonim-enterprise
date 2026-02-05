@@ -334,6 +334,24 @@ export function SiteHeader() {
     };
   }, [isHome]);
 
+  useEffect(() => {
+    const sync = () => {
+      setHoveringHeader(false);
+      window.dispatchEvent(new Event('scroll'));
+    };
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') sync();
+    };
+
+    window.addEventListener('focus', sync);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => {
+      window.removeEventListener('focus', sync);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, []);
+
   const activeHref = useMemo(() => pathname || '/', [pathname]);
   const forceSolid = hoveringHeader || menuOpen || !!megaOpen;
   const heroTransparent = hasHero && !solid && !forceSolid;
