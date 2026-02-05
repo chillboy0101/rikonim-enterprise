@@ -455,12 +455,12 @@ export function SiteHeader() {
       <Container>
         <div className="relative z-10 flex items-center py-4 md:py-5">
           <Link href="/" className="flex items-center gap-3">
-            <BrandLogo className="h-10 w-[200px] sm:h-11 sm:w-[240px] md:h-12 md:w-[300px]" />
+            <BrandLogo className="h-10 w-[200px] sm:h-11 sm:w-[240px] md:h-11 md:w-[260px] lg:h-12 lg:w-[300px]" />
           </Link>
 
-          <div className="ml-auto hidden items-center gap-4 md:flex">
+          <div className="ml-auto hidden items-center gap-4 lg:flex">
             <nav
-              className="hidden items-center gap-6 lg:gap-8 md:flex"
+              className="flex items-center gap-6 xl:gap-8"
               onMouseEnter={() => {
                 if (megaCloseTimeout.current) {
                   window.clearTimeout(megaCloseTimeout.current);
@@ -614,7 +614,7 @@ export function SiteHeader() {
             </button>
           </div>
 
-          <div className="ml-auto flex items-center gap-3 md:hidden">
+          <div className="ml-auto flex items-center gap-3 lg:hidden">
             <button
               type="button"
               className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition ${
