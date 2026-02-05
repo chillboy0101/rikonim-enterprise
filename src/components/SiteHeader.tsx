@@ -137,6 +137,7 @@ export function SiteHeader() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState<keyof typeof megaMenu | null>(null);
+  const [mobileMenuExpanded, setMobileMenuExpanded] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const [hoveringHeader, setHoveringHeader] = useState(false);
   const [hasHero, setHasHero] = useState(false);
@@ -165,6 +166,7 @@ export function SiteHeader() {
     setSearchOpen(false);
     setMenuOpen(false);
     setMegaOpen(null);
+    setMobileMenuExpanded(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -379,6 +381,7 @@ export function SiteHeader() {
     setSearchOpen(false);
     setMegaOpen(null);
     setMenuOpen(true);
+    setMobileMenuExpanded(null);
 
     await loadFeaturedProjects();
   };
@@ -902,26 +905,68 @@ export function SiteHeader() {
                     <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">NAVIGATION</p>
 
                     <div className="mt-5 border-t border-brand-ink/10">
-                      {nav.map((n) => (
-                        <Link
-                          key={n.href}
-                          href={n.href}
-                          className="flex items-center justify-between border-b border-brand-ink/10 py-5"
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          <span className="text-base font-semibold text-brand-orange">{n.label}</span>
-                          <svg
-                            aria-hidden="true"
-                            viewBox="0 0 24 24"
-                            className="h-5 w-5 text-brand-orange"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path d="M6 9l6 6 6-6" />
-                          </svg>
-                        </Link>
-                      ))}
+                      {nav.map((n) => {
+                        const expanded = mobileMenuExpanded === n.href;
+                        const mega = megaMenu[n.href as keyof typeof megaMenu];
+                        const children =
+                          n.href === '/projects'
+                            ? [
+                                { href: '/projects', label: 'View More Projects' },
+                                { href: '/projects', label: 'Markets' },
+                                { href: '/projects', label: 'Regions' }
+                              ]
+                            : mega?.cards?.map((c) => ({ href: mega.cta.href, label: c.title })) ?? [];
+
+                        return (
+                          <div key={n.href} className="border-b border-brand-ink/10">
+                            <div className="flex items-center justify-between py-5">
+                              <Link
+                                href={n.href}
+                                className="text-base font-semibold text-brand-orange"
+                                onClick={() => setMenuOpen(false)}
+                              >
+                                {n.label}
+                              </Link>
+
+                              <button
+                                type="button"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-orange transition hover:bg-brand-orange/10"
+                                aria-label={expanded ? `Collapse ${n.label}` : `Expand ${n.label}`}
+                                aria-expanded={expanded}
+                                onClick={() => setMobileMenuExpanded((prev) => (prev === n.href ? null : n.href))}
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  viewBox="0 0 24 24"
+                                  className={`h-5 w-5 transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                >
+                                  <path d="M6 9l6 6 6-6" />
+                                </svg>
+                              </button>
+                            </div>
+
+                            {expanded && children.length ? (
+                              <div className="pb-5 pl-4">
+                                <div className="grid gap-3">
+                                  {children.map((c) => (
+                                    <Link
+                                      key={c.label}
+                                      href={c.href}
+                                      className="text-sm font-semibold text-brand-ink/80 hover:text-brand-ink"
+                                      onClick={() => setMenuOpen(false)}
+                                    >
+                                      {c.label}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </Container>

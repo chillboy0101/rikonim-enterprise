@@ -104,7 +104,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex-1" />
+        <div className="hidden md:block md:flex-1" />
 
         <div className="my-10 h-px w-full bg-white/20 md:my-2" />
 
