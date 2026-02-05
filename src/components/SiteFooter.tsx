@@ -106,9 +106,9 @@ export function SiteFooter() {
 
         <div className="flex-1" />
 
-        <div className="mt-2 h-px w-full bg-white/20" />
+        <div className="my-10 h-px w-full bg-white/20 md:my-2" />
 
-        <div className="grid gap-10 py-20 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24 lg:gap-x-20">
+        <div className="grid gap-10 pb-20 pt-10 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24 lg:gap-x-20">
           <div className="min-w-0 md:col-span-3">
             <Link href="/" className="inline-flex items-start">
               <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
