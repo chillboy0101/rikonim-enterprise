@@ -11,7 +11,7 @@ export function SiteFooter() {
 
   return (
     <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
-      <Container className="flex flex-col lg:min-h-screen">
+      <Container className="flex flex-col xl:min-h-screen">
         <nav
           className="grid gap-y-14 pt-20 sm:grid-cols-2 md:pt-24 md:grid-cols-3 md:gap-x-12 lg:grid-cols-5 lg:gap-x-20"
           aria-label="footer navigation"
@@ -102,14 +102,14 @@ export function SiteFooter() {
           </div>
         </nav>
 
-        <div className="hidden lg:block lg:flex-1" />
+        <div className="hidden xl:block xl:flex-1" />
 
-        <div className="mt-12 h-px w-full bg-white/20 md:my-6 lg:my-2" />
+        <div className="mt-12 h-px w-full bg-white/20 md:my-6 xl:my-2" />
 
-        <div className="hidden lg:block lg:flex-1" />
+        <div className="hidden xl:block xl:flex-1" />
 
-        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-24 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-24">
-          <div className="grid min-w-0 gap-10 md:col-span-1 lg:col-span-9 lg:grid-cols-3 lg:gap-x-16">
+        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-24 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-20 xl:py-24">
+          <div className="grid min-w-0 gap-10 md:col-span-2 lg:col-span-9 lg:grid-cols-3 lg:gap-x-16">
             <div className="min-w-0">
               <Link href="/" className="inline-flex items-start">
                 <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
@@ -142,12 +142,11 @@ export function SiteFooter() {
                   Terms of Use
                 </Link>
               </nav>
-
-              <p className="mt-12 text-xs font-semibold text-white/85 md:mt-10">© {new Date().getFullYear()} {site.name}</p>
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-col items-center md:col-span-1 md:items-end lg:col-span-3 lg:pl-10">
+          <div className="flex min-w-0 flex-col items-center gap-6 md:col-span-2 md:flex-row md:items-center md:justify-between lg:col-span-12">
+            <p className="text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
             <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-end">
               <a
                 className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
