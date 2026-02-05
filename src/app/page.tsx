@@ -28,8 +28,8 @@ export default async function HomePage() {
         </video>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/35 to-brand-ink/80" />
         <Container className="relative">
-          <div className="grid min-h-[84vh] gap-10 py-14 md:min-h-[88vh] md:grid-cols-12 md:items-center md:py-20">
-            <div className="md:col-span-7">
+          <div className="grid min-h-[84vh] gap-10 py-14 md:min-h-[88vh] md:items-start md:pb-20 md:pt-16 lg:grid-cols-12 lg:items-center lg:py-20">
+            <div className="lg:col-span-7">
               <p className="text-sm font-semibold tracking-[0.16em] text-white/75 md:text-base">
                 {site.tagline}
               </p>
@@ -39,7 +39,7 @@ export default async function HomePage() {
               </h1>
             </div>
 
-            <div className="mt-10 md:col-span-5 md:mt-0 md:self-end md:translate-y-10 lg:translate-y-14">
+            <div className="mt-10 md:mt-0 md:self-end md:justify-self-center md:translate-y-16 lg:col-span-5 lg:justify-self-end lg:translate-y-14">
               <FeaturedProjectCarousel />
             </div>
           </div>
@@ -197,7 +197,7 @@ export default async function HomePage() {
               </div>
             </div>
             <div className="md:col-span-7">
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {featured.map((p) => (
                   <Link
                     key={p.slug}

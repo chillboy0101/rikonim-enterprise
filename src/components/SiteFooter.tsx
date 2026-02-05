@@ -11,9 +11,9 @@ export function SiteFooter() {
 
   return (
     <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
-      <Container className="flex flex-col xl:min-h-screen">
+      <Container className="flex flex-col">
         <nav
-          className="grid gap-y-14 pt-20 sm:grid-cols-2 md:pt-24 md:grid-cols-3 md:gap-x-12 lg:grid-cols-5 lg:gap-x-20"
+          className="grid gap-y-12 pt-16 md:pt-20 md:grid-cols-5 md:gap-x-8 lg:gap-x-12"
           aria-label="footer navigation"
         >
           <div className="min-w-0">
@@ -102,38 +102,40 @@ export function SiteFooter() {
           </div>
         </nav>
 
-        <div className="hidden xl:block xl:flex-1" />
+        <div className="hidden" />
 
-        <div className="mt-12 h-px w-full bg-white/20 md:my-6 xl:my-2" />
+        <div className="mt-12 h-px w-full bg-white/20" />
 
-        <div className="hidden xl:block xl:flex-1" />
+        <div className="hidden" />
 
-        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-24 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-20 xl:py-24">
-          <div className="grid min-w-0 gap-10 md:col-span-2 lg:col-span-9 lg:grid-cols-3 lg:gap-x-16">
-            <div className="min-w-0">
-              <Link href="/" className="inline-flex items-start">
-                <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
-              </Link>
-            </div>
+        <div className="grid gap-10 pb-16 pt-8 md:grid-cols-12 md:gap-x-12 lg:items-start lg:gap-x-16 lg:py-16 xl:py-16">
+          <div className="grid min-w-0 gap-10 md:col-span-9 md:grid-cols-3 md:gap-x-12 lg:col-span-9 lg:gap-x-12">
+            <div className="order-1 mx-auto flex w-full max-w-[520px] min-w-0 flex-row items-start justify-start gap-4 md:contents">
+              <div className="min-w-0 shrink-0">
+                <Link href="/" className="inline-flex items-start">
+                  <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
+                </Link>
+              </div>
 
-            <div className="min-w-0">
-              <div className="flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:text-lg sm:leading-7">
-                {phoneParts.map((p) => (
-                  <a
-                    key={p}
-                    className="footer-link block break-words hover:text-white"
-                    href={`tel:${p.replace(/\s+/g, '')}`}
-                  >
-                    {p}
+              <div className="min-w-0 flex-1 md:col-span-2 lg:col-span-1">
+                <div className="flex flex-col items-start gap-2 text-left text-base font-semibold leading-6 text-white/90 md:items-start md:text-left sm:text-lg sm:leading-7">
+                  {phoneParts.map((p) => (
+                    <a
+                      key={p}
+                      className="footer-link block break-words hover:text-white"
+                      href={`tel:${p.replace(/\s+/g, '')}`}
+                    >
+                      {p}
+                    </a>
+                  ))}
+                  <a className="footer-link block break-words hover:text-white" href={`mailto:${site.contact.email}`}>
+                    {site.contact.email}
                   </a>
-                ))}
-                <a className="footer-link block break-words hover:text-white" href={`mailto:${site.contact.email}`}>
-                  {site.contact.email}
-                </a>
+                </div>
               </div>
             </div>
 
-            <div className="min-w-0">
+            <div className="order-2 min-w-0 md:order-none md:col-span-1 md:col-start-1 md:row-start-2 lg:col-span-1 lg:col-start-auto lg:row-start-auto">
               <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
                 <Link className="footer-link hover:text-white" href="/privacy-policy">
                   Privacy Policy
@@ -145,60 +147,64 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="min-w-0 md:col-span-2 lg:col-span-12">
-            <div className="flex w-full flex-col items-center md:items-start lg:items-end">
-              <div className="flex w-full items-center justify-center gap-3 md:justify-end">
-                <a
-                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                  href="https://www.linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                    <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3c0-2.6-1.4-3.8-3.3-3.8-1.5 0-2.2.8-2.6 1.4v-1.2H10v8.9h2.6v-5c0-1.3.2-2.5 1.8-2.5s1.6 1.5 1.6 2.6v4.9h2.5zM7.9 8.4c.9 0 1.6-.7 1.6-1.6S8.8 5.2 7.9 5.2s-1.6.7-1.6 1.6.7 1.6 1.6 1.6zM9.2 18.5V9.6H6.6v8.9h2.6z" />
-                    </svg>
-                </a>
-                <a
-                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                  href="https://www.facebook.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Facebook"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                    <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8v3h2.7v8h2.8z" />
-                  </svg>
-                </a>
-                <a
-                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="X"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                    <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.1-6.7L5.7 22H2.6l7.3-8.4L1 2h6.8l4.6 6.1L18.9 2zm-1.2 18h1.7L6.9 3.9H5.1L17.7 20z" />
-                  </svg>
-                </a>
-                <a
-                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                  href="https://www.youtube.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="YouTube"
-                >
-                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                    <path d="M21.6 7.2c.2 1 .4 2.4.4 4.8s-.2 3.8-.4 4.8c-.2 1.1-.9 1.9-1.9 2.2-1.6.5-7.7.5-7.7.5s-6.1 0-7.7-.5c-1-.3-1.7-1.1-1.9-2.2C2.2 15.8 2 14.4 2 12s.2-3.8.4-4.8c.2-1.1.9-1.9 1.9-2.2C5.9 4.5 12 4.5 12 4.5s6.1 0 7.7.5c1 .3 1.7 1.1 1.9 2.2zM10 15.5 16 12l-6-3.5v7z" />
-                  </svg>
-                </a>
-              </div>
+          <div className="min-w-0 md:col-span-12 lg:col-span-3">
+            <div className="flex w-full flex-col items-stretch lg:items-end">
+              <div className="w-full lg:w-fit">
+                <div className="flex flex-col items-center gap-6 md:items-stretch lg:items-start lg:gap-0">
+                  <div className="order-1 flex w-full items-center justify-end gap-3 lg:justify-start">
+                    <a
+                      className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                      style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                      href="https://www.linkedin.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="LinkedIn"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                        <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3c0-2.6-1.4-3.8-3.3-3.8-1.5 0-2.2.8-2.6 1.4v-1.2H10v8.9h2.6v-5c0-1.3.2-2.5 1.8-2.5s1.6 1.5 1.6 2.6v4.9h2.5zM7.9 8.4c.9 0 1.6-.7 1.6-1.6S8.8 5.2 7.9 5.2s-1.6.7-1.6 1.6.7 1.6 1.6 1.6zM9.2 18.5V9.6H6.6v8.9h2.6z" />
+                      </svg>
+                    </a>
+                    <a
+                      className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                      style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                      href="https://www.facebook.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Facebook"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                        <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8v3h2.7v8h2.8z" />
+                      </svg>
+                    </a>
+                    <a
+                      className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                      style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                      href="https://x.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="X"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                        <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.1-6.7L5.7 22H2.6l7.3-8.4L1 2h6.8l4.6 6.1L18.9 2zm-1.2 18h1.7L6.9 3.9H5.1L17.7 20z" />
+                      </svg>
+                    </a>
+                    <a
+                      className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                      style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                      href="https://www.youtube.com"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="YouTube"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                        <path d="M21.6 7.2c.2 1 .4 2.4.4 4.8s-.2 3.8-.4 4.8c-.2 1.1-.9 1.9-1.9 2.2-1.6.5-7.7.5-7.7.5s-6.1 0-7.7-.5c-1-.3-1.7-1.1-1.9-2.2C2.2 15.8 2 14.4 2 12s.2-3.8.4-4.8c.2-1.1.9-1.9 1.9-2.2C5.9 4.5 12 4.5 12 4.5s6.1 0 7.7.5c1 .3 1.7 1.1 1.9 2.2zM10 15.5 16 12l-6-3.5v7z" />
+                      </svg>
+                    </a>
+                  </div>
 
-              <p className="mt-8 w-full text-left text-xs font-semibold text-white/85 lg:w-auto lg:text-right">© {new Date().getFullYear()} {site.name}</p>
+                  <p className="order-2 w-full text-left text-xs font-semibold text-white/85 md:mt-6 md:text-left lg:mt-8 lg:whitespace-nowrap">© {new Date().getFullYear()} {site.name}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
