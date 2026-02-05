@@ -12,75 +12,73 @@ export function SiteFooter() {
   return (
     <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
       <Container className="flex flex-col lg:min-h-screen">
-        <div className="grid gap-y-14 pt-20 md:pt-24 md:grid-cols-12 md:gap-x-12 lg:gap-x-20">
-          <nav
-            className="grid min-w-0 gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-[1.25fr_1fr_1fr_1fr] md:gap-x-16 lg:gap-x-20"
-            aria-label="footer navigation"
-          >
-            <div className="min-w-0">
-              <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
-                People
+        <nav
+          className="grid gap-y-14 pt-20 sm:grid-cols-2 md:pt-24 md:grid-cols-3 md:gap-x-12 lg:grid-cols-5 lg:gap-x-20"
+          aria-label="footer navigation"
+        >
+          <div className="min-w-0">
+            <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
+              People
+            </Link>
+            <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
+              <Link href="/about" className="footer-link hover:text-white">
+                Vision, Values &amp; Commitments
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/about" className="footer-link hover:text-white">
-                  Vision, Values &amp; Commitments
-                </Link>
-                <Link href="/leadership" className="footer-link hover:text-white">
-                  Leadership
-                </Link>
-              </div>
-            </div>
-
-            <div className="min-w-0">
-              <Link href="/projects" className="footer-link text-base font-semibold md:text-xl">
-                Projects
+              <Link href="/leadership" className="footer-link hover:text-white">
+                Leadership
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/projects" className="footer-link hover:text-white">
-                  View More Projects
-                </Link>
-                <Link href="/projects" className="footer-link hover:text-white">
-                  Markets
-                </Link>
-                <Link href="/projects" className="footer-link hover:text-white">
-                  Regions
-                </Link>
-              </div>
             </div>
+          </div>
 
-            <div className="min-w-0">
-              <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
-                Approach
+          <div className="min-w-0">
+            <Link href="/projects" className="footer-link text-base font-semibold md:text-xl">
+              Projects
+            </Link>
+            <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
+              <Link href="/projects" className="footer-link hover:text-white">
+                View More Projects
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/about" className="footer-link hover:text-white">
-                  Safety
-                </Link>
-                <Link href="/services" className="footer-link hover:text-white">
-                  Services
-                </Link>
-              </div>
-            </div>
-
-            <div className="min-w-0">
-              <Link href="/careers" className="footer-link text-base font-semibold md:text-xl">
-                Careers
+              <Link href="/projects" className="footer-link hover:text-white">
+                Markets
               </Link>
-              <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/careers" className="footer-link hover:text-white">
-                  Why Rikonim
-                </Link>
-                <Link href="/careers" className="footer-link hover:text-white">
-                  Career Opportunities
-                </Link>
-                <Link href="/careers" className="footer-link hover:text-white">
-                  Life at Rikonim
-                </Link>
-              </div>
+              <Link href="/projects" className="footer-link hover:text-white">
+                Regions
+              </Link>
             </div>
-          </nav>
+          </div>
 
-          <div className="min-w-0 md:col-span-3">
+          <div className="min-w-0">
+            <Link href="/about" className="footer-link text-base font-semibold md:text-xl">
+              Approach
+            </Link>
+            <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
+              <Link href="/about" className="footer-link hover:text-white">
+                Safety
+              </Link>
+              <Link href="/services" className="footer-link hover:text-white">
+                Services
+              </Link>
+            </div>
+          </div>
+
+          <div className="min-w-0">
+            <Link href="/careers" className="footer-link text-base font-semibold md:text-xl">
+              Careers
+            </Link>
+            <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
+              <Link href="/careers" className="footer-link hover:text-white">
+                Why Rikonim
+              </Link>
+              <Link href="/careers" className="footer-link hover:text-white">
+                Career Opportunities
+              </Link>
+              <Link href="/careers" className="footer-link hover:text-white">
+                Life at Rikonim
+              </Link>
+            </div>
+          </div>
+
+          <div className="min-w-0">
             <div className="flex flex-col gap-4 text-base font-semibold md:text-xl">
               <Link href="/history" className="footer-link hover:text-white/90">
                 History
@@ -102,7 +100,7 @@ export function SiteFooter() {
               </Link>
             </div>
           </div>
-        </div>
+        </nav>
 
         <div className="hidden lg:block lg:flex-1" />
 
@@ -111,40 +109,42 @@ export function SiteFooter() {
         <div className="hidden lg:block lg:flex-1" />
 
         <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-24 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-24">
-          <div className="min-w-0 md:col-span-1 lg:col-span-3">
-            <Link href="/" className="inline-flex items-start">
-              <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
-            </Link>
-          </div>
-
-          <div className="min-w-0 md:col-span-1 lg:col-span-3">
-            <div className="flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:text-lg sm:leading-7">
-              {phoneParts.map((p) => (
-                <a
-                  key={p}
-                  className="footer-link block break-words hover:text-white"
-                  href={`tel:${p.replace(/\s+/g, '')}`}
-                >
-                  {p}
-                </a>
-              ))}
-              <a className="footer-link block break-words hover:text-white" href={`mailto:${site.contact.email}`}>
-                {site.contact.email}
-              </a>
+          <div className="grid min-w-0 gap-10 md:col-span-1 lg:col-span-9 lg:grid-cols-3 lg:gap-x-16">
+            <div className="min-w-0">
+              <Link href="/" className="inline-flex items-start">
+                <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
+              </Link>
             </div>
-          </div>
 
-          <div className="min-w-0 md:col-span-1 lg:col-span-3">
-            <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
-              <Link className="footer-link hover:text-white" href="/privacy-policy">
-                Privacy Policy
-              </Link>
-              <Link className="footer-link hover:text-white" href="/terms-of-use">
-                Terms of Use
-              </Link>
-            </nav>
+            <div className="min-w-0">
+              <div className="flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:text-lg sm:leading-7">
+                {phoneParts.map((p) => (
+                  <a
+                    key={p}
+                    className="footer-link block break-words hover:text-white"
+                    href={`tel:${p.replace(/\s+/g, '')}`}
+                  >
+                    {p}
+                  </a>
+                ))}
+                <a className="footer-link block break-words hover:text-white" href={`mailto:${site.contact.email}`}>
+                  {site.contact.email}
+                </a>
+              </div>
+            </div>
 
-            <p className="mt-12 text-xs font-semibold text-white/85 md:mt-10">© {new Date().getFullYear()} {site.name}</p>
+            <div className="min-w-0">
+              <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
+                <Link className="footer-link hover:text-white" href="/privacy-policy">
+                  Privacy Policy
+                </Link>
+                <Link className="footer-link hover:text-white" href="/terms-of-use">
+                  Terms of Use
+                </Link>
+              </nav>
+
+              <p className="mt-12 text-xs font-semibold text-white/85 md:mt-10">© {new Date().getFullYear()} {site.name}</p>
+            </div>
           </div>
 
           <div className="flex min-w-0 flex-col items-center md:col-span-1 md:items-end lg:col-span-3 lg:pl-10">
