@@ -145,9 +145,8 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-col items-center gap-6 md:col-span-2 md:flex-row md:items-center md:justify-between lg:col-span-12">
-            <p className="text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
-            <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-end">
+          <div className="min-w-0 md:col-span-2 lg:col-span-12">
+            <div className="flex w-full items-center justify-center gap-3 md:justify-end">
               <a
                 className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
                 style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
@@ -197,6 +196,8 @@ export function SiteFooter() {
                 </svg>
               </a>
             </div>
+
+            <p className="mt-8 text-left text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
           </div>
         </div>
       </Container>
