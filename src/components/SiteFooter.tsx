@@ -11,7 +11,7 @@ export function SiteFooter() {
 
   return (
     <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
-      <Container className="flex min-h-screen flex-col">
+      <Container className="flex flex-col md:min-h-screen">
         <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16 lg:gap-x-20">
           <nav
             className="grid min-w-0 gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-[1.25fr_1fr_1fr_1fr] md:gap-x-16 lg:gap-x-20"
