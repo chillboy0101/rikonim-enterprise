@@ -146,58 +146,60 @@ export function SiteFooter() {
           </div>
 
           <div className="min-w-0 md:col-span-2 lg:col-span-12">
-            <div className="flex w-full items-center justify-center gap-3 md:justify-end">
-              <a
-                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                href="https://www.linkedin.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                  <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3c0-2.6-1.4-3.8-3.3-3.8-1.5 0-2.2.8-2.6 1.4v-1.2H10v8.9h2.6v-5c0-1.3.2-2.5 1.8-2.5s1.6 1.5 1.6 2.6v4.9h2.5zM7.9 8.4c.9 0 1.6-.7 1.6-1.6S8.8 5.2 7.9 5.2s-1.6.7-1.6 1.6.7 1.6 1.6 1.6zM9.2 18.5V9.6H6.6v8.9h2.6z" />
+            <div className="flex w-full flex-col items-center md:items-start lg:items-end">
+              <div className="flex w-full items-center justify-center gap-3 md:justify-end">
+                <a
+                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                    <path d="M19 3A2 2 0 0 1 21 5v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3c0-2.6-1.4-3.8-3.3-3.8-1.5 0-2.2.8-2.6 1.4v-1.2H10v8.9h2.6v-5c0-1.3.2-2.5 1.8-2.5s1.6 1.5 1.6 2.6v4.9h2.5zM7.9 8.4c.9 0 1.6-.7 1.6-1.6S8.8 5.2 7.9 5.2s-1.6.7-1.6 1.6.7 1.6 1.6 1.6zM9.2 18.5V9.6H6.6v8.9h2.6z" />
+                    </svg>
+                </a>
+                <a
+                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Facebook"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                    <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8v3h2.7v8h2.8z" />
                   </svg>
-              </a>
-              <a
-                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                href="https://www.facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                  <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V11H8v3h2.7v8h2.8z" />
-                </svg>
-              </a>
-              <a
-                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                href="https://x.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="X"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                  <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.1-6.7L5.7 22H2.6l7.3-8.4L1 2h6.8l4.6 6.1L18.9 2zm-1.2 18h1.7L6.9 3.9H5.1L17.7 20z" />
-                </svg>
-              </a>
-              <a
-                className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
-                style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
-                href="https://www.youtube.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="YouTube"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                  <path d="M21.6 7.2c.2 1 .4 2.4.4 4.8s-.2 3.8-.4 4.8c-.2 1.1-.9 1.9-1.9 2.2-1.6.5-7.7.5-7.7.5s-6.1 0-7.7-.5c-1-.3-1.7-1.1-1.9-2.2C2.2 15.8 2 14.4 2 12s.2-3.8.4-4.8c.2-1.1.9-1.9 1.9-2.2C5.9 4.5 12 4.5 12 4.5s6.1 0 7.7.5c1 .3 1.7 1.1 1.9 2.2zM10 15.5 16 12l-6-3.5v7z" />
-                </svg>
-              </a>
-            </div>
+                </a>
+                <a
+                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                  href="https://x.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="X"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                    <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.1-6.7L5.7 22H2.6l7.3-8.4L1 2h6.8l4.6 6.1L18.9 2zm-1.2 18h1.7L6.9 3.9H5.1L17.7 20z" />
+                  </svg>
+                </a>
+                <a
+                  className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
+                  style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="YouTube"
+                >
+                  <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                    <path d="M21.6 7.2c.2 1 .4 2.4.4 4.8s-.2 3.8-.4 4.8c-.2 1.1-.9 1.9-1.9 2.2-1.6.5-7.7.5-7.7.5s-6.1 0-7.7-.5c-1-.3-1.7-1.1-1.9-2.2C2.2 15.8 2 14.4 2 12s.2-3.8.4-4.8c.2-1.1.9-1.9 1.9-2.2C5.9 4.5 12 4.5 12 4.5s6.1 0 7.7.5c1 .3 1.7 1.1 1.9 2.2zM10 15.5 16 12l-6-3.5v7z" />
+                  </svg>
+                </a>
+              </div>
 
-            <p className="mt-8 text-left text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
+              <p className="mt-8 w-full text-left text-xs font-semibold text-white/85 lg:w-auto lg:text-right">© {new Date().getFullYear()} {site.name}</p>
+            </div>
           </div>
         </div>
       </Container>
