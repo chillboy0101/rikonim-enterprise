@@ -12,7 +12,7 @@ export function SiteFooter() {
   return (
     <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
       <Container className="flex flex-col lg:min-h-screen">
-        <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16 lg:gap-x-20">
+        <div className="grid gap-y-14 pt-20 md:pt-24 md:grid-cols-12 md:gap-x-12 lg:gap-x-20">
           <nav
             className="grid min-w-0 gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-[1.25fr_1fr_1fr_1fr] md:gap-x-16 lg:gap-x-20"
             aria-label="footer navigation"
@@ -22,7 +22,7 @@ export function SiteFooter() {
                 People
               </Link>
               <div className="mt-6 flex flex-col gap-4 text-sm font-semibold text-white/90 md:text-[15px]">
-                <Link href="/about" className="footer-link hover:text-white md:whitespace-nowrap">
+                <Link href="/about" className="footer-link hover:text-white">
                   Vision, Values &amp; Commitments
                 </Link>
                 <Link href="/leadership" className="footer-link hover:text-white">
@@ -110,7 +110,7 @@ export function SiteFooter() {
 
         <div className="hidden lg:block lg:flex-1" />
 
-        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-20 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-24">
+        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-24 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-24">
           <div className="min-w-0 md:col-span-1 lg:col-span-3">
             <Link href="/" className="inline-flex items-start">
               <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
@@ -143,10 +143,12 @@ export function SiteFooter() {
                 Terms of Use
               </Link>
             </nav>
+
+            <p className="mt-12 text-xs font-semibold text-white/85 md:mt-10">© {new Date().getFullYear()} {site.name}</p>
           </div>
 
-          <div className="flex min-w-0 flex-col items-center md:col-span-1 md:items-start lg:col-span-3 lg:pl-10">
-            <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-start">
+          <div className="flex min-w-0 flex-col items-center md:col-span-1 md:items-end lg:col-span-3 lg:pl-10">
+            <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-end">
               <a
                 className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
                 style={{ borderRadius: 9999, clipPath: 'circle(50% at 50% 50%)' }}
@@ -196,7 +198,6 @@ export function SiteFooter() {
                 </svg>
               </a>
             </div>
-            <p className="mt-12 text-xs font-semibold text-white/85">© {new Date().getFullYear()} {site.name}</p>
           </div>
         </div>
       </Container>
