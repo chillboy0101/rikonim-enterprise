@@ -108,6 +108,8 @@ export function SiteFooter() {
 
         <div className="mt-12 h-px w-full bg-white/20 md:my-2" />
 
+        <div className="hidden md:block md:flex-1" />
+
         <div className="grid gap-10 pb-20 pt-8 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24 lg:gap-x-20">
           <div className="min-w-0 md:col-span-3">
             <Link href="/" className="inline-flex items-start">

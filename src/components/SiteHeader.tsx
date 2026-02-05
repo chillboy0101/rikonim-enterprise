@@ -138,6 +138,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState<keyof typeof megaMenu | null>(null);
   const [mobileMenuExpanded, setMobileMenuExpanded] = useState<string | null>(null);
+  const [mobileMenuSelected, setMobileMenuSelected] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const [hoveringHeader, setHoveringHeader] = useState(false);
   const [hasHero, setHasHero] = useState(true);
@@ -182,6 +183,7 @@ export function SiteHeader() {
     setMenuOpen(false);
     setMegaOpen(null);
     setMobileMenuExpanded(null);
+    setMobileMenuSelected(null);
   }, [pathname]);
 
   useLayoutEffect(() => {
@@ -406,6 +408,7 @@ export function SiteHeader() {
     setMegaOpen(null);
     setMenuOpen(true);
     setMobileMenuExpanded(null);
+    setMobileMenuSelected(null);
 
     await loadFeaturedProjects();
   };
@@ -939,7 +942,7 @@ export function SiteHeader() {
                                 { href: '/projects', label: 'Markets' },
                                 { href: '/projects', label: 'Regions' }
                               ]
-                            : mega?.cards?.map((c) => ({ href: mega.cta.href, label: c.title })) ?? [];
+                            : mega?.cards?.map((c) => ({ href: c.href, label: c.title })) ?? [];
 
                         return (
                           <div key={n.href} className="border-b border-brand-ink/10">
@@ -974,18 +977,37 @@ export function SiteHeader() {
 
                             {expanded && children.length ? (
                               <div className="pb-5 pl-4">
-                                <div className="grid gap-3">
-                                  {children.map((c) => (
-                                    <Link
-                                      key={c.label}
-                                      href={c.href}
-                                      className="text-sm font-semibold text-brand-ink/80 hover:text-brand-ink"
-                                      onClick={() => setMenuOpen(false)}
-                                    >
-                                      {c.label}
-                                    </Link>
-                                  ))}
-                                </div>
+                                <ul className="grid gap-3">
+                                  {children.map((c) => {
+                                    const key = `${n.href}:${c.href}:${c.label}`;
+                                    const selected = mobileMenuSelected === key;
+                                    return (
+                                      <li key={key}>
+                                        <Link
+                                          href={c.href}
+                                          className={`flex items-center gap-3 text-sm font-semibold transition ${
+                                            selected
+                                              ? 'text-brand-orange'
+                                              : 'text-brand-ink/80 hover:text-brand-ink'
+                                          }`}
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            setMobileMenuSelected(key);
+                                            window.setTimeout(() => {
+                                              setMenuOpen(false);
+                                              setMobileMenuExpanded(null);
+                                              setMobileMenuSelected(null);
+                                              router.push(c.href);
+                                            }, 140);
+                                          }}
+                                        >
+                                          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
+                                          <span>{c.label}</span>
+                                        </Link>
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
                               </div>
                             ) : null}
                           </div>

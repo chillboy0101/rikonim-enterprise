@@ -28,7 +28,7 @@ export default async function HomePage() {
         </video>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/35 to-brand-ink/80" />
         <Container className="relative">
-          <div className="grid min-h-[80vh] gap-10 py-14 md:min-h-[88vh] md:grid-cols-12 md:items-center md:py-20">
+          <div className="grid min-h-[84vh] gap-10 py-14 md:min-h-[88vh] md:grid-cols-12 md:items-center md:py-20">
             <div className="md:col-span-7">
               <p className="text-sm font-semibold tracking-[0.16em] text-white/75 md:text-base">
                 {site.tagline}
