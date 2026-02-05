@@ -11,7 +11,7 @@ export function SiteFooter() {
 
   return (
     <footer className="overflow-x-hidden bg-brand-blueDark text-white subpixel-antialiased">
-      <Container className="flex flex-col md:min-h-screen">
+      <Container className="flex flex-col lg:min-h-screen">
         <div className="grid gap-y-14 pt-20 md:grid-cols-12 md:gap-x-16 lg:gap-x-20">
           <nav
             className="grid min-w-0 gap-y-14 sm:grid-cols-2 md:col-span-9 md:grid-cols-[1.25fr_1fr_1fr_1fr] md:gap-x-16 lg:gap-x-20"
@@ -104,20 +104,20 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="hidden md:block md:flex-1" />
+        <div className="hidden lg:block lg:flex-1" />
 
-        <div className="mt-12 h-px w-full bg-white/20 md:my-2" />
+        <div className="mt-12 h-px w-full bg-white/20 md:my-6 lg:my-2" />
 
-        <div className="hidden md:block md:flex-1" />
+        <div className="hidden lg:block lg:flex-1" />
 
-        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-12 md:items-start md:gap-x-16 md:py-24 lg:gap-x-20">
-          <div className="min-w-0 md:col-span-3">
+        <div className="grid gap-10 pb-20 pt-8 md:grid-cols-2 md:gap-x-12 md:py-20 lg:grid-cols-12 lg:items-start lg:gap-x-16 lg:py-24">
+          <div className="min-w-0 md:col-span-1 lg:col-span-3">
             <Link href="/" className="inline-flex items-start">
               <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
             </Link>
           </div>
 
-          <div className="min-w-0 md:col-span-3">
+          <div className="min-w-0 md:col-span-1 lg:col-span-3">
             <div className="flex flex-col gap-2 text-base font-semibold leading-6 text-white/90 sm:text-lg sm:leading-7">
               {phoneParts.map((p) => (
                 <a
@@ -134,7 +134,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="min-w-0 md:col-span-3">
+          <div className="min-w-0 md:col-span-1 lg:col-span-3">
             <nav className="flex flex-col gap-5 text-sm font-semibold text-white/90 md:text-[15px]" aria-label="legal navigation">
               <Link className="footer-link hover:text-white" href="/privacy-policy">
                 Privacy Policy
@@ -145,7 +145,7 @@ export function SiteFooter() {
             </nav>
           </div>
 
-          <div className="flex min-w-0 flex-col items-center md:col-span-3 md:items-start md:pl-10">
+          <div className="flex min-w-0 flex-col items-center md:col-span-1 md:items-start lg:col-span-3 lg:pl-10">
             <div className="flex w-full items-center justify-center gap-3 md:w-auto md:justify-start">
               <a
                 className="inline-flex aspect-square h-11 w-11 shrink-0 items-center justify-center overflow-hidden !rounded-full bg-white text-brand-blueDark transition-all duration-200 hover:bg-white hover:text-brand-orange hover:shadow-[0_0_28px_rgba(246,127,36,0.65)] hover:ring-4 hover:ring-brand-orange/25 focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-orange/25"
