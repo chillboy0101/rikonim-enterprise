@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BrandLogo } from '@/components/BrandLogo';
 import { Container } from '@/components/layout/Container';
 
@@ -132,7 +132,7 @@ const megaMenu = {
 export function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
-  const [solid, setSolid] = useState(true);
+  const [solid, setSolid] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -140,7 +140,7 @@ export function SiteHeader() {
   const [mobileMenuExpanded, setMobileMenuExpanded] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
   const [hoveringHeader, setHoveringHeader] = useState(false);
-  const [hasHero, setHasHero] = useState(false);
+  const [hasHero, setHasHero] = useState(true);
   const [headerOffset, setHeaderOffset] = useState(72);
   const [featuredProjects, setFeaturedProjects] = useState<
     Array<{
@@ -162,6 +162,21 @@ export function SiteHeader() {
   const overlayLockedHeaderPaddingRight = useRef('');
   const isHome = pathname === '/';
 
+  const syncHeroState = () => {
+    const hero = document.getElementById('home-hero') || document.getElementById('page-hero');
+    setHasHero(!!hero);
+
+    const headerEl = headerRef.current;
+    if (!hero || !headerEl) {
+      setSolid(true);
+      return;
+    }
+
+    const headerHeight = headerEl.getBoundingClientRect().height;
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    setSolid(heroBottom <= headerHeight + 1);
+  };
+
   useEffect(() => {
     setSearchOpen(false);
     setMenuOpen(false);
@@ -169,22 +184,13 @@ export function SiteHeader() {
     setMobileMenuExpanded(null);
   }, [pathname]);
 
-  useEffect(() => {
-    let raf = 0;
-    const measureHero = () => {
-      if (raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const hero = document.getElementById('home-hero') || document.getElementById('page-hero');
-        setHasHero(!!hero);
-      });
-    };
-
-    measureHero();
-    window.addEventListener('resize', measureHero);
+  useLayoutEffect(() => {
+    syncHeroState();
+    window.addEventListener('resize', syncHeroState);
     return () => {
-      window.removeEventListener('resize', measureHero);
-      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('resize', syncHeroState);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
