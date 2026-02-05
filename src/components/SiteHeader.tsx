@@ -195,7 +195,7 @@ export function SiteHeader() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const anyOverlayOpen = searchOpen || menuOpen || !!megaOpen;
     const wasLocked = anyOverlayOpen;
 
@@ -479,13 +479,12 @@ export function SiteHeader() {
             >
               {nav.map((n) => {
                 const active = isHome ? n.href === activeHref : false;
-                const isOpen = megaOpen === (n.href as keyof typeof megaMenu);
                 return (
                   <button
                     key={n.href}
                     type="button"
                     aria-haspopup="dialog"
-                    aria-expanded={isOpen}
+                    aria-expanded={megaOpen === (n.href as keyof typeof megaMenu)}
                     onMouseEnter={() => {
                       if (megaCloseTimeout.current) {
                         window.clearTimeout(megaCloseTimeout.current);
@@ -511,9 +510,7 @@ export function SiteHeader() {
                       }
                       setSearchOpen(false);
                       setMenuOpen(false);
-                      setMegaOpen((prev) =>
-                        prev === (n.href as keyof typeof megaMenu) ? null : (n.href as keyof typeof megaMenu)
-                      );
+                      setMegaOpen(n.href as keyof typeof megaMenu);
                     }}
                     className={`relative !outline-0 focus:!outline-0 focus-visible:!outline-0 focus-visible:!outline-offset-0 hover:!shadow-none focus:!shadow-none focus-visible:!shadow-none focus:!ring-0 focus-visible:!ring-0 focus:!ring-offset-0 focus-visible:!ring-offset-0 focus-visible:after:scale-x-100 text-[13px] font-semibold uppercase tracking-[0.12em] transition after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-brand-orange after:transition after:duration-200 hover:after:scale-x-100 ${
                       heroTransparent
@@ -525,19 +522,7 @@ export function SiteHeader() {
                           : 'text-brand-steel hover:text-brand-ink'
                     }`}
                   >
-                    <span className="inline-flex items-center gap-2">
-                      <span>{n.label}</span>
-                      <svg
-                        aria-hidden="true"
-                        viewBox="0 0 24 24"
-                        className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </span>
+                    {n.label}
                   </button>
                 );
               })}
@@ -885,7 +870,7 @@ export function SiteHeader() {
 
       {menuOpen ? (
         <>
-          <div className="fixed inset-0 z-[60] bg-white md:hidden">
+          <div className="fixed inset-0 z-[60] bg-white lg:hidden">
             <div className="flex h-full flex-col">
               <div className="border-b border-brand-ink/10">
                 <Container>
@@ -961,10 +946,10 @@ export function SiteHeader() {
 
                         return (
                           <div key={n.href} className="border-b border-brand-ink/10">
-                            <div className="flex items-center justify-between py-5">
+                            <div className="flex items-center">
                               <Link
                                 href={n.href}
-                                className="text-base font-semibold text-brand-orange"
+                                className="block flex-1 py-5 text-base font-semibold text-brand-orange"
                                 onClick={() => setMenuOpen(false)}
                               >
                                 {n.label}
@@ -975,7 +960,11 @@ export function SiteHeader() {
                                 className="inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-orange transition hover:bg-brand-orange/10"
                                 aria-label={expanded ? `Collapse ${n.label}` : `Expand ${n.label}`}
                                 aria-expanded={expanded}
-                                onClick={() => setMobileMenuExpanded((prev) => (prev === n.href ? null : n.href))}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setMobileMenuExpanded((prev) => (prev === n.href ? null : n.href));
+                                }}
                               >
                                 <svg
                                   aria-hidden="true"
@@ -1036,14 +1025,14 @@ export function SiteHeader() {
           </div>
 
           <div
-            className="fixed inset-0 z-40 hidden bg-white md:block"
+            className="fixed inset-0 z-40 hidden overscroll-contain overflow-y-auto bg-white lg:block"
             style={{ top: headerOffset }}
           >
             <Container>
               <div className="grid gap-10 py-10 md:grid-cols-12">
                 <div className="md:col-span-4">
                   <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Navigation</p>
-                  <div className="mt-6 grid gap-2 border-t border-brand-ink/10 pt-6">
+                  <div className="mt-6 border-t border-brand-ink/10 pt-6">
                     {nav.map((n) => {
                       const expanded = mobileMenuExpanded === n.href;
                       const mega = megaMenu[n.href as keyof typeof megaMenu];
@@ -1057,11 +1046,11 @@ export function SiteHeader() {
                           : mega?.cards?.map((c) => ({ href: c.href, label: c.title })) ?? [];
 
                       return (
-                        <div key={n.href} className="rounded-xl border border-brand-ink/10 bg-white">
-                          <div className="flex items-center justify-between gap-3 px-4 py-3">
+                        <div key={n.href} className="border-b border-brand-ink/10">
+                          <div className="flex items-center">
                             <Link
                               href={n.href}
-                              className="flex-1 text-base font-semibold text-brand-ink"
+                              className="block flex-1 py-4 text-base font-semibold text-brand-orange"
                               onClick={() => setMenuOpen(false)}
                             >
                               {n.label}
@@ -1069,10 +1058,14 @@ export function SiteHeader() {
 
                             <button
                               type="button"
-                              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-ink/60 transition hover:bg-brand-ink/5 hover:text-brand-ink"
+                              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-brand-orange transition hover:bg-brand-orange/10"
                               aria-label={expanded ? `Collapse ${n.label}` : `Expand ${n.label}`}
                               aria-expanded={expanded}
-                              onClick={() => setMobileMenuExpanded((prev) => (prev === n.href ? null : n.href))}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setMobileMenuExpanded((prev) => (prev === n.href ? null : n.href));
+                              }}
                             >
                               <svg
                                 aria-hidden="true"
@@ -1088,39 +1081,43 @@ export function SiteHeader() {
                           </div>
 
                           {expanded && children.length ? (
-                            <div className="pb-4 pl-4 pr-4">
+                            <div className="pb-5 pl-4">
                               <ul className="grid gap-3">
-                                {children.map((c) => (
-                                  <li key={`${n.href}:${c.href}:${c.label}`}>
-                                    <Link
-                                      href={c.href}
-                                      className="flex items-center gap-3 text-sm font-semibold text-brand-ink/80 transition hover:text-brand-ink"
-                                      onClick={() => setMenuOpen(false)}
-                                    >
-                                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
-                                      <span>{c.label}</span>
-                                    </Link>
-                                  </li>
-                                ))}
+                                {children.map((c) => {
+                                  const key = `${n.href}:${c.href}:${c.label}`;
+                                  const selected = mobileMenuSelected === key;
+                                  return (
+                                    <li key={key}>
+                                      <Link
+                                        href={c.href}
+                                        className={`flex items-center gap-3 text-sm font-semibold transition ${
+                                          selected
+                                            ? 'text-brand-orange'
+                                            : 'text-brand-ink/80 hover:text-brand-ink'
+                                        }`}
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          setMobileMenuSelected(key);
+                                          window.setTimeout(() => {
+                                            setMenuOpen(false);
+                                            setMobileMenuExpanded(null);
+                                            setMobileMenuSelected(null);
+                                            router.push(c.href);
+                                          }, 140);
+                                        }}
+                                      >
+                                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
+                                        <span>{c.label}</span>
+                                      </Link>
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             </div>
                           ) : null}
                         </div>
                       );
                     })}
-                  </div>
-
-                  <div className="mt-10 border-t border-brand-ink/10 pt-6">
-                    <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Quick links</p>
-                    <div className="mt-4 grid gap-3">
-                      <button
-                        type="button"
-                        className="text-left text-sm font-semibold text-brand-blue hover:underline"
-                        onClick={openSearch}
-                      >
-                        Search
-                      </button>
-                    </div>
                   </div>
                 </div>
 

@@ -1,17 +1,10 @@
 import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
 import type { ReactNode } from 'react';
 import './globals.css';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import { site } from '@/lib/site';
 import { getSiteUrl } from '@/lib/siteUrl';
-
-const fontSans = Manrope({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-sans'
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -81,7 +74,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={fontSans.variable}>
+    <html lang="en">
       <body>
         <script
           type="application/ld+json"

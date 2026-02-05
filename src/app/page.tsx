@@ -28,7 +28,7 @@ export default async function HomePage() {
         </video>
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-brand-ink/35 to-brand-ink/80" />
         <Container className="relative">
-          <div className="grid min-h-[84vh] gap-10 py-14 md:min-h-[88vh] md:items-start md:pb-20 md:pt-16 lg:grid-cols-12 lg:items-center lg:py-20">
+          <div className="grid min-h-[calc(100svh-76px)] gap-10 py-14 md:min-h-[calc(100svh-84px)] md:items-start md:pb-20 md:pt-16 lg:grid-cols-12 lg:items-center lg:py-20">
             <div className="lg:col-span-7">
               <p className="text-sm font-semibold tracking-[0.16em] text-white/75 md:text-base">
                 {site.tagline}
@@ -39,7 +39,7 @@ export default async function HomePage() {
               </h1>
             </div>
 
-            <div className="mt-10 md:mt-0 md:self-end md:justify-self-center md:translate-y-16 lg:col-span-5 lg:justify-self-end lg:translate-y-14">
+            <div className="mt-10 md:mt-0 md:self-end md:justify-self-center md:translate-y-16 lg:col-span-5 lg:justify-self-center lg:-translate-x-6 lg:translate-y-10 xl:translate-x-0 xl:translate-y-14 xl:justify-self-end">
               <FeaturedProjectCarousel />
             </div>
           </div>

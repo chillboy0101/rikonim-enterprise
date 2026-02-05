@@ -116,7 +116,7 @@ export function FeaturedProjectCarousel() {
 
   return (
     <div
-      className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[460px] lg:mx-0 lg:ml-auto lg:max-w-[360px]"
+      className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[380px] xl:mx-0 xl:ml-auto xl:max-w-[320px]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -128,9 +128,9 @@ export function FeaturedProjectCarousel() {
         type="button"
         aria-label="Previous"
         onClick={prev}
-        className="absolute left-[-44px] top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white/90 shadow-[0_16px_40px_rgba(11,18,32,0.25)] ring-1 ring-white/20 backdrop-blur-sm transition hover:bg-white/25 hover:text-white sm:inline-flex"
+        className="absolute left-2 top-1/2 z-30 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white/90 shadow-[0_16px_40px_rgba(11,18,32,0.25)] ring-1 ring-white/20 backdrop-blur-sm transition hover:bg-white/25 hover:text-white sm:left-[-32px] sm:h-12 sm:w-12"
       >
-        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="3">
+        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-7 w-7 sm:h-8 sm:w-8" fill="none" stroke="currentColor" strokeWidth="3">
           <path d="M14 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
@@ -195,9 +195,9 @@ export function FeaturedProjectCarousel() {
         type="button"
         aria-label="Next"
         onClick={next}
-        className="absolute right-[-44px] top-1/2 z-30 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white/90 shadow-[0_16px_40px_rgba(11,18,32,0.25)] ring-1 ring-white/20 backdrop-blur-sm transition hover:bg-white/25 hover:text-white sm:inline-flex"
+        className="absolute right-2 top-1/2 z-30 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/15 text-white/90 shadow-[0_16px_40px_rgba(11,18,32,0.25)] ring-1 ring-white/20 backdrop-blur-sm transition hover:bg-white/25 hover:text-white sm:right-[-32px] sm:h-12 sm:w-12"
       >
-        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="3">
+        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-7 w-7 sm:h-8 sm:w-8" fill="none" stroke="currentColor" strokeWidth="3">
           <path d="M10 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
