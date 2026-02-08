@@ -6,8 +6,17 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { site } from '@/lib/site';
 import { getSiteUrl } from '@/lib/siteUrl';
 
+const verificationOther: Record<string, string> = {};
+
+if (process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION) {
+  verificationOther['msvalidate.01'] = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  alternates: {
+    canonical: '/'
+  },
   title: {
     default: `${site.name} | ${site.tagline} in ${site.headquarters}`,
     template: `%s | ${site.name}`
@@ -47,6 +56,10 @@ export const metadata: Metadata = {
     title: `${site.name} | ${site.tagline} in ${site.headquarters}`,
     description: site.overview,
     images: ['/brand/logo.png']
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    other: verificationOther
   }
 };
 

@@ -3,7 +3,11 @@ export function getSiteUrl() {
   if (fromEnv && fromEnv.startsWith('http')) return fromEnv.replace(/\/$/, '');
 
   const vercelUrl = process.env.VERCEL_URL;
-  if (vercelUrl) return `https://${vercelUrl}`;
+  if (vercelUrl) {
+    const isProd = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
+    if (isProd) return 'https://www.rikonim.com';
+    return `https://${vercelUrl}`;
+  }
 
   return 'http://localhost:3000';
 }
