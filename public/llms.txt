@@ -1,0 +1,22 @@
+# Rikonim Enterprise
+
+## Website
+https://www.rikonim.com/
+
+## What we do
+Rikonim Enterprise is a building and civil engineering company headquartered in Accra, Ghana. We deliver construction, infrastructure, and engineering services for public and private sector clients.
+
+## Key pages
+- Services: https://www.rikonim.com/services
+- Projects: https://www.rikonim.com/projects
+- Company: https://www.rikonim.com/about
+- Leadership: https://www.rikonim.com/leadership
+- Contact: https://www.rikonim.com/contact
+
+## Sitemap
+https://www.rikonim.com/sitemap.xml
+
+## Contact
+Email: info@rikonim.com
+Phone: +233243549376 / +233203251631
+Location: Accra, Ghana
