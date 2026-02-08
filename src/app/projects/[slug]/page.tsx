@@ -98,7 +98,11 @@ export default async function ProjectDetailPage({ params }: Props) {
                 {!project.video && project.image ? (
                   <div className="mb-7 overflow-hidden border border-brand-ink/10 bg-brand-mist">
                     <div className="aspect-[16/7]">
-                      <img src={project.image} alt="" className="h-full w-full object-cover" />
+                      <img
+                        src={project.image}
+                        alt={`${project.title} project image`}
+                        className="h-full w-full object-cover"
+                      />
                     </div>
                   </div>
                 ) : null}

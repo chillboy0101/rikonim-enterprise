@@ -207,7 +207,7 @@ export default async function HomePage() {
                     {p.image ? (
                       <img
                         src={p.image}
-                        alt=""
+                        alt={`${p.title} project`}
                         className="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                       />
                     ) : null}

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     canonical: '/'
   },
   title: {
-    default: `${site.name} | ${site.tagline} in ${site.headquarters}`,
+    default: `${site.name} | Construction Company in Ghana`,
     template: `%s | ${site.name}`
   },
   description: site.overview,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     apple: [{ url: '/brand/logo.png' }]
   },
   openGraph: {
-    title: `${site.name} | ${site.tagline} in ${site.headquarters}`,
+    title: `${site.name} | Construction Company in Ghana`,
     description: site.overview,
     type: 'website',
     url: '/',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} | ${site.tagline} in ${site.headquarters}`,
+    title: `${site.name} | Construction Company in Ghana`,
     description: site.overview,
     images: ['/brand/logo.png']
   },

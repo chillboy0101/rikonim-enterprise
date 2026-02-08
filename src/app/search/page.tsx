@@ -223,7 +223,11 @@ export default async function SearchPage({ searchParams }: Props) {
               >
                 <div className="aspect-[4/3] w-full bg-brand-mist">
                   {r.image ? (
-                    <img src={r.image} alt="" className="h-full w-full object-cover" />
+                    <img
+                      src={r.image}
+                      alt={`${r.title} image`}
+                      className="h-full w-full object-cover"
+                    />
                   ) : null}
                 </div>
                 <div className="p-6">

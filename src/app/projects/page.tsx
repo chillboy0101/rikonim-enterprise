@@ -33,7 +33,7 @@ function ProjectMedia({
       aria-label={`Open project ${title}`}
     >
       <div className="relative aspect-[16/7]">
-        <img src={image} alt="" className="h-full w-full object-cover" />
+        <img src={image} alt={`${title} project image`} className="h-full w-full object-cover" />
         {hasVideo ? (
           <>
             <div className="absolute left-4 top-4 rounded-full bg-brand-blueDark/90 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-white">

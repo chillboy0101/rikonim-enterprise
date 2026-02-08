@@ -58,7 +58,7 @@ export default function LeadershipPage() {
                       {l.image ? (
                         <img
                           src={l.image}
-                          alt=""
+                          alt={`${l.name} — ${l.role}`}
                           className="h-full w-full object-cover"
                           loading="lazy"
                           decoding="async"

@@ -115,7 +115,7 @@ export default function AboutPage() {
                     <div className="aspect-[4/5] w-full">
                       <img
                         src="/uploads/company-1.jpeg"
-                        alt=""
+                        alt="Rikonim Enterprise company image"
                         className="h-full w-full object-cover"
                         loading="lazy"
                         decoding="async"
@@ -128,7 +128,7 @@ export default function AboutPage() {
                     <div className="aspect-[16/10] w-full">
                       <img
                         src="/uploads/company-3.jpeg"
-                        alt=""
+                        alt="Rikonim Enterprise project delivery image"
                         className="h-full w-full object-cover"
                         loading="lazy"
                         decoding="async"

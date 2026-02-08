@@ -825,7 +825,13 @@ export function SiteHeader() {
                           onClick={() => setMegaOpen(null)}
                         >
                           <div className="aspect-[4/3] w-full bg-brand-mist">
-                            {p.image ? <img src={p.image} alt="" className="h-full w-full object-cover" /> : null}
+                            {p.image ? (
+                              <img
+                                src={p.image}
+                                alt={`${p.title} project`}
+                                className="h-full w-full object-cover"
+                              />
+                            ) : null}
                           </div>
                           <div className="p-5">
                             <p className="text-[11px] font-semibold tracking-[0.14em] text-brand-steel">
@@ -850,7 +856,13 @@ export function SiteHeader() {
                         onClick={() => setMegaOpen(null)}
                       >
                         <div className="aspect-[4/3] w-full bg-brand-mist">
-                          {card.image ? <img src={card.image} alt="" className="h-full w-full object-cover" /> : null}
+                          {card.image ? (
+                            <img
+                              src={card.image}
+                              alt={`${card.title} image`}
+                              className="h-full w-full object-cover"
+                            />
+                          ) : null}
                         </div>
                         <div className="p-5">
                           <p className="text-base font-semibold text-brand-ink group-hover:text-brand-orange">
@@ -1153,7 +1165,11 @@ export function SiteHeader() {
                       >
                         <div className="aspect-[4/3] w-full bg-brand-mist">
                           {p.image ? (
-                            <img src={p.image} alt="" className="h-full w-full object-cover" />
+                            <img
+                              src={p.image}
+                              alt={`${p.title} project`}
+                              className="h-full w-full object-cover"
+                            />
                           ) : null}
                         </div>
                         <div className="p-5">

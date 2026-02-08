@@ -139,7 +139,11 @@ export function FeaturedProjectCarousel() {
         <div className="p-5 sm:p-6">
           <div className="aspect-video overflow-hidden bg-brand-mist">
             {current.image ? (
-              <img src={current.image} alt="" className="h-full w-full object-cover" />
+              <img
+                src={current.image}
+                alt={`${current.title} project image`}
+                className="h-full w-full object-cover"
+              />
             ) : (
               <div className="h-full w-full" />
             )}
