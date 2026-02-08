@@ -14,9 +14,6 @@ if (process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION) {
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  alternates: {
-    canonical: '/'
-  },
   title: {
     default: `${site.name} | Construction Company in Ghana`,
     template: `%s | ${site.name}`
@@ -33,9 +30,13 @@ export const metadata: Metadata = {
     site.name
   ],
   icons: {
-    icon: [{ url: '/favicon.png', type: 'image/png' }],
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png' }
+    ],
     apple: [{ url: '/brand/logo.png' }]
   },
+  manifest: '/site.webmanifest',
   openGraph: {
     title: `${site.name} | Construction Company in Ghana`,
     description: site.overview,
