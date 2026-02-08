@@ -1,6 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#F67F24"/>
-  <path d="M18 34l14-12 14 12v16H18V34z" fill="#0B1220" opacity="0.95"/>
-  <path d="M26 50V36h12v14" fill="#ffffff" opacity="0.95"/>
-  <path d="M16 34l16-14 16 14" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+  <image
+    href="/brand/logo.png"
+    xlink:href="/brand/logo.png"
+    x="0"
+    y="0"
+    width="512"
+    height="512"
+    preserveAspectRatio="xMidYMid meet"
+  />
 </svg>
