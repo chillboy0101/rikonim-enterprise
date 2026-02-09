@@ -67,9 +67,14 @@ export async function GET(request: Request) {
       (function () {
         var token = ${JSON.stringify(token)};
         var payload = JSON.stringify({ token: token, provider: 'github' });
+        var msg = 'authorization:github:success:' + payload;
         if (window.opener) {
-          window.opener.postMessage('authorization:github:success:' + payload, '*');
-          window.close();
+          try {
+            window.opener.postMessage(msg, '*');
+            setTimeout(function () { window.opener.postMessage(msg, '*'); }, 150);
+            setTimeout(function () { window.opener.postMessage(msg, '*'); }, 350);
+          } catch (e) {}
+          setTimeout(function () { window.close(); }, 500);
         } else {
           document.body.innerText = 'Authorization complete. You can close this window.';
         }
