@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getSiteUrl } from '@/lib/siteUrl';
 
 function getRequiredEnv(name: string) {
   const v = process.env[name];
@@ -13,13 +14,19 @@ function randomState() {
 export async function GET(request: Request) {
   try {
     const url = new URL(request.url);
-    const origin = url.origin;
-    const isHttps = url.protocol === 'https:';
+    const siteUrl = getSiteUrl();
+    const siteOrigin = new URL(siteUrl).origin;
+
+    if (url.origin !== siteOrigin) {
+      return NextResponse.redirect(`${siteOrigin}${url.pathname}${url.search}`);
+    }
+
+    const isHttps = siteOrigin.startsWith('https:');
 
     const clientId = getRequiredEnv('GITHUB_CLIENT_ID');
     const state = randomState();
 
-    const redirectUri = `${origin}/api/callback`;
+    const redirectUri = `${siteOrigin}/api/callback`;
 
     const authorizeUrl = new URL('https://github.com/login/oauth/authorize');
     authorizeUrl.searchParams.set('client_id', clientId);

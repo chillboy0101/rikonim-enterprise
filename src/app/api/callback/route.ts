@@ -66,9 +66,8 @@ export async function GET(request: Request) {
     <script>
       (function () {
         var token = ${JSON.stringify(token)};
-        var targetOrigin = window.location.origin;
         if (window.opener) {
-          window.opener.postMessage('authorization:github:' + token, targetOrigin);
+          window.opener.postMessage('authorization:github:' + token, '*');
           window.close();
         } else {
           document.body.innerText = 'Authorization complete. You can close this window.';
