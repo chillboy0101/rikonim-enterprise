@@ -23,8 +23,17 @@ export async function GET(request: Request) {
     return new NextResponse('Invalid OAuth state.', { status: 400 });
   }
 
-  const clientId = getRequiredEnv('GITHUB_CLIENT_ID');
-  const clientSecret = getRequiredEnv('GITHUB_CLIENT_SECRET');
+  let clientId = '';
+  let clientSecret = '';
+  try {
+    clientId = getRequiredEnv('GITHUB_CLIENT_ID');
+    clientSecret = getRequiredEnv('GITHUB_CLIENT_SECRET');
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    return new NextResponse(`Decap CMS auth misconfigured: ${message}`, {
+      status: 500
+    });
+  }
 
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
