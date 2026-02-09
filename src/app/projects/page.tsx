@@ -17,14 +17,16 @@ function ProjectMedia({
   title,
   href,
   image,
+  video,
   hasVideo
 }: {
   title: string;
   href: string;
   image?: string;
+  video?: string;
   hasVideo: boolean;
 }) {
-  if (!image) return null;
+  if (!image && !video) return null;
 
   return (
     <Link
@@ -33,7 +35,20 @@ function ProjectMedia({
       aria-label={`Open project ${title}`}
     >
       <div className="relative aspect-[16/7]">
-        <img src={image} alt={`${title} project image`} className="h-full w-full object-cover" />
+        {image ? (
+          <img src={image} alt={`${title} project image`} className="h-full w-full object-cover" />
+        ) : (
+          <video
+            className="h-full w-full object-cover"
+            preload="metadata"
+            muted
+            playsInline
+            autoPlay
+            loop
+          >
+            <source src={video} type="video/mp4" />
+          </video>
+        )}
         {hasVideo ? (
           <>
             <div className="absolute left-4 top-4 rounded-full bg-brand-blueDark/90 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-white">
@@ -111,6 +126,7 @@ export default async function ProjectsPage() {
                         title={p.title}
                         href={`/projects/${p.slug}`}
                         image={p.image}
+                        video={p.video}
                         hasVideo={Boolean(p.video)}
                       />
                       {p.summary ? (
@@ -133,6 +149,7 @@ export default async function ProjectsPage() {
                         title={p.title}
                         href={`/projects/${p.slug}`}
                         image={p.image}
+                        video={p.video}
                         hasVideo={Boolean(p.video)}
                       />
                       {p.summary ? (
@@ -183,6 +200,7 @@ export default async function ProjectsPage() {
                           title={p.title}
                           href={`/projects/${p.slug}`}
                           image={p.image}
+                          video={p.video}
                           hasVideo={Boolean(p.video)}
                         />
                       </div>

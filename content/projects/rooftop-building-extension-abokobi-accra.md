@@ -4,7 +4,6 @@ location: Abokobi, Accra, Ghana
 year: 2026
 status: Ongoing
 summary: Rooftop extension works in Abokobi, Accra—structural upgrades and finishing works delivered with disciplined planning, safety, and quality controls.
-image: https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=2400
 video: /uploads/projects/rooftop-building-extension-abokobi-accra.mp4
 ---
 
