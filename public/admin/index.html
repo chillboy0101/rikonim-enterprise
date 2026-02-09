@@ -7,6 +7,15 @@
     <title>Content Manager</title>
   </head>
   <body>
+    <script>
+      (function () {
+        if (window.location.hostname === 'rikonim.com') {
+          window.location.replace(
+            'https://www.rikonim.com' + window.location.pathname + window.location.search + window.location.hash
+          );
+        }
+      })();
+    </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       window.addEventListener('message', function (e) {
