@@ -9,6 +9,21 @@ const nextConfig = {
       }
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'rikonim.com'
+          }
+        ],
+        destination: 'https://www.rikonim.com/:path*',
+        permanent: true
+      }
+    ];
+  },
   async rewrites() {
     return [
       {
