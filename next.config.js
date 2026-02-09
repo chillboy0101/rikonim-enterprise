@@ -9,10 +9,19 @@ const nextConfig = {
       }
     ]
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: '/admin',
+        destination: '/admin/',
+        permanent: false
+      }
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/admin/',
         destination: '/admin/index.html'
       }
     ];
