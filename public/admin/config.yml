@@ -1,11 +1,11 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_ORG_OR_USER/YOUR_REPO
+  repo: chillboy0101/rikonim-enterprise
   branch: main
-  base_url: http://localhost:3000
+  base_url: https://www.rikonim.com
   auth_endpoint: api/auth
 
-local_backend: true
+local_backend: false
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
