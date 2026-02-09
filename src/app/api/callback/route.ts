@@ -66,8 +66,9 @@ export async function GET(request: Request) {
     <script>
       (function () {
         var token = ${JSON.stringify(token)};
+        var payload = JSON.stringify({ token: token, provider: 'github' });
         if (window.opener) {
-          window.opener.postMessage('authorization:github:' + token, '*');
+          window.opener.postMessage('authorization:github:success:' + payload, '*');
           window.close();
         } else {
           document.body.innerText = 'Authorization complete. You can close this window.';
