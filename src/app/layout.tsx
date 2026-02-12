@@ -14,6 +14,9 @@ if (process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION) {
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  alternates: {
+    canonical: '/'
+  },
   title: {
     default: `${site.name} | Construction Company in Ghana`,
     template: `%s | ${site.name}`
