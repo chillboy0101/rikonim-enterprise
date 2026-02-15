@@ -12,6 +12,7 @@ type Props = {
 export function ProjectVideoPlayer({ src, poster, className, buttonPlacement = 'center' }: Props) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const syncPlayingState = useCallback(() => {
     const video = videoRef.current;
@@ -24,6 +25,12 @@ export function ProjectVideoPlayer({ src, poster, className, buttonPlacement = '
     if (!video) return;
 
     try {
+      if (!isLoaded) {
+        setIsLoaded(true);
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+        video.load();
+      }
+
       if (video.paused || video.ended) {
         await video.play();
       } else {
@@ -34,7 +41,7 @@ export function ProjectVideoPlayer({ src, poster, className, buttonPlacement = '
     } finally {
       syncPlayingState();
     }
-  }, [syncPlayingState]);
+  }, [isLoaded, syncPlayingState]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -65,12 +72,12 @@ export function ProjectVideoPlayer({ src, poster, className, buttonPlacement = '
       <video
         ref={videoRef}
         className="h-full w-full object-cover"
-        preload="metadata"
+        preload="none"
         playsInline
         poster={poster}
         onClick={togglePlay}
       >
-        <source src={src} type="video/mp4" />
+        {isLoaded ? <source src={src} type="video/mp4" /> : null}
       </video>
 
       <button

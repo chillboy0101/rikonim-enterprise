@@ -7,6 +7,8 @@ export type Project = {
   title: string;
   image?: string;
   video?: string;
+  video2?: string;
+  video2Poster?: string;
   draft?: boolean;
   location?: string;
   year?: string;
@@ -33,6 +35,8 @@ export async function getProjects(): Promise<Project[]> {
         title: String(parsed.data.title ?? slug),
         image: parsed.data.image ? String(parsed.data.image) : undefined,
         video: parsed.data.video ? String(parsed.data.video) : undefined,
+        video2: parsed.data.video2 ? String(parsed.data.video2) : undefined,
+        video2Poster: parsed.data.video2Poster ? String(parsed.data.video2Poster) : undefined,
         draft: Boolean(parsed.data.draft ?? false),
         location: parsed.data.location ? String(parsed.data.location) : undefined,
         year: parsed.data.year ? String(parsed.data.year) : undefined,

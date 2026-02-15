@@ -96,8 +96,8 @@ const defaultSite = {
     },
     {
       role: 'Project Director',
-      name: 'Ms. Gifty Sai-Odoi',
-      bio: 'Ms. Gifty Sai-Odoi leads project execution across planning, coordination, and site delivery. She works closely with clients and partners to manage scope, schedule, and cost controls while maintaining high standards in workmanship and documentation.',
+      name: 'Mrs Gifty Nimo Donkor',
+      bio: 'Mrs Gifty Nimo Donkor leads project execution across planning, coordination, and site delivery. She works closely with clients and partners to manage scope, schedule, and cost controls while maintaining high standards in workmanship and documentation.',
       highlights: [
         'Project planning and controls',
         'Site coordination and subcontract oversight',

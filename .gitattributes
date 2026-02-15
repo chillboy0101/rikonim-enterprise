@@ -1,0 +1,4 @@
+.tools/ffmpeg.zip filter=lfs diff=lfs merge=lfs -text
+.tools/ffmpeg/**/ffplay.exe filter=lfs diff=lfs merge=lfs -text
+.tools/ffmpeg/**/ffmpeg.exe filter=lfs diff=lfs merge=lfs -text
+.tools/ffmpeg/**/ffprobe.exe filter=lfs diff=lfs merge=lfs -text
