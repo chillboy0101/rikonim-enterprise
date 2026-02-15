@@ -57,7 +57,7 @@ export function FeaturedProjectCarousel() {
     }
 
     let rafId = 0;
-    let start = performance.now();
+    let elapsedMs = 0;
 
     const tick = (now: number) => {
       const last = lastTickRef.current;
@@ -68,8 +68,11 @@ export function FeaturedProjectCarousel() {
         return;
       }
 
-      const elapsed = now - start;
-      const nextProgress = Math.min(elapsed / AUTOPLAY_MS, 1);
+      const delta = last == null ? 0 : Math.max(0, now - last);
+      const cappedDelta = Math.min(delta, 50);
+      elapsedMs += cappedDelta;
+
+      const nextProgress = Math.min(elapsedMs / AUTOPLAY_MS, 1);
       setProgress(nextProgress);
 
       if (nextProgress >= 1) {
@@ -82,7 +85,7 @@ export function FeaturedProjectCarousel() {
 
         completeTimeoutRef.current = setTimeout(() => {
           completeHoldRef.current = false;
-          start = performance.now();
+          elapsedMs = 0;
           setProgress(0);
           setActive((v) => (v + 1) % items.length);
         }, COMPLETE_HOLD_MS);
