@@ -1,15 +1,15 @@
 ---
-title: Aburi Grove Residence
-location: Aburi, Eastern Region, Ghana
+title: 3 Bedroom Residence at Kitasi, Aburi
+location: Kitasi, Aburi, Eastern Region, Ghana
 year: 2025
 status: Completed
-summary: Residential construction delivered in Aburi—planned and executed with strong workmanship, safety, and quality control.
+summary: 3-bedroom residential construction delivered at Kitasi, Aburi—planned and executed with strong workmanship, safety, and quality control.
 image: /uploads/projects/aburi-grove-residence.jpg
 ---
 
 ## Overview
 
-Rikonim Enterprise delivered the Aburi Grove Residence project in Aburi, Eastern Region, Ghana, focusing on durable construction, quality finishes, and reliable delivery.
+Rikonim Enterprise delivered a 3-bedroom residential construction project at Kitasi, Aburi, Eastern Region, Ghana, focusing on durable construction, quality finishes, and reliable delivery.
 
 ## Scope
 

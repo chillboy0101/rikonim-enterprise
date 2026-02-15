@@ -61,6 +61,12 @@ const megaMenu = {
         image: '/uploads/services-2.jpeg'
       },
       {
+        href: '/services#project-management',
+        title: 'Project Management',
+        description: 'Planning, controls, and reporting from start to closeout.',
+        image: '/uploads/services-3.jpeg'
+      },
+      {
         href: '/services#renovation-refurbishment',
         title: 'Renovation & Refurbishment',
         description: 'Upgrades with minimal disruption to operations.',
@@ -532,10 +538,10 @@ export function SiteHeader() {
               type="button"
               className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition ${
                 searchOpen
-                  ? 'bg-brand-orange text-white'
+                  ? 'bg-brand-orange/20 text-brand-orange'
                   : heroTransparent
                     ? 'text-white/90 hover:bg-brand-orange hover:text-white'
-                    : 'text-brand-ink/70 hover:bg-brand-orange/20 hover:text-brand-orange'
+                    : 'text-brand-ink/70 hover:bg-brand-orange hover:text-white'
               }`}
               aria-label="Search"
               onClick={searchOpen ? () => setSearchOpen(false) : openSearch}
@@ -619,10 +625,10 @@ export function SiteHeader() {
               type="button"
               className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition ${
                 searchOpen
-                  ? 'bg-brand-orange text-white'
+                  ? 'bg-brand-orange/20 text-brand-orange'
                   : heroTransparent
                     ? 'text-white/90 hover:bg-brand-orange hover:text-white'
-                    : 'text-brand-ink/70 hover:bg-brand-orange/20 hover:text-brand-orange'
+                    : 'text-brand-ink/70 hover:bg-brand-orange hover:text-white'
               }`}
               aria-label="Search"
               onClick={searchOpen ? () => setSearchOpen(false) : openSearch}
@@ -770,25 +776,32 @@ export function SiteHeader() {
 
                 <Link
                   href={activeMega.cta.href}
-                  className="group mt-8 inline-flex items-center gap-4 text-sm font-semibold text-brand-orange"
+                  className="group mt-8 inline-flex text-sm font-semibold"
                   onClick={() => setMegaOpen(null)}
                 >
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange text-white transition group-hover:bg-brand-orange/90">
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      className="h-5 w-5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M5 12h13" />
-                      <path d="M13 6l6 6-6 6" />
-                    </svg>
+                  <span className="relative inline-flex h-12 items-center overflow-hidden rounded-full">
+                    <span className="absolute inset-y-0 left-0 w-12 rounded-full bg-brand-orange transition-[width,background-color] duration-300 ease-in-out group-hover:w-full group-hover:bg-brand-orange" />
+
+                    <span className="absolute left-0 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white transition-[left] duration-200 ease-in-out group-hover:left-[calc(100%-3.25rem)]">
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        className="h-6 w-6"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 12h13" />
+                        <path d="M13 6l6 6-6 6" />
+                      </svg>
+                    </span>
+
+                    <span className="relative z-10 inline-flex items-center whitespace-nowrap pl-14 pr-12 text-[13px] font-semibold uppercase tracking-[0.14em] text-brand-orange transition-[color,transform] duration-200 ease-in-out group-hover:-translate-x-4 group-hover:text-white">
+                      <span>{activeMega.cta.label}</span>
+                    </span>
                   </span>
-                  <span className="text-[13px] font-semibold uppercase tracking-[0.14em]">{activeMega.cta.label}</span>
                 </Link>
               </div>
 
@@ -817,7 +830,7 @@ export function SiteHeader() {
                         </div>
                       ) : null}
 
-                      {featuredProjects.slice(0, 3).map((p) => (
+                      {featuredProjects.slice(0, 6).map((p) => (
                         <Link
                           key={p.slug}
                           href={`/projects/${p.slug}`}
@@ -851,7 +864,7 @@ export function SiteHeader() {
                     {activeMega.cards.map((card) => (
                       <Link
                         key={card.href + card.title}
-                        href={activeMega.cta.href}
+                        href={card.href}
                         className="group overflow-hidden rounded-2xl border border-brand-ink/10 bg-white"
                         onClick={() => setMegaOpen(null)}
                       >

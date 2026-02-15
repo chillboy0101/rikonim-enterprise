@@ -7,7 +7,7 @@ import { site } from '@/lib/site';
 
 export default async function HomePage() {
   const projects = await getProjects();
-  const featured = projects.slice(0, 3);
+  const featured = projects.slice(0, 6);
 
   return (
     <>

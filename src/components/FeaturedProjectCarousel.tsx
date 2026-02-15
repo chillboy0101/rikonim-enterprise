@@ -10,11 +10,10 @@ type FeaturedProject = {
 };
 
 export function FeaturedProjectCarousel() {
-  const AUTOPLAY_MS = 5500;
+  const AUTOPLAY_MS = 6000;
   const [items, setItems] = useState<FeaturedProject[]>([]);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [autoplayKey, setAutoplayKey] = useState(0);
   const lastTickRef = useRef<number | null>(null);
 
@@ -50,7 +49,7 @@ export function FeaturedProjectCarousel() {
 
     const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
     if (prefersReducedMotion) {
-      setProgress(0);
+      setProgress(1);
       return;
     }
 
@@ -60,12 +59,6 @@ export function FeaturedProjectCarousel() {
     const tick = (now: number) => {
       const last = lastTickRef.current;
       lastTickRef.current = now;
-
-      if (paused && last != null) {
-        start += now - last;
-        rafId = window.requestAnimationFrame(tick);
-        return;
-      }
 
       const elapsed = now - start;
       const nextProgress = Math.min(elapsed / AUTOPLAY_MS, 1);
@@ -82,11 +75,9 @@ export function FeaturedProjectCarousel() {
 
     rafId = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(rafId);
-  }, [AUTOPLAY_MS, autoplayKey, items.length, paused]);
+  }, [AUTOPLAY_MS, autoplayKey, items.length]);
 
   const current = items[active];
-
-  const progressWidth = `${progress * 100}%`;
 
   const goTo = (index: number) => {
     if (!items.length) return;
@@ -117,10 +108,6 @@ export function FeaturedProjectCarousel() {
   return (
     <div
       className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[380px] xl:mx-0 xl:ml-auto xl:max-w-[320px]"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
     >
       <div className="pointer-events-none absolute inset-0 -translate-x-6 -translate-y-6 rounded-[28px] border border-white/15 bg-white/30" />
 
@@ -154,22 +141,28 @@ export function FeaturedProjectCarousel() {
           </p>
 
           <div className="mt-6 flex items-center justify-between gap-4">
-            <div className="flex flex-1 items-center gap-3">
-              <div className="h-[6px] flex-1 rounded-full bg-brand-mist">
-                <div className="h-[6px] rounded-full bg-brand-orange" style={{ width: progressWidth }} />
-              </div>
-
+            <div className="flex flex-1 items-center">
               <div className="flex items-center gap-2">
                 {items.map((_, i) => (
                   <button
                     key={i}
                     type="button"
                     aria-label={`Go to item ${i + 1}`}
+                    aria-current={i === active ? 'true' : undefined}
                     onClick={() => goTo(i)}
-                    className={`h-[6px] w-[6px] rounded-full transition ${
-                      i === active ? 'bg-brand-orange' : 'bg-brand-ink/15 hover:bg-brand-ink/25'
+                    className={`h-2 overflow-hidden rounded-full transition-[width,background-color] duration-250 ease-in-out ${
+                      i === active ? 'w-14 bg-brand-ink/20' : 'w-2 bg-brand-ink/20 hover:bg-brand-ink/30'
                     }`}
-                  />
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="block h-full w-full origin-left rounded-full bg-brand-orange transition-[transform,opacity] duration-150 ease-linear will-change-transform"
+                      style={{
+                        transform: `scaleX(${i === active ? progress : 0})`,
+                        opacity: i === active ? 1 : 0,
+                      }}
+                    />
+                  </button>
                 ))}
               </div>
             </div>
