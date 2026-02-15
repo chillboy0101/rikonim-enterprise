@@ -132,7 +132,6 @@ export async function POST(req: Request) {
   const userAgent = req.headers.get('user-agent') || 'unknown';
   const receivedAt = new Date().toISOString();
   const safeSubject = subject || '(none)';
-  const safeCompany = company || '(none)';
 
   try {
     await transporter.sendMail({
@@ -145,7 +144,6 @@ export async function POST(req: Request) {
         '',
         `Name: ${name}`,
         `Email: ${email}`,
-        `Company: ${safeCompany}`,
         `Subject: ${safeSubject}`,
         '',
         'Message:',
