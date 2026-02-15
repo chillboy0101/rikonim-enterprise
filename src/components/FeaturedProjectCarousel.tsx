@@ -11,11 +11,14 @@ type FeaturedProject = {
 
 export function FeaturedProjectCarousel() {
   const AUTOPLAY_MS = 6000;
+  const COMPLETE_HOLD_MS = 250;
   const [items, setItems] = useState<FeaturedProject[]>([]);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
   const [autoplayKey, setAutoplayKey] = useState(0);
   const lastTickRef = useRef<number | null>(null);
+  const completeHoldRef = useRef(false);
+  const completeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -60,21 +63,43 @@ export function FeaturedProjectCarousel() {
       const last = lastTickRef.current;
       lastTickRef.current = now;
 
+      if (completeHoldRef.current) {
+        rafId = window.requestAnimationFrame(tick);
+        return;
+      }
+
       const elapsed = now - start;
       const nextProgress = Math.min(elapsed / AUTOPLAY_MS, 1);
       setProgress(nextProgress);
 
       if (nextProgress >= 1) {
-        start = now;
-        setProgress(0);
-        setActive((v) => (v + 1) % items.length);
+        completeHoldRef.current = true;
+        setProgress(1);
+
+        if (completeTimeoutRef.current) {
+          clearTimeout(completeTimeoutRef.current);
+        }
+
+        completeTimeoutRef.current = setTimeout(() => {
+          completeHoldRef.current = false;
+          start = performance.now();
+          setProgress(0);
+          setActive((v) => (v + 1) % items.length);
+        }, COMPLETE_HOLD_MS);
       }
 
       rafId = window.requestAnimationFrame(tick);
     };
 
     rafId = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(rafId);
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      completeHoldRef.current = false;
+      if (completeTimeoutRef.current) {
+        clearTimeout(completeTimeoutRef.current);
+        completeTimeoutRef.current = null;
+      }
+    };
   }, [AUTOPLAY_MS, autoplayKey, items.length]);
 
   const current = items[active];
@@ -82,6 +107,11 @@ export function FeaturedProjectCarousel() {
   const goTo = (index: number) => {
     if (!items.length) return;
     const clamped = ((index % items.length) + items.length) % items.length;
+    completeHoldRef.current = false;
+    if (completeTimeoutRef.current) {
+      clearTimeout(completeTimeoutRef.current);
+      completeTimeoutRef.current = null;
+    }
     setActive(clamped);
     setProgress(0);
     setAutoplayKey((v) => v + 1);
