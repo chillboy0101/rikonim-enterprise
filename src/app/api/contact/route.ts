@@ -77,8 +77,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  const key = `ip:${ip}`;
+  const rateIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  const key = `ip:${rateIp}`;
   const now = Date.now();
   const windowMs = 10 * 60 * 1000;
   const max = 6;
@@ -107,9 +107,9 @@ export async function POST(req: Request) {
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
   const from = process.env.SMTP_FROM;
-  const to = process.env.CONTACT_TO;
+  const to = process.env.CONTACT_TO || 'info@rikonim.com';
 
-  if (!host || !port || !from || !to) {
+  if (!host || !port || !from) {
     return NextResponse.json(
       { error: 'Email delivery is not configured on the server.' },
       { status: 500 }
@@ -123,15 +123,38 @@ export async function POST(req: Request) {
     auth: user && pass ? { user, pass } : undefined
   });
 
-  const composedSubject = subject ? `${subject} — Website enquiry` : 'Website enquiry';
+  const composedSubject = subject
+    ? `Website form submission — ${subject}`
+    : 'Website form submission';
+
+  const ipHeader = req.headers.get('x-forwarded-for');
+  const ip = ipHeader?.split(',')[0]?.trim() || 'unknown';
+  const userAgent = req.headers.get('user-agent') || 'unknown';
+  const receivedAt = new Date().toISOString();
+  const safeSubject = subject || '(none)';
+  const safeCompany = company || '(none)';
 
   try {
     await transporter.sendMail({
-      from,
+      from: `Rikonim Website <${from}>`,
       to,
       replyTo: email,
       subject: composedSubject,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`
+      text: [
+        'This message was sent from the website contact form.',
+        '',
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Company: ${safeCompany}`,
+        `Subject: ${safeSubject}`,
+        '',
+        'Message:',
+        message,
+        '',
+        `Received at: ${receivedAt}`,
+        `IP: ${ip}`,
+        `User-Agent: ${userAgent}`
+      ].join('\n')
     });
   } catch {
     return NextResponse.json({ error: 'Message failed to send.' }, { status: 500 });
