@@ -12,6 +12,8 @@ type Status =
 export function ContactForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [enquiryType, setEnquiryType] = useState<'individual' | 'company'>('individual');
+  const [companyName, setCompanyName] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [company, setCompany] = useState('');
@@ -27,6 +29,7 @@ export function ContactForm() {
     name.trim() &&
     email.trim() &&
     message.trim() &&
+    (enquiryType === 'company' ? companyName.trim() : true) &&
     (siteKey ? Boolean(turnstileToken) : true);
 
   useEffect(() => {
@@ -76,6 +79,8 @@ export function ContactForm() {
         body: JSON.stringify({
           name,
           email,
+          enquiryType,
+          companyName,
           subject,
           message,
           company,
@@ -98,6 +103,8 @@ export function ContactForm() {
       setStatus({ state: 'sent' });
       setName('');
       setEmail('');
+      setEnquiryType('individual');
+      setCompanyName('');
       setSubject('');
       setMessage('');
       setCompany('');
@@ -151,6 +158,32 @@ export function ContactForm() {
           placeholder="Project enquiry"
         />
       </label>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="grid gap-2">
+          <span className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Enquiry type</span>
+          <select
+            value={enquiryType}
+            onChange={(e) => setEnquiryType(e.target.value === 'company' ? 'company' : 'individual')}
+            className="h-12 w-full border border-brand-ink/15 bg-white px-4 text-sm font-semibold text-brand-ink focus:border-brand-orange focus:outline-none"
+          >
+            <option value="individual">Individual</option>
+            <option value="company">Company</option>
+          </select>
+        </label>
+
+        <label className="grid gap-2">
+          <span className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Company name</span>
+          <input
+            value={companyName}
+            onChange={(e) => setCompanyName(e.target.value)}
+            className="h-12 w-full border border-brand-ink/15 bg-white px-4 text-sm font-semibold text-brand-ink placeholder:text-brand-steel/60 focus:border-brand-orange focus:outline-none"
+            placeholder={enquiryType === 'company' ? 'Your company name' : 'Optional'}
+            required={enquiryType === 'company'}
+            disabled={enquiryType !== 'company'}
+          />
+        </label>
+      </div>
 
       <label className="grid gap-2">
         <span className="text-xs font-semibold tracking-[0.14em] text-brand-steel">Message</span>

@@ -4,6 +4,8 @@ import nodemailer from 'nodemailer';
 type ContactPayload = {
   name: string;
   email: string;
+  enquiryType?: 'individual' | 'company';
+  companyName?: string;
   subject?: string;
   message: string;
   company?: string;
@@ -51,6 +53,8 @@ export async function POST(req: Request) {
 
   const name = String(body.name ?? '').trim();
   const email = String(body.email ?? '').trim();
+  const enquiryType = body.enquiryType === 'company' ? 'company' : 'individual';
+  const companyName = String(body.companyName ?? '').trim();
   const subject = String(body.subject ?? '').trim();
   const message = String(body.message ?? '').trim();
   const company = String(body.company ?? '').trim();
@@ -65,8 +69,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
   }
 
-  if (name.length > 120 || email.length > 200 || subject.length > 200 || message.length > 5000) {
+  if (
+    name.length > 120 ||
+    email.length > 200 ||
+    companyName.length > 200 ||
+    subject.length > 200 ||
+    message.length > 5000
+  ) {
     return NextResponse.json({ error: 'Message too long.' }, { status: 400 });
+  }
+
+  if (enquiryType === 'company' && !companyName) {
+    return NextResponse.json({ error: 'Company name is required.' }, { status: 400 });
   }
 
   if (!isValidEmail(email)) {
@@ -132,6 +146,8 @@ export async function POST(req: Request) {
   const userAgent = req.headers.get('user-agent') || 'unknown';
   const receivedAt = new Date().toISOString();
   const safeSubject = subject || '(none)';
+  const safeEnquiryType = enquiryType === 'company' ? 'Company' : 'Individual';
+  const safeCompanyName = companyName || '(none)';
 
   try {
     await transporter.sendMail({
@@ -144,6 +160,8 @@ export async function POST(req: Request) {
         '',
         `Name: ${name}`,
         `Email: ${email}`,
+        `Enquiry type: ${safeEnquiryType}`,
+        `Company name: ${safeCompanyName}`,
         `Subject: ${safeSubject}`,
         '',
         'Message:',
