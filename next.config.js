@@ -29,10 +29,10 @@ const nextConfig = {
         has: [
           {
             type: 'host',
-            value: 'rikonim.com'
+            value: 'www.rikonim.com'
           }
         ],
-        destination: 'https://www.rikonim.com/:path*',
+        destination: 'https://rikonim.com/:path*',
         permanent: true
       }
     ];
