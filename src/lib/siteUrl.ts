@@ -5,7 +5,7 @@ export function getSiteUrl() {
   const vercelUrl = process.env.VERCEL_URL;
   if (vercelUrl) {
     const isProd = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
-    if (isProd) return 'https://rikonim.com';
+    if (isProd) return 'https://www.rikonim.com';
     return `https://${vercelUrl}`;
   }
 
