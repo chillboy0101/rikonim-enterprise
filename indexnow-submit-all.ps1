@@ -1,6 +1,6 @@
 $ErrorActionPreference = 'Stop'
 
-$base = 'https://www.rikonim.com'
+$base = 'https://rikonim.com'
 $key = 'efe14087cd4844fe921d502c981dec05'
 $keyUrl = "$base/$key.txt"
 
@@ -45,7 +45,7 @@ function Submit-IndexNowBatch {
   param([string[]]$Batch)
 
   $payload = @{
-    host = 'www.rikonim.com'
+    host = 'rikonim.com'
     key = $key
     keyLocation = $keyUrl
     urlList = $Batch

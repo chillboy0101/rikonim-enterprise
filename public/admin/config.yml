@@ -2,7 +2,7 @@ backend:
   name: github
   repo: chillboy0101/rikonim-enterprise
   branch: main
-  base_url: https://www.rikonim.com
+  base_url: https://rikonim.com
   auth_endpoint: /api/auth
 
 local_backend: false
