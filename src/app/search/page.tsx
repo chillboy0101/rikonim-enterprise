@@ -28,6 +28,59 @@ function normalize(value: string) {
   return value.trim().toLowerCase();
 }
 
+const STOP_WORDS = new Set([
+  'a',
+  'an',
+  'and',
+  'are',
+  'as',
+  'at',
+  'be',
+  'but',
+  'by',
+  'for',
+  'from',
+  'has',
+  'have',
+  'in',
+  'is',
+  'it',
+  'of',
+  'on',
+  'or',
+  'that',
+  'the',
+  'to',
+  'was',
+  'were',
+  'with'
+]);
+
+type WeightedField = { text: string; weight: number };
+
+function scoreForTerms(terms: string[], fields: WeightedField[]) {
+  if (terms.length === 0) return 0;
+
+  let score = 0;
+  const matched = new Set<string>();
+
+  for (const term of terms) {
+    for (const field of fields) {
+      if (!field.text) continue;
+      if (field.text.includes(term)) {
+        score += field.weight;
+        matched.add(term);
+        break;
+      }
+    }
+  }
+
+  // Small bonus if most terms match (helps ranking without making it too strict).
+  if (matched.size >= Math.max(1, Math.ceil(terms.length * 0.75))) score += 3;
+  if (matched.size === terms.length) score += 5;
+  return score;
+}
+
 export default async function SearchPage({ searchParams }: Props) {
   const resolvedParams = searchParams
     ? await Promise.resolve(searchParams)
@@ -35,7 +88,13 @@ export default async function SearchPage({ searchParams }: Props) {
 
   const rawQ = resolvedParams.q;
   const q = normalize(Array.isArray(rawQ) ? rawQ[0] ?? '' : rawQ ?? '');
-  const terms = q ? q.split(/\s+/).filter(Boolean) : [];
+  const terms = q
+    ? q
+        .split(/\s+/)
+        .map((t) => t.trim())
+        .filter(Boolean)
+        .filter((t) => !STOP_WORDS.has(t))
+    : [];
 
   const pages: ResultItem[] = [
     {
@@ -79,20 +138,30 @@ export default async function SearchPage({ searchParams }: Props) {
   const projects = await getProjects();
 
   const projectResults: ResultItem[] = projects
-    .filter((p) => {
-      if (!q) return true;
-      const haystack = [
-        p.title,
-        p.location ?? '',
-        p.year ?? '',
-        p.status ?? '',
-        p.summary ?? '',
-        p.content
-      ]
-        .join(' ')
-        .toLowerCase();
-      return terms.every((t) => haystack.includes(t));
+    .map((p) => {
+      const score = q
+        ? scoreForTerms(terms, [
+            { text: normalize(p.title), weight: 8 },
+            { text: normalize(p.location ?? ''), weight: 5 },
+            { text: normalize(p.year ?? ''), weight: 3 },
+            { text: normalize(p.status ?? ''), weight: 3 },
+            { text: normalize(p.summary ?? ''), weight: 4 },
+            { text: normalize(p.content), weight: 1 }
+          ])
+        : 0;
+
+      return {
+        type: 'Project',
+        title: p.title,
+        href: `/projects/${p.slug}`,
+        image: p.image,
+        kicker: [p.year, p.status].filter(Boolean).join(' • '),
+        meta: [p.location].filter(Boolean).join(' • ') || p.summary,
+        score
+      };
     })
+    .filter((p) => (q ? p.score > 0 : true))
+    .sort((a, b) => b.score - a.score)
     .map((p) => ({
       type: 'Project',
       title: p.title,
@@ -103,11 +172,26 @@ export default async function SearchPage({ searchParams }: Props) {
     }));
 
   const serviceResults: ResultItem[] = site.services
-    .filter((s) => {
-      if (!q) return true;
-      const haystack = [s.title, s.summary ?? '', ...(s.bullets ?? [])].join(' ').toLowerCase();
-      return terms.every((t) => haystack.includes(t));
+    .map((s) => {
+      const score = q
+        ? scoreForTerms(terms, [
+            { text: normalize(s.title), weight: 10 },
+            { text: normalize(s.summary ?? ''), weight: 6 },
+            { text: normalize((s.bullets ?? []).join(' ')), weight: 2 }
+          ])
+        : 0;
+
+      return {
+        type: 'Service',
+        title: s.title,
+        href: `/services#${s.slug}`,
+        kicker: 'Service',
+        meta: s.summary,
+        score
+      };
     })
+    .filter((s) => (q ? s.score > 0 : true))
+    .sort((a, b) => b.score - a.score)
     .map((s) => ({
       type: 'Service',
       title: s.title,
@@ -116,11 +200,23 @@ export default async function SearchPage({ searchParams }: Props) {
       meta: s.summary
     }));
 
-  const pageResults: ResultItem[] = pages.filter((p) => {
-    if (!q) return true;
-    const haystack = [p.title, p.meta ?? ''].join(' ').toLowerCase();
-    return terms.every((t) => haystack.includes(t));
-  });
+  const pageResults: ResultItem[] = pages
+    .map((p) => {
+      const score = q
+        ? scoreForTerms(terms, [
+            { text: normalize(p.title), weight: 10 },
+            { text: normalize(p.meta ?? ''), weight: 3 }
+          ])
+        : 0;
+
+      return {
+        ...p,
+        score
+      };
+    })
+    .filter((p) => (q ? p.score > 0 : true))
+    .sort((a, b) => b.score - a.score)
+    .map(({ score: _score, ...p }) => p);
 
   const results = [...pageResults, ...serviceResults, ...projectResults].slice(0, q ? 60 : 18);
 
