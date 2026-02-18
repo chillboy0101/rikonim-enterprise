@@ -6,7 +6,7 @@ import { getProjects } from '@/lib/projects';
 import { site } from '@/lib/site';
 
 type Props = {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 type ResultItem = {
@@ -29,7 +29,11 @@ function normalize(value: string) {
 }
 
 export default async function SearchPage({ searchParams }: Props) {
-  const rawQ = searchParams?.q;
+  const resolvedParams = searchParams
+    ? await Promise.resolve(searchParams)
+    : ({} as { [key: string]: string | string[] | undefined });
+
+  const rawQ = resolvedParams.q;
   const q = normalize(Array.isArray(rawQ) ? rawQ[0] ?? '' : rawQ ?? '');
   const terms = q ? q.split(/\s+/).filter(Boolean) : [];
 
