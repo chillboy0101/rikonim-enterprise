@@ -58,6 +58,17 @@ const STOP_WORDS = new Set([
 
 type WeightedField = { text: string; weight: number };
 
+type ScoredResultItem = ResultItem & { score: number };
+
+function matchesTerm(text: string, term: string) {
+  if (!text || !term) return false;
+  if (text.includes(term)) return true;
+
+  // Prefix match against word tokens so "drain" matches "drainage".
+  const tokens = text.split(/[^a-z0-9]+/i).filter(Boolean);
+  return tokens.some((t) => t.startsWith(term));
+}
+
 function scoreForTerms(terms: string[], fields: WeightedField[]) {
   if (terms.length === 0) return 0;
 
@@ -67,7 +78,7 @@ function scoreForTerms(terms: string[], fields: WeightedField[]) {
   for (const term of terms) {
     for (const field of fields) {
       if (!field.text) continue;
-      if (field.text.includes(term)) {
+      if (matchesTerm(field.text, term)) {
         score += field.weight;
         matched.add(term);
         break;
@@ -158,18 +169,11 @@ export default async function SearchPage({ searchParams }: Props) {
         kicker: [p.year, p.status].filter(Boolean).join(' • '),
         meta: [p.location].filter(Boolean).join(' • ') || p.summary,
         score
-      };
+      } satisfies ScoredResultItem;
     })
     .filter((p) => (q ? p.score > 0 : true))
     .sort((a, b) => b.score - a.score)
-    .map((p) => ({
-      type: 'Project',
-      title: p.title,
-      href: `/projects/${p.slug}`,
-      image: p.image,
-      kicker: [p.year, p.status].filter(Boolean).join(' • '),
-      meta: [p.location].filter(Boolean).join(' • ') || p.summary
-    }));
+    .map(({ score: _score, ...p }) => p);
 
   const serviceResults: ResultItem[] = site.services
     .map((s) => {
@@ -188,17 +192,11 @@ export default async function SearchPage({ searchParams }: Props) {
         kicker: 'Service',
         meta: s.summary,
         score
-      };
+      } satisfies ScoredResultItem;
     })
     .filter((s) => (q ? s.score > 0 : true))
     .sort((a, b) => b.score - a.score)
-    .map((s) => ({
-      type: 'Service',
-      title: s.title,
-      href: `/services#${s.slug}`,
-      kicker: 'Service',
-      meta: s.summary
-    }));
+    .map(({ score: _score, ...s }) => s);
 
   const pageResults: ResultItem[] = pages
     .map((p) => {
@@ -212,7 +210,7 @@ export default async function SearchPage({ searchParams }: Props) {
       return {
         ...p,
         score
-      };
+      } satisfies ScoredResultItem;
     })
     .filter((p) => (q ? p.score > 0 : true))
     .sort((a, b) => b.score - a.score)
