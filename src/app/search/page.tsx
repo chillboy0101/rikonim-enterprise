@@ -60,13 +60,91 @@ type WeightedField = { text: string; weight: number };
 
 type ScoredResultItem = ResultItem & { score: number };
 
-function matchesTerm(text: string, term: string) {
-  if (!text || !term) return false;
-  if (text.includes(term)) return true;
+const SYNONYMS: Record<string, string[]> = {
+  constuction: ['construction'],
+  constructions: ['construction'],
+  build: ['building', 'construction'],
+  building: ['construction'],
+  road: ['roads'],
+  roads: ['road'],
+  drain: ['drainage'],
+  drainage: ['drain'],
+  refurb: ['refurbishment', 'renovation'],
+  refurbishment: ['refurb', 'renovation'],
+  renovation: ['renovation', 'refurbishment'],
+  civil: ['infrastructure'],
+  infrastructure: ['civil'],
+  pm: ['project', 'management', 'project management']
+};
 
-  // Prefix match against word tokens so "drain" matches "drainage".
-  const tokens = text.split(/[^a-z0-9]+/i).filter(Boolean);
-  return tokens.some((t) => t.startsWith(term));
+function sanitizeTerm(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '').trim();
+}
+
+function expandTerms(rawTerms: string[]) {
+  const expanded = new Set<string>();
+  for (const t of rawTerms) {
+    const term = sanitizeTerm(t);
+    if (!term || STOP_WORDS.has(term)) continue;
+    expanded.add(term);
+    const syns = SYNONYMS[term];
+    if (syns) syns.forEach((s) => expanded.add(sanitizeTerm(s)));
+  }
+  return [...expanded].filter(Boolean);
+}
+
+function wordTokens(text: string) {
+  return text.split(/[^a-z0-9]+/i).filter(Boolean);
+}
+
+function boundedEditDistance(a: string, b: string, max: number) {
+  if (a === b) return 0;
+  const la = a.length;
+  const lb = b.length;
+  if (Math.abs(la - lb) > max) return max + 1;
+  if (la === 0) return lb;
+  if (lb === 0) return la;
+
+  const prev = new Array(lb + 1);
+  const curr = new Array(lb + 1);
+  for (let j = 0; j <= lb; j++) prev[j] = j;
+
+  for (let i = 1; i <= la; i++) {
+    curr[0] = i;
+    let rowMin = curr[0];
+    const ca = a.charCodeAt(i - 1);
+    for (let j = 1; j <= lb; j++) {
+      const cost = ca === b.charCodeAt(j - 1) ? 0 : 1;
+      curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+      if (curr[j] < rowMin) rowMin = curr[j];
+    }
+    if (rowMin > max) return max + 1;
+    for (let j = 0; j <= lb; j++) prev[j] = curr[j];
+  }
+
+  return prev[lb];
+}
+
+type TermMatch = { matched: boolean; quality: 0 | 1 | 2 | 3; position: number };
+
+function matchTerm(text: string, term: string): TermMatch {
+  if (!text || !term) return { matched: false, quality: 0, position: -1 };
+
+  const exactIndex = text.indexOf(term);
+  const wordExact = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\[\]\\]/g, '\\$&')}\\b`, 'i');
+  if (wordExact.test(text)) return { matched: true, quality: 3, position: exactIndex };
+
+  const tokens = wordTokens(text);
+  const prefixIndex = tokens.findIndex((t) => t.startsWith(term));
+  if (prefixIndex !== -1) return { matched: true, quality: 2, position: exactIndex };
+
+  const maxDist = term.length <= 4 ? 1 : term.length <= 7 ? 2 : 2;
+  for (const token of tokens) {
+    const d = boundedEditDistance(token, term, maxDist);
+    if (d <= maxDist) return { matched: true, quality: 1, position: exactIndex };
+  }
+
+  return { matched: false, quality: 0, position: -1 };
 }
 
 function scoreForTerms(terms: string[], fields: WeightedField[]) {
@@ -78,8 +156,11 @@ function scoreForTerms(terms: string[], fields: WeightedField[]) {
   for (const term of terms) {
     for (const field of fields) {
       if (!field.text) continue;
-      if (matchesTerm(field.text, term)) {
-        score += field.weight;
+      const m = matchTerm(field.text, term);
+      if (m.matched) {
+        const qualityMultiplier = m.quality === 3 ? 1 : m.quality === 2 ? 0.75 : 0.4;
+        score += field.weight * qualityMultiplier;
+        if (field.weight >= 8 && m.position >= 0 && m.position <= 18) score += 2;
         matched.add(term);
         break;
       }
@@ -104,8 +185,9 @@ export default async function SearchPage({ searchParams }: Props) {
         .split(/\s+/)
         .map((t) => t.trim())
         .filter(Boolean)
-        .filter((t) => !STOP_WORDS.has(t))
     : [];
+
+  const expandedTerms = expandTerms(terms);
 
   const pages: ResultItem[] = [
     {
@@ -151,7 +233,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const projectResults: ResultItem[] = projects
     .map((p) => {
       const score = q
-        ? scoreForTerms(terms, [
+        ? scoreForTerms(expandedTerms, [
             { text: normalize(p.title), weight: 8 },
             { text: normalize(p.location ?? ''), weight: 5 },
             { text: normalize(p.year ?? ''), weight: 3 },
@@ -178,7 +260,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const serviceResults: ResultItem[] = site.services
     .map((s) => {
       const score = q
-        ? scoreForTerms(terms, [
+        ? scoreForTerms(expandedTerms, [
             { text: normalize(s.title), weight: 10 },
             { text: normalize(s.summary ?? ''), weight: 6 },
             { text: normalize((s.bullets ?? []).join(' ')), weight: 2 }
@@ -201,7 +283,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const pageResults: ResultItem[] = pages
     .map((p) => {
       const score = q
-        ? scoreForTerms(terms, [
+        ? scoreForTerms(expandedTerms, [
             { text: normalize(p.title), weight: 10 },
             { text: normalize(p.meta ?? ''), weight: 3 }
           ])
