@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import './globals.css';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
-import { JotformAgentEmbed } from '@/components/JotformAgentEmbed';
 import { site } from '@/lib/site';
 import { getSiteUrl } from '@/lib/siteUrl';
 
@@ -107,7 +106,6 @@ export default function RootLayout({
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
-        <JotformAgentEmbed />
       </body>
     </html>
   );
