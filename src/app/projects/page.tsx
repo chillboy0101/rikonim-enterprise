@@ -7,6 +7,8 @@ import { Section } from '@/components/layout/Section';
 import { getProjects } from '@/lib/projects';
 import { site } from '@/lib/site';
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: 'Projects',
   description:

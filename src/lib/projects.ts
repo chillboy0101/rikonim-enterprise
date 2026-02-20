@@ -1,6 +1,4 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import matter from 'gray-matter';
+import { getSanityProjects } from '@/lib/sanityQueries';
 
 export type Project = {
   slug: string;
@@ -17,37 +15,37 @@ export type Project = {
   content: string;
 };
 
-const PROJECTS_DIR = path.join(process.cwd(), 'content', 'projects');
-
 export async function getProjects(): Promise<Project[]> {
-  const entries = await fs.readdir(PROJECTS_DIR);
-  const mdFiles = entries.filter((f) => f.toLowerCase().endsWith('.md'));
+  const sanityProjects = (await getSanityProjects()) as Array<{
+    slug?: string;
+    title?: string;
+    image?: string;
+    video?: string;
+    video2?: string;
+    video2Poster?: string;
+    location?: string;
+    year?: string;
+    status?: string;
+    summary?: string;
+    content?: string;
+  }>;
 
-  const projects = await Promise.all(
-    mdFiles.map(async (file) => {
-      const slug = file.replace(/\.md$/i, '');
-      const fullPath = path.join(PROJECTS_DIR, file);
-      const raw = await fs.readFile(fullPath, 'utf8');
-      const parsed = matter(raw);
-
+  return sanityProjects
+    .filter((p) => typeof p.slug === 'string' && p.slug.trim().length > 0)
+    .map((p) => {
+      const slug = String(p.slug);
       return {
         slug,
-        title: String(parsed.data.title ?? slug),
-        image: parsed.data.image ? String(parsed.data.image) : undefined,
-        video: parsed.data.video ? String(parsed.data.video) : undefined,
-        video2: parsed.data.video2 ? String(parsed.data.video2) : undefined,
-        video2Poster: parsed.data.video2Poster ? String(parsed.data.video2Poster) : undefined,
-        draft: Boolean(parsed.data.draft ?? false),
-        location: parsed.data.location ? String(parsed.data.location) : undefined,
-        year: parsed.data.year ? String(parsed.data.year) : undefined,
-        status: parsed.data.status ? String(parsed.data.status) : undefined,
-        summary: parsed.data.summary ? String(parsed.data.summary) : undefined,
-        content: parsed.content
+        title: String(p.title ?? slug),
+        image: p.image ? String(p.image) : undefined,
+        video: p.video ? String(p.video) : undefined,
+        video2: p.video2 ? String(p.video2) : undefined,
+        video2Poster: p.video2Poster ? String(p.video2Poster) : undefined,
+        location: p.location ? String(p.location) : undefined,
+        year: p.year ? String(p.year) : undefined,
+        status: p.status ? String(p.status) : undefined,
+        summary: p.summary ? String(p.summary) : undefined,
+        content: String(p.content ?? '')
       } satisfies Project;
-    })
-  );
-
-  return projects
-    .filter((p) => !p.draft)
-    .sort((a, b) => (b.year ?? '').localeCompare(a.year ?? ''));
+    });
 }

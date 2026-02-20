@@ -10,6 +10,8 @@ import { getProjects } from '@/lib/projects';
 import { markdownToHtml } from '@/lib/markdownToHtml';
 import { site } from '@/lib/site';
 
+export const revalidate = 60;
+
 type Props = {
   params: { slug: string } | Promise<{ slug: string }>;
 };

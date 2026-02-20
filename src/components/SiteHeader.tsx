@@ -757,7 +757,12 @@ export function SiteHeader() {
       {activeMega && !searchOpen && !menuOpen ? (
         <div
           className="fixed inset-0 z-40 overscroll-contain overflow-y-auto bg-white"
-          style={{ top: headerOffset, ...( { scrollbarGutter: 'stable' } as any ) }}
+          style={
+            {
+              top: headerOffset,
+              scrollbarGutter: 'stable'
+            } as React.CSSProperties & { scrollbarGutter?: string }
+          }
           onMouseEnter={() => {
             if (megaCloseTimeout.current) {
               window.clearTimeout(megaCloseTimeout.current);

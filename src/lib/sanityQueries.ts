@@ -5,7 +5,7 @@ export async function getSanitySiteSettings() {
 }
 
 export async function getSanityProjects() {
-  return sanityReadClient.fetch(`*[_type == "project" && !draft]{
+  return sanityReadClient.fetch(`*[_type == "project" && !draft && !(_id in path("drafts.**"))]{
     _id,
     title,
     "slug": slug.current,
