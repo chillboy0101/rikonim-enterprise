@@ -3,6 +3,7 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const matter = require('gray-matter');
+const crypto = require('node:crypto');
 
 async function loadDotEnvLocal() {
   const envPath = path.join(process.cwd(), '.env.local');
@@ -58,10 +59,32 @@ async function importSiteSettings(client) {
   const raw = await fs.readFile(siteJsonPath, 'utf8');
   const data = JSON.parse(raw);
 
+  const services = Array.isArray(data.services)
+    ? data.services.map((s) => ({
+        ...s,
+        _key:
+          typeof s?._key === 'string' && s._key.trim().length > 0
+            ? s._key
+            : crypto.randomUUID()
+      }))
+    : data.services;
+
+  const leadership = Array.isArray(data.leadership)
+    ? data.leadership.map((l) => ({
+        ...l,
+        _key:
+          typeof l?._key === 'string' && l._key.trim().length > 0
+            ? l._key
+            : crypto.randomUUID()
+      }))
+    : data.leadership;
+
   const doc = {
     _id: 'siteSettings',
     _type: 'siteSettings',
-    ...data
+    ...data,
+    services,
+    leadership
   };
 
   await client.createOrReplace(doc);
