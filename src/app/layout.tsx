@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
-import { SiteFooter } from '@/components/SiteFooter';
-import { SiteHeader } from '@/components/SiteHeader';
+import { LayoutChrome } from '@/components/LayoutChrome';
 import { site } from '@/lib/site';
 import { getSiteUrl } from '@/lib/siteUrl';
 
@@ -103,9 +102,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
+        <LayoutChrome>{children}</LayoutChrome>
       </body>
     </html>
   );
