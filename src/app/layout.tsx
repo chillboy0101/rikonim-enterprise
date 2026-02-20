@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
+import { DraftModeTools } from '@/components/DraftModeTools';
 import { LayoutChrome } from '@/components/LayoutChrome';
 import { site } from '@/lib/site';
 import { getSiteUrl } from '@/lib/siteUrl';
@@ -103,6 +104,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
         <LayoutChrome>{children}</LayoutChrome>
+        <DraftModeTools />
       </body>
     </html>
   );
