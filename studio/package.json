@@ -1,0 +1,16 @@
+{
+  "name": "rikonim-enterprise-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev --port 3333",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "lint": "sanity lint"
+  },
+  "dependencies": {
+    "@sanity/vision": "^5.11.0",
+    "sanity": "^5.11.0"
+  }
+}

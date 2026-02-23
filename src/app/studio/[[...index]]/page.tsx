@@ -1,8 +1,6 @@
-'use client';
-
-import { NextStudio } from 'next-sanity/studio';
-import config from '../../../../sanity.config';
+import { redirect } from 'next/navigation';
 
 export default function StudioPage() {
-  return <NextStudio config={config} />;
+  const studioUrl = process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'https://studio.rikonim.com';
+  redirect(studioUrl);
 }

@@ -9,10 +9,14 @@ type FeaturedProject = {
   image?: string;
 };
 
-export function FeaturedProjectCarousel() {
+export function FeaturedProjectCarousel({
+  initialItems
+}: {
+  initialItems?: FeaturedProject[];
+}) {
   const AUTOPLAY_MS = 6000;
   const COMPLETE_HOLD_MS = 250;
-  const [items, setItems] = useState<FeaturedProject[]>([]);
+  const [items, setItems] = useState<FeaturedProject[]>(() => initialItems ?? []);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
   const [autoplayKey, setAutoplayKey] = useState(0);
@@ -21,11 +25,12 @@ export function FeaturedProjectCarousel() {
   const completeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (initialItems?.length) return;
     let cancelled = false;
 
     const load = async () => {
       try {
-        const res = await fetch('/api/featured-projects', { cache: 'no-store' });
+        const res = await fetch('/api/featured-projects');
         if (!res.ok) return;
         const json = (await res.json()) as { featured?: FeaturedProject[] };
         if (cancelled) return;
@@ -39,7 +44,7 @@ export function FeaturedProjectCarousel() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialItems?.length]);
 
   useEffect(() => {
     if (items.length <= 1) return;

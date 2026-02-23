@@ -10,6 +10,6 @@ export const sanityNextClient = createClient({
   apiVersion,
   useCdn: false,
   stega: {
-    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ?? 'http://localhost:3000/studio'
+    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ?? 'https://studio.rikonim.com'
   }
 });

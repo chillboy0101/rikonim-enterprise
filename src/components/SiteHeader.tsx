@@ -399,7 +399,7 @@ export function SiteHeader() {
     if (featuredProjects.length) return;
     try {
       setFeaturedLoading(true);
-      const res = await fetch('/api/featured-projects', { cache: 'no-store' });
+      const res = await fetch('/api/featured-projects');
       if (!res.ok) return;
       const json = (await res.json()) as { featured?: typeof featuredProjects };
       setFeaturedProjects(Array.isArray(json.featured) ? json.featured : []);

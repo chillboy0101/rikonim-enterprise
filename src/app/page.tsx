@@ -73,7 +73,7 @@ export default async function HomePage() {
 
               {hero?.showFeaturedCarousel === false ? null : (
                 <div className="mt-10 md:mt-0 md:self-end md:justify-self-center md:translate-y-16 lg:col-span-5 lg:justify-self-center lg:-translate-x-6 lg:translate-y-10 xl:translate-x-0 xl:translate-y-14 xl:justify-self-end">
-                  <FeaturedProjectCarousel />
+                  <FeaturedProjectCarousel initialItems={featured.map((p) => ({ slug: p.slug, title: p.title, image: p.image }))} />
                 </div>
               )}
             </div>
