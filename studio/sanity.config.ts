@@ -7,8 +7,8 @@ import { schemaTypes } from '../sanity/schemaTypes';
 import { structure } from '../sanity/deskStructure';
 import { locations, mainDocuments } from '../sanity/presentationResolve';
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'oy93rufy';
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION;
 
 const previewInitialUrl =
@@ -18,8 +18,8 @@ const previewInitialUrl =
 export default defineConfig({
   name: 'default',
   title: 'Rikonim Enterprise',
-  projectId: projectId || '',
-  dataset: dataset || 'production',
+  projectId,
+  dataset,
   apiVersion: apiVersion || '2025-01-01',
   basePath: '/',
   plugins: [
