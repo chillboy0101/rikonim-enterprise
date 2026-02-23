@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Careers',
@@ -11,7 +16,29 @@ export const metadata: Metadata = {
     'Careers at Rikonim Enterprise in Ghana. Join a construction and civil engineering team focused on safety, quality workmanship and reliable project delivery.'
 };
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const page = await getSanityPageByRoute('/careers');
+
+  if (page?.enabled && page?.sections?.length) {
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Careers'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? 'https://images.pexels.com/photos/8961143/pexels-photo-8961143.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Careers" />
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero

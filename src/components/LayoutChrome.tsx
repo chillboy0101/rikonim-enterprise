@@ -5,7 +5,21 @@ import { usePathname } from 'next/navigation';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 
-export function LayoutChrome({ children }: { children: ReactNode }) {
+type SiteSettings = {
+  name: string;
+  contact: {
+    phone: string;
+    email: string;
+  };
+};
+
+export function LayoutChrome({
+  children,
+  siteSettings
+}: {
+  children: ReactNode;
+  siteSettings: SiteSettings;
+}) {
   const pathname = usePathname();
   const isStudio = pathname === '/studio' || pathname.startsWith('/studio/');
 
@@ -15,7 +29,7 @@ export function LayoutChrome({ children }: { children: ReactNode }) {
     <>
       <SiteHeader />
       <main>{children}</main>
-      <SiteFooter />
+      <SiteFooter siteSettings={siteSettings} />
     </>
   );
 }

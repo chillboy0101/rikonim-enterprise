@@ -3,8 +3,20 @@ import { BrandLogo } from '@/components/BrandLogo';
 import { Container } from '@/components/layout/Container';
 import { site } from '@/lib/site';
 
-export function SiteFooter() {
-  const phoneParts = site.contact.phone
+type SiteSettings = {
+  name?: string;
+  contact?: {
+    phone?: string;
+    email?: string;
+  };
+};
+
+export function SiteFooter({ siteSettings }: { siteSettings?: SiteSettings }) {
+  const name = siteSettings?.name ?? site.name;
+  const phone = siteSettings?.contact?.phone ?? site.contact.phone;
+  const email = siteSettings?.contact?.email ?? site.contact.email;
+
+  const phoneParts = phone
     .split('/')
     .map((p) => p.trim())
     .filter(Boolean);
@@ -128,8 +140,8 @@ export function SiteFooter() {
                       {p}
                     </a>
                   ))}
-                  <a className="footer-link block break-words hover:text-white" href={`mailto:${site.contact.email}`}>
-                    {site.contact.email}
+                  <a className="footer-link block break-words hover:text-white" href={`mailto:${email}`}>
+                    {email}
                   </a>
                 </div>
               </div>
@@ -202,7 +214,7 @@ export function SiteFooter() {
                     </a>
                   </div>
 
-                  <p className="order-2 w-full text-left text-xs font-semibold text-white/85 md:mt-6 md:text-left lg:mt-8 lg:whitespace-nowrap">© {new Date().getFullYear()} {site.name}</p>
+                  <p className="order-2 w-full text-left text-xs font-semibold text-white/85 md:mt-6 md:text-left lg:mt-8 lg:whitespace-nowrap">© {new Date().getFullYear()} {name}</p>
                 </div>
               </div>
             </div>

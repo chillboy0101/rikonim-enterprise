@@ -9,12 +9,26 @@ export const locations = {
     resolve: (doc) => ({
       locations: [
         {
-          title: doc.title ?? 'Project',
-          href: `/projects/${doc.slug}`
+          title: doc?.title ?? 'Project',
+          href: `/projects/${doc?.slug ?? ''}`
         },
         {
           title: 'Projects Index',
           href: '/projects'
+        }
+      ]
+    })
+  }),
+  page: defineLocations({
+    select: {
+      title: 'title',
+      route: 'route'
+    },
+    resolve: (doc) => ({
+      locations: [
+        {
+          title: doc?.title ?? doc?.route ?? 'Page',
+          href: doc?.route ?? '/'
         }
       ]
     })
@@ -26,7 +40,7 @@ export const locations = {
     resolve: (doc) => ({
       locations: [
         {
-          title: doc.title ?? 'Home',
+          title: doc?.title ?? 'Home',
           href: '/'
         }
       ]
@@ -38,5 +52,13 @@ export const mainDocuments = defineDocuments([
   {
     route: '/projects/:slug',
     filter: `_type == "project" && slug.current == $slug`
+  },
+  {
+    route: '/',
+    filter: `_type == "page" && route == "/"`
+  },
+  {
+    route: '/:path*',
+    filter: `_type == "page" && route == "/" + $path`
   }
 ]);

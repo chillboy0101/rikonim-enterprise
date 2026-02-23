@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Suppliers',
@@ -11,7 +16,29 @@ export const metadata: Metadata = {
     'Supplier information for Rikonim Enterprise. Partner with our construction and civil engineering teams in Ghana on materials, equipment and services.'
 };
 
-export default function SuppliersPage() {
+export default async function SuppliersPage() {
+  const page = await getSanityPageByRoute('/suppliers');
+
+  if (page?.enabled && page?.sections?.length) {
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Suppliers'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? 'https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Suppliers" />
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero

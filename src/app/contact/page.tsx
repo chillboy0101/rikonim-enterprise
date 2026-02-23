@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { ContactForm } from '@/components/ContactForm';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -12,7 +17,144 @@ export const metadata: Metadata = {
     'Contact Rikonim Enterprise for construction and civil engineering enquiries in Ghana. Request a consultation for buildings, roads, drainage or renovations.'
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const page = await getSanityPageByRoute('/contact');
+
+  if (page?.enabled && page?.sections?.length) {
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+
+    const contact = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'contactSection' }> => s._type === 'contactSection'
+    );
+
+    const mapQuery = contact?.mapQuery || contact?.headOffice || site.contact.mapQuery || site.contact.headOffice;
+    const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+    const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+    const phoneParts = (contact?.phoneNumbers ?? site.contact.phone.split('/').map((p) => p.trim()))
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Contact'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? '/uploads/company-2.jpeg'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Contact" />
+
+        {contact ? (
+          <>
+            <Section>
+              <Container>
+                <div className="grid gap-10 md:grid-cols-12">
+                  <div className="md:col-span-5">
+                    <div className="border-t border-brand-ink/10 pt-6">
+                      <p className="text-sm font-semibold text-brand-ink">{contact.officeTitle ?? 'Head Office'}</p>
+                      <p className="mt-3 text-sm text-brand-steel">{contact.headOffice ?? site.contact.headOffice}</p>
+                    </div>
+
+                    <div className="mt-8 border-t border-brand-ink/10 pt-6">
+                      <p className="text-sm font-semibold text-brand-ink">{contact.phoneTitle ?? 'Phone'}</p>
+                      <div className="mt-3 flex flex-col gap-2">
+                        {phoneParts.map((p) => (
+                          <a
+                            key={p}
+                            className="inline-block text-sm font-semibold text-brand-blue hover:underline"
+                            href={`tel:${p.replace(/\s+/g, '')}`}
+                          >
+                            {p}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-8 border-t border-brand-ink/10 pt-6">
+                      <p className="text-sm font-semibold text-brand-ink">{contact.emailTitle ?? 'Email'}</p>
+                      <a
+                        className="mt-3 inline-block text-sm font-semibold text-brand-blue hover:underline"
+                        href={`mailto:${contact.email ?? site.contact.email}`}
+                      >
+                        {contact.email ?? site.contact.email}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-7">
+                    <div className="border border-brand-ink/10 bg-brand-mist">
+                      <div className="px-7 py-8">
+                        <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel">{contact.enquiryKicker ?? 'Enquiry'}</p>
+                        <p className="mt-3 text-sm leading-relaxed text-brand-steel">
+                          {contact.enquiryBody ?? 'Send a message and we’ll respond as soon as possible.'}
+                        </p>
+                        <div className="mt-7">
+                          <ContactForm />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Container>
+            </Section>
+
+            <Section className="bg-brand-mist">
+              <Container>
+                <div className="grid gap-10 md:grid-cols-12 md:items-center">
+                  <div className="md:col-span-5">
+                    <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">
+                      {contact.locationKicker ?? 'Location'}
+                    </p>
+                    <h2 className="mt-4 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+                      {contact.locationHeading ?? 'Find our head office.'}
+                    </h2>
+                    <p className="mt-6 text-base leading-relaxed text-brand-steel">
+                      {(contact.addressLines ?? site.contact.addressLines ?? [site.contact.headOffice]).join(', ')}
+                    </p>
+                    <div className="mt-6">
+                      <a
+                        className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
+                        href={mapHref}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <span>{contact.mapLinkLabel ?? 'Open in Google Maps'}</span>
+                        <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 12h13" />
+                          <path d="M13 6l6 6-6 6" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-7">
+                    <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-white shadow-[0_18px_50px_rgba(11,18,32,0.12)]">
+                      <div className="aspect-[16/10] w-full bg-brand-mist">
+                        <iframe
+                          title="Rikonim Enterprise location map"
+                          src={mapEmbedSrc}
+                          className="h-full w-full"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Container>
+            </Section>
+          </>
+        ) : null}
+
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   const mapQuery = site.contact.mapQuery || site.contact.headOffice;
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;

@@ -1,10 +1,16 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Reveal } from '@/components/Reveal';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
+import { getServices } from '@/lib/services';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -12,7 +18,217 @@ export const metadata: Metadata = {
     'Construction services in Ghana: building construction, civil engineering works, project management and renovation—delivered with safety and quality control.'
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const page = await getSanityPageByRoute('/services');
+
+  if (page?.enabled && page?.sections?.length) {
+    const services = await getServices();
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+
+    const servicesSection = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'servicesSection' }> => s._type === 'servicesSection'
+    );
+
+    const fallbackImage = hero?.imageUrl ?? '/uploads/services-1.jpeg';
+    const highlights = (servicesSection?.highlights ?? []).filter((h) => (h.title ?? '').trim().length > 0);
+
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Services'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? '/uploads/services-1.jpeg'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Services" />
+
+        {servicesSection ? (
+          <>
+            <Section>
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                      <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">
+                        {servicesSection.kicker ?? 'Services'}
+                      </p>
+                      <h2 className="mt-4 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+                        {servicesSection.heading ?? 'Built for speed, performance, and long-term value.'}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      {servicesSection.paragraph1 ? (
+                        <p className="text-base leading-relaxed text-brand-steel">{servicesSection.paragraph1}</p>
+                      ) : null}
+                      {servicesSection.paragraph2 ? (
+                        <p className="mt-5 text-base leading-relaxed text-brand-steel">{servicesSection.paragraph2}</p>
+                      ) : null}
+                      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                        {(highlights.length ? highlights : [
+                          {
+                            title: 'Safety-led delivery',
+                            body: 'Daily planning, workfront controls, and supervision that protects people and assets.'
+                          },
+                          {
+                            title: 'Quality controls',
+                            body: 'Clear hold points, inspections, and documentation to verify workmanship and materials.'
+                          },
+                          {
+                            title: 'Project management',
+                            body: 'Transparent reporting, coordinated procurement, and schedule discipline from start to closeout.'
+                          }
+                        ]).map((h) => (
+                          <div key={h._key ?? h.title ?? ''} className="rounded-2xl border border-brand-ink/10 bg-white p-5">
+                            <p className="text-sm font-semibold text-brand-ink">{h.title}</p>
+                            <p className="mt-2 text-sm leading-relaxed text-brand-steel">{h.body}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-10 flex flex-wrap gap-3">
+                        {services.map((s) => (
+                          <a
+                            key={s.slug}
+                            href={`#${s.slug}`}
+                            className="rounded-full border border-brand-ink/10 bg-white px-4 py-2 text-sm font-semibold text-brand-ink transition hover:bg-brand-mist"
+                          >
+                            {s.title}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+
+            <div>
+              {services.map((s, idx) => {
+                const pointsAlignClass =
+                  idx % 3 === 0
+                    ? 'md:justify-start'
+                    : idx % 3 === 1
+                      ? 'md:justify-end'
+                      : 'md:justify-center';
+
+                return (
+                  <div key={s.slug} className={idx === 0 ? 'mt-10 md:mt-14' : undefined}>
+                    <section className="relative overflow-hidden">
+                      <div id={s.slug} className="scroll-mt-32" />
+                      {s.videoUrl ? (
+                        <video
+                          className="absolute inset-0 h-full w-full object-cover"
+                          autoPlay
+                          muted
+                          playsInline
+                          loop
+                          preload="metadata"
+                          poster={s.imageUrl || fallbackImage}
+                        >
+                          <source src={s.videoUrl} type="video/mp4" />
+                        </video>
+                      ) : (
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            backgroundImage: `url('${s.imageUrl || fallbackImage}')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                          }}
+                        />
+                      )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/85" />
+                      <Container className="relative">
+                        <Reveal>
+                          <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
+                            <div className="md:col-span-7">
+                              <p className="text-xs font-semibold tracking-[0.14em] text-white/70">Service</p>
+                              <h2 className="mt-3 text-balance text-4xl font-semibold tracking-tightest text-white md:text-5xl">
+                                {s.title}
+                              </h2>
+                              {s.summary ? (
+                                <p className="mt-5 text-base leading-relaxed text-white/80 md:text-lg">{s.summary}</p>
+                              ) : null}
+                            </div>
+                          </div>
+                        </Reveal>
+                      </Container>
+                    </section>
+
+                    <section className="bg-brand-ink mb-24 md:mb-32">
+                      <Container>
+                        <Reveal>
+                          <div className="flex py-14 md:py-16 lg:py-20">
+                            <div className={`flex w-full ${pointsAlignClass}`}>
+                              <ul className="w-full max-w-2xl space-y-4">
+                                {s.bullets.map((b) => (
+                                  <li key={b} className="text-base leading-relaxed text-white/80 md:text-lg">
+                                    <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
+                                    {b}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div className="pb-14 md:pb-16 lg:pb-20">
+                            <div className="flex w-full justify-center">
+                              <div className="grid place-items-center">
+                                <div className="animate-bounce text-brand-orange">
+                                  <svg
+                                    aria-hidden="true"
+                                    viewBox="0 0 24 24"
+                                    className="h-7 w-7"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d="M6 9l6 6 6-6" />
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </Reveal>
+                      </Container>
+                    </section>
+                  </div>
+                );
+              })}
+            </div>
+
+            <Section className="bg-brand-mist">
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                      <h2 className="text-2xl font-semibold tracking-tightest text-brand-ink md:text-3xl">
+                        {servicesSection.safetyHeading ?? 'Safety & environmental responsibility.'}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      <p className="text-base leading-relaxed text-brand-steel">
+                        {servicesSection.safetyBody ??
+                          'We maintain high standards of safety and environmental responsibility, aligned with the mission of delivering durable, cost-effective, and high-quality outcomes.'}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+          </>
+        ) : null}
+
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   const fallbackImage = '/uploads/services-1.jpeg';
   const highlights = [
     {

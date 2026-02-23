@@ -4,6 +4,14 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
     .items([
+      S.listItem()
+        .title('Pages')
+        .id('pages')
+        .child(S.documentTypeList('page').title('Pages')),
+      S.listItem()
+        .title('Services')
+        .id('services')
+        .child(S.documentTypeList('service').title('Services')),
       S.documentTypeListItem('siteSettings').title('Site Settings'),
       S.listItem()
         .title('Projects')
@@ -32,6 +40,6 @@ export const structure: StructureResolver = (S) =>
         ),
       ...S.documentTypeListItems().filter((item) => {
         const id = item.getId();
-        return id !== 'siteSettings' && id !== 'project';
+        return id !== 'siteSettings' && id !== 'project' && id !== 'service' && id !== 'page';
       })
     ]);

@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -11,7 +16,29 @@ export const metadata: Metadata = {
     'Read the privacy policy for the Rikonim Enterprise website, including how we handle enquiries, basic analytics and submitted information.'
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const page = await getSanityPageByRoute('/privacy-policy');
+
+  if (page?.enabled && page?.sections?.length) {
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Privacy Policy'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? 'https://images.pexels.com/photos/5668859/pexels-photo-5668859.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Privacy Policy" />
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero

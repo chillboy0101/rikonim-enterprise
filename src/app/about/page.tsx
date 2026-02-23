@@ -2,10 +2,16 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Reveal } from '@/components/Reveal';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
+import { getServices } from '@/lib/services';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Company',
@@ -13,7 +19,249 @@ export const metadata: Metadata = {
     'Company profile of Rikonim Enterprise—an Accra, Ghana building and civil engineering contractor delivering quality construction, infrastructure and renovations.'
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const page = await getSanityPageByRoute('/about');
+
+  if (page?.enabled && page?.sections?.length) {
+    const services = await getServices();
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+    const about = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'aboutSection' }> => s._type === 'aboutSection'
+    );
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Company'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? 'https://images.pexels.com/photos/534220/pexels-photo-534220.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Company" />
+
+        {about ? (
+          <>
+            <Section>
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                      <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">
+                        {about.overviewKicker ?? 'Company Overview'}
+                      </p>
+                      <h2 className="mt-4 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+                        {about.overviewHeading ?? site.name}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      {about.overviewBody1 ? (
+                        <p className="text-base leading-relaxed text-brand-steel">{about.overviewBody1}</p>
+                      ) : null}
+                      {about.overviewBody2 ? (
+                        <p className="mt-5 text-base leading-relaxed text-brand-steel">{about.overviewBody2}</p>
+                      ) : null}
+                      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        {(about.overviewStats ?? []).map((s) => (
+                          <div key={s._key ?? s.label ?? ''} className="rounded-2xl border border-brand-ink/10 bg-white p-5">
+                            <p className="text-xs font-semibold tracking-[0.14em] text-brand-steel">{s.label}</p>
+                            <p className="mt-2 text-sm font-semibold text-brand-ink">{s.value}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+
+            <Section className="bg-brand-mist">
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12 md:items-center">
+                    <div className="md:col-span-5">
+                      <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">
+                        {about.capabilitiesKicker ?? 'Capabilities'}
+                      </p>
+                      <h2 className="mt-4 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+                        {about.capabilitiesHeading ?? 'What we deliver.'}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        {services.map((s) => (
+                          <div
+                            key={s.slug}
+                            className="rounded-2xl border border-brand-ink/10 bg-white p-6 shadow-[0_10px_30px_rgba(11,18,32,0.06)]"
+                          >
+                            <p className="text-sm font-semibold text-brand-ink">{s.title}</p>
+                            {s.summary ? (
+                              <p className="mt-3 text-sm leading-relaxed text-brand-steel">{s.summary}</p>
+                            ) : null}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+
+            <Section>
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12 md:items-start">
+                    <div className="md:col-span-5">
+                      <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">
+                        {about.companyKicker ?? 'Company'}
+                      </p>
+                      <h2 className="mt-4 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+                        {about.companyHeading ?? 'Work that shows up on site.'}
+                      </h2>
+                      {about.companyBody ? (
+                        <p className="mt-6 text-base leading-relaxed text-brand-steel">{about.companyBody}</p>
+                      ) : null}
+                    </div>
+                    <div className="md:col-span-7" />
+
+                    <div className="md:col-span-12">
+                      <div className="grid gap-6 md:grid-cols-12">
+                        <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.10)] md:col-span-5">
+                          <div className="aspect-[4/5] w-full">
+                            {about.companyImage1Url ? (
+                              <img
+                                src={about.companyImage1Url}
+                                alt="Rikonim Enterprise company image"
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                                referrerPolicy="no-referrer"
+                              />
+                            ) : null}
+                          </div>
+                        </div>
+
+                        <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.10)] md:col-span-7">
+                          <div className="aspect-[16/10] w-full">
+                            {about.companyImage2Url ? (
+                              <img
+                                src={about.companyImage2Url}
+                                alt="Rikonim Enterprise project delivery image"
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                                referrerPolicy="no-referrer"
+                              />
+                            ) : null}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+
+            <section className="relative overflow-hidden mt-10 md:mt-14">
+              <video className="absolute inset-0 h-full w-full object-cover" autoPlay muted playsInline loop preload="metadata">
+                <source src={about.galleryVideoUrl ?? '/videos/company-gallery.mp4'} type="video/mp4" />
+              </video>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/80" />
+              <Container className="relative">
+                <div className="grid min-h-[62vh] gap-10 py-14 md:grid-cols-12 md:items-end md:py-20">
+                  <div className="md:col-span-6">
+                    <p className="text-sm font-semibold tracking-[0.16em] text-white/70">{about.galleryKicker ?? 'On Site'}</p>
+                    <h2 className="text-balance text-5xl font-semibold tracking-tightest text-white md:text-6xl">
+                      {about.galleryHeading ?? 'Work that shows up on site.'}
+                    </h2>
+                    <div className="mt-7">
+                      <Link
+                        href={about.galleryCtaHref ?? '/projects'}
+                        className="inline-flex items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-brand-ink transition hover:bg-white/90 md:text-base"
+                      >
+                        {about.galleryCtaLabel ?? 'View projects'}
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="md:col-span-6">
+                    {about.galleryBody ? (
+                      <p className="text-base leading-relaxed text-white/80 md:text-lg">{about.galleryBody}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </Container>
+            </section>
+
+            <Section>
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                      <h2 className="text-2xl font-semibold tracking-tightest text-brand-ink md:text-3xl">
+                        {about.visionTitle ?? 'Vision'}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      <p className="text-base leading-relaxed text-brand-steel">{about.visionBody ?? site.vision}</p>
+                    </div>
+                  </div>
+                </Reveal>
+
+                <Reveal delayMs={120}>
+                  <div className="mt-12 grid gap-10 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                      <h2 className="text-2xl font-semibold tracking-tightest text-brand-ink md:text-3xl">
+                        {about.missionTitle ?? 'Mission'}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      <ul className="space-y-4">
+                        {(about.missionBullets ?? site.missionBullets).map((b) => (
+                          <li key={b} className="text-base leading-relaxed text-brand-steel">
+                            <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+
+            <Section>
+              <Container>
+                <Reveal>
+                  <div className="grid gap-10 md:grid-cols-12">
+                    <div className="md:col-span-5">
+                      <h2 className="text-2xl font-semibold tracking-tightest text-brand-ink md:text-3xl">
+                        {about.deliveryHeading ?? 'How we deliver.'}
+                      </h2>
+                    </div>
+                    <div className="md:col-span-7">
+                      <div className="grid gap-4 sm:grid-cols-3">
+                        {(about.deliveryCards ?? []).map((c) => (
+                          <div key={c._key ?? c.title ?? ''} className="rounded-2xl border border-brand-ink/10 bg-white p-5">
+                            <p className="text-sm font-semibold text-brand-ink">{c.title}</p>
+                            <p className="mt-3 text-sm leading-relaxed text-brand-steel">{c.body}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </Container>
+            </Section>
+          </>
+        ) : null}
+
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero

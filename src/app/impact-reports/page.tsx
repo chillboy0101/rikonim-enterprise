@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Impact Reports',
@@ -11,7 +16,29 @@ export const metadata: Metadata = {
     'Impact reports from Rikonim Enterprise—safety performance, sustainability and community outcomes across construction and civil engineering work in Ghana.'
 };
 
-export default function ImpactReportsPage() {
+export default async function ImpactReportsPage() {
+  const page = await getSanityPageByRoute('/impact-reports');
+
+  if (page?.enabled && page?.sections?.length) {
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Impact Reports'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? 'https://images.pexels.com/photos/2101137/pexels-photo-2101137.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Impact Reports" />
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero

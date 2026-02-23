@@ -1,9 +1,14 @@
 import type { Metadata } from 'next';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
 import { PageHero } from '@/components/PageHero';
+import { PageRenderer } from '@/components/PageRenderer';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { getSanityPageByRoute } from '@/lib/sanityPages';
+import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Leadership',
@@ -11,7 +16,131 @@ export const metadata: Metadata = {
     'Meet the leadership of Rikonim Enterprise—experienced construction professionals driving safety, quality, accountability and client outcomes in Ghana.'
 };
 
-export default function LeadershipPage() {
+export default async function LeadershipPage() {
+  const page = await getSanityPageByRoute('/leadership');
+
+  if (page?.enabled && page?.sections?.length) {
+    const hero = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
+    );
+
+    const leadership = page.sections.find(
+      (s): s is Extract<SanityPageSection, { _type: 'leadershipSection' }> => s._type === 'leadershipSection'
+    );
+
+    return (
+      <>
+        {hero ? (
+          <PageHero
+            title={hero.title ?? 'Leadership'}
+            subtitle={hero.subtitle}
+            imageUrl={hero.imageUrl ?? 'https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=2400'}
+            videoUrl={hero.videoUrl}
+          />
+        ) : null}
+        <PageBreadcrumb current="Leadership" />
+
+        {leadership ? (
+          <>
+            <Section>
+              <Container>
+                <div className="grid gap-10 md:grid-cols-12">
+                  <div className="md:col-span-5">
+                    <p className="text-sm font-semibold tracking-[0.14em] text-brand-steel md:text-base">
+                      {leadership.kicker ?? 'Leadership'}
+                    </p>
+                    <h2 className="mt-4 text-3xl font-semibold tracking-tightest text-brand-ink md:text-4xl">
+                      {leadership.heading ?? 'Built on accountability.'}
+                    </h2>
+                  </div>
+                  <div className="md:col-span-7">
+                    {leadership.introParagraph1 ? (
+                      <p className="text-base leading-relaxed text-brand-steel">{leadership.introParagraph1}</p>
+                    ) : null}
+                    {leadership.introParagraph2 ? (
+                      <p className="mt-5 text-base leading-relaxed text-brand-steel">{leadership.introParagraph2}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </Container>
+            </Section>
+
+            <Section>
+              <Container>
+                <div className="grid gap-8 md:grid-cols-2">
+                  {(leadership.members ?? []).map((l) => (
+                    <div
+                      key={l._key ?? l.role ?? l.name ?? ''}
+                      className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-white shadow-[0_18px_50px_rgba(11,18,32,0.08)]"
+                    >
+                      <div className="grid gap-0 md:grid-cols-12">
+                        <div className="md:col-span-5">
+                          <div className="aspect-[4/5] w-full bg-brand-mist">
+                            {l.imageUrl ? (
+                              <img
+                                src={l.imageUrl}
+                                alt={`${l.name ?? ''} — ${l.role ?? ''}`}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                                referrerPolicy="no-referrer"
+                              />
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="p-6 md:col-span-7 md:p-7">
+                          <p className="text-[11px] font-semibold tracking-[0.14em] text-brand-steel">{l.role}</p>
+                          <p className="mt-2 text-2xl font-semibold tracking-tightest text-brand-ink">{l.name}</p>
+                          {l.bio ? (
+                            <p className="mt-4 text-sm leading-relaxed text-brand-steel">{l.bio}</p>
+                          ) : null}
+                          {Array.isArray(l.highlights) && l.highlights.length > 0 ? (
+                            <ul className="mt-5 space-y-2">
+                              {l.highlights.map((h) => (
+                                <li key={h} className="text-sm text-brand-steel">
+                                  <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
+                                  {h}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </Container>
+            </Section>
+
+            <Section className="bg-brand-mist">
+              <Container>
+                <div className="grid gap-10 md:grid-cols-12 md:items-center">
+                  <div className="md:col-span-5">
+                    <h2 className="text-2xl font-semibold tracking-tightest text-brand-ink md:text-3xl">
+                      {leadership.pillarsTitle ?? 'How we lead.'}
+                    </h2>
+                  </div>
+                  <div className="md:col-span-7">
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      {(leadership.pillars ?? []).map((p) => (
+                        <div key={p._key ?? p.title ?? ''} className="rounded-2xl border border-brand-ink/10 bg-white p-6">
+                          <p className="text-sm font-semibold text-brand-ink">{p.title}</p>
+                          <p className="mt-3 text-sm leading-relaxed text-brand-steel">{p.body}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Container>
+            </Section>
+          </>
+        ) : null}
+
+        <PageRenderer sections={page.sections} skipHero />
+      </>
+    );
+  }
+
   return (
     <>
       <PageHero
