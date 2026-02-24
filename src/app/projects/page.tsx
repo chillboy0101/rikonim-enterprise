@@ -77,7 +77,7 @@ function ViewDetailsButton({ href }: { href: string }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-full bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-blueDark"
+      className="inline-flex items-center justify-center rounded-full bg-brand-orange px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-blueDark"
     >
       View details
     </Link>
