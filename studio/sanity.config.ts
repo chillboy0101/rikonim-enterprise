@@ -2,7 +2,6 @@ import { defineConfig } from 'sanity';
 import { visionTool } from '@sanity/vision';
 import { deskTool } from 'sanity/desk';
 import { presentationTool } from 'sanity/presentation';
-import { dashboardTool, projectInfoWidget, projectUsersWidget, sanityTutorialsWidget } from '@sanity/dashboard';
 import { media } from 'sanity-plugin-media';
 import { createElement } from 'react';
 import faviconUrl from '../public/favicon.png';
@@ -38,9 +37,6 @@ export default defineConfig({
       }
     }),
   plugins: [
-    dashboardTool({
-      widgets: [sanityTutorialsWidget(), projectInfoWidget(), projectUsersWidget()]
-    }),
     deskTool({ structure }),
     media(),
     presentationTool({
