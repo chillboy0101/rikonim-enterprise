@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@sanity/client": "^7.15.0",
+    "@sanity/visual-editing": "^2.1.0",
     "@sanity/vision": "^5.11.0",
     "gray-matter": "4.0.3",
     "next": "16.1.6",

@@ -7,6 +7,7 @@ import { Section } from '@/components/layout/Section';
 import { getSanityPageByRoute } from '@/lib/sanityPages';
 import type { SanityPageSection } from '@/lib/sanityPages';
 import { site } from '@/lib/site';
+import { createDataAttribute } from '@sanity/visual-editing';
 
 export const revalidate = 60;
 
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default async function LeadershipPage() {
   const page = await getSanityPageByRoute('/leadership');
 
-  if (page?.enabled && page?.sections?.length) {
+  if (page?.enabled && Array.isArray(page.sections) && page.sections.length > 0) {
     const hero = page.sections.find(
       (s): s is Extract<SanityPageSection, { _type: 'heroSection' }> => s._type === 'heroSection'
     );
@@ -27,6 +28,9 @@ export default async function LeadershipPage() {
     const leadership = page.sections.find(
       (s): s is Extract<SanityPageSection, { _type: 'leadershipSection' }> => s._type === 'leadershipSection'
     );
+
+    const leadershipSectionKey = (leadership as unknown as { _key?: string })?._key;
+    const dataAttribute = page?._id ? createDataAttribute({ id: page._id, type: 'page' }) : null;
 
     return (
       <>
@@ -84,6 +88,13 @@ export default async function LeadershipPage() {
                                 loading="lazy"
                                 decoding="async"
                                 referrerPolicy="no-referrer"
+                                data-sanity={
+                                  dataAttribute && leadershipSectionKey && l._key
+                                    ? dataAttribute(
+                                        `sections[_key=="${leadershipSectionKey}"].members[_key=="${l._key}"].image`
+                                      )
+                                    : undefined
+                                }
                               />
                             ) : null}
                           </div>

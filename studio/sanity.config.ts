@@ -2,6 +2,10 @@ import { defineConfig } from 'sanity';
 import { visionTool } from '@sanity/vision';
 import { deskTool } from 'sanity/desk';
 import { presentationTool } from 'sanity/presentation';
+import { dashboardTool } from '@sanity/dashboard';
+import { media } from 'sanity-plugin-media';
+import { createElement } from 'react';
+import faviconUrl from '../public/favicon.png';
 
 import { schemaTypes } from '../sanity/schemaTypes';
 import { structure } from '../sanity/deskStructure';
@@ -22,8 +26,16 @@ export default defineConfig({
   dataset,
   apiVersion: apiVersion || '2025-01-01',
   basePath: '/',
+  icon: () =>
+    createElement('img', {
+      src: faviconUrl,
+      alt: 'Rikonim Enterprise',
+      style: { height: '1em', width: '1em' }
+    }),
   plugins: [
+    dashboardTool({ widgets: [] }),
     deskTool({ structure }),
+    media(),
     presentationTool({
       previewUrl: {
         initial: previewInitialUrl,
