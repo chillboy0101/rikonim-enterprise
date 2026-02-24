@@ -58,6 +58,10 @@ export const mainDocuments = defineDocuments([
     filter: `_type == "page" && route == "/"`
   },
   {
+    route: '/:route',
+    filter: `_type == "page" && (route == "/" + $route || route == $route || route == "/" + $route + "/")`
+  },
+  {
     route: '/:path*',
     filter: `_type == "page" && (route == "/" + $path || route == $path || route == "/" + $path + "/")`
   }
