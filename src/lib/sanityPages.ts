@@ -1,4 +1,15 @@
 import { sanityReadClient } from '@/lib/sanityClient';
+import { sanityNextClient } from '@/lib/sanityNextClient';
+import { draftMode } from 'next/headers';
+
+async function isDraftModeEnabledSafe(): Promise<boolean> {
+  try {
+    const { isEnabled } = await draftMode();
+    return Boolean(isEnabled);
+  } catch {
+    return false;
+  }
+}
 
 export type SanityPageSection =
   | {
@@ -196,7 +207,19 @@ export async function getSanityPageByRoute(route: string): Promise<SanityPage | 
   const normalizedRoute = route === '' ? '/' : route;
 
   try {
-    return await sanityReadClient.fetch(
+    const isEnabled = await isDraftModeEnabledSafe();
+    const client = isEnabled
+      ? sanityNextClient.withConfig({
+          token: process.env.SANITY_API_READ_TOKEN,
+          useCdn: false,
+          perspective: 'previewDrafts',
+          stega: {
+            enabled: true
+          }
+        })
+      : sanityReadClient;
+
+    return await client.fetch(
       `*[_type == "page" && route == $route][0]{
         _id,
         enabled,
