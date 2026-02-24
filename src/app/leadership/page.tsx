@@ -84,9 +84,13 @@ export default async function LeadershipPage() {
                               <div
                                 data-sanity={
                                   dataAttribute && leadershipSectionKey && l._key
-                                    ? dataAttribute(
-                                        `sections[_key=="${leadershipSectionKey}"].members[_key=="${l._key}"].image`
-                                      )
+                                    ? dataAttribute([
+                                        'sections',
+                                        { _key: leadershipSectionKey },
+                                        'members',
+                                        { _key: l._key },
+                                        'image'
+                                      ])
                                     : undefined
                                 }
                                 data-sanity-edit-target
