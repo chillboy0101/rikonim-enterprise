@@ -103,6 +103,18 @@ export default async function LeadershipPage() {
                                   loading="lazy"
                                   decoding="async"
                                   referrerPolicy="no-referrer"
+                                  data-sanity={
+                                    dataAttribute && leadershipSectionKey && l._key
+                                      ? dataAttribute([
+                                          'sections',
+                                          { _key: leadershipSectionKey },
+                                          'members',
+                                          { _key: l._key },
+                                          'image'
+                                        ])
+                                      : undefined
+                                  }
+                                  data-sanity-edit-target
                                 />
                               </div>
                             ) : null}
