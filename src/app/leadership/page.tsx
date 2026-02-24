@@ -91,8 +91,19 @@ export default async function LeadershipPage() {
                                     : undefined
                                 }
                                 data-sanity-edit-target
-                                className="h-full w-full"
+                                className="relative h-full w-full"
                               >
+                                <div
+                                  data-sanity={
+                                    dataAttribute
+                                      ? dataAttribute(
+                                          `sections[${leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0}].members[${memberIdx}].image`
+                                        )
+                                      : undefined
+                                  }
+                                  data-sanity-edit-target
+                                  className="absolute inset-0 z-10"
+                                />
                                 <img
                                   src={l.imageUrl}
                                   alt="Leadership member"
