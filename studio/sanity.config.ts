@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity';
 import { visionTool } from '@sanity/vision';
 import { deskTool } from 'sanity/desk';
 import { presentationTool } from 'sanity/presentation';
-import { dashboardTool } from '@sanity/dashboard';
+import { dashboardTool, projectInfoWidget, projectUsersWidget, sanityTutorialsWidget } from '@sanity/dashboard';
 import { media } from 'sanity-plugin-media';
 import { createElement } from 'react';
 import faviconUrl from '../public/favicon.png';
@@ -30,10 +30,17 @@ export default defineConfig({
     createElement('img', {
       src: faviconUrl,
       alt: 'Rikonim Enterprise',
-      style: { height: '1em', width: '1em' }
+      style: {
+        width: 22,
+        height: 22,
+        objectFit: 'contain',
+        display: 'block'
+      }
     }),
   plugins: [
-    dashboardTool({ widgets: [] }),
+    dashboardTool({
+      widgets: [sanityTutorialsWidget(), projectInfoWidget(), projectUsersWidget()]
+    }),
     deskTool({ structure }),
     media(),
     presentationTool({
