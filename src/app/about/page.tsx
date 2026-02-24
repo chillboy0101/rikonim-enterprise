@@ -10,6 +10,7 @@ import { getSanityPageByRoute } from '@/lib/sanityPages';
 import type { SanityPageSection } from '@/lib/sanityPages';
 import { getServices } from '@/lib/services';
 import { site } from '@/lib/site';
+import { createDataAttribute } from '@sanity/visual-editing';
 
 export const revalidate = 60;
 
@@ -30,6 +31,8 @@ export default async function AboutPage() {
     const about = page.sections.find(
       (s): s is Extract<SanityPageSection, { _type: 'aboutSection' }> => s._type === 'aboutSection'
     );
+    const aboutSectionKey = (about as unknown as { _key?: string })?._key;
+    const dataAttribute = page?._id ? createDataAttribute({ id: page._id, type: 'page' }) : null;
     return (
       <>
         {hero ? (
@@ -131,14 +134,30 @@ export default async function AboutPage() {
                         <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.10)] md:col-span-5">
                           <div className="aspect-[4/5] w-full">
                             {about.companyImage1Url ? (
-                              <img
-                                src={about.companyImage1Url}
-                                alt="Rikonim Enterprise company image"
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                referrerPolicy="no-referrer"
-                              />
+                              <div
+                                data-sanity={
+                                  dataAttribute && aboutSectionKey
+                                    ? dataAttribute(['sections', { _key: aboutSectionKey }, 'companyImage1'])
+                                    : undefined
+                                }
+                                data-sanity-edit-target
+                                className="h-full w-full"
+                              >
+                                <img
+                                  src={about.companyImage1Url}
+                                  alt="Company image"
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  referrerPolicy="no-referrer"
+                                  data-sanity={
+                                    dataAttribute && aboutSectionKey
+                                      ? dataAttribute(['sections', { _key: aboutSectionKey }, 'companyImage1'])
+                                      : undefined
+                                  }
+                                  data-sanity-edit-target
+                                />
+                              </div>
                             ) : null}
                           </div>
                         </div>
@@ -146,14 +165,30 @@ export default async function AboutPage() {
                         <div className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.10)] md:col-span-7">
                           <div className="aspect-[16/10] w-full">
                             {about.companyImage2Url ? (
-                              <img
-                                src={about.companyImage2Url}
-                                alt="Rikonim Enterprise project delivery image"
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                referrerPolicy="no-referrer"
-                              />
+                              <div
+                                data-sanity={
+                                  dataAttribute && aboutSectionKey
+                                    ? dataAttribute(['sections', { _key: aboutSectionKey }, 'companyImage2'])
+                                    : undefined
+                                }
+                                data-sanity-edit-target
+                                className="h-full w-full"
+                              >
+                                <img
+                                  src={about.companyImage2Url}
+                                  alt="Company image"
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  referrerPolicy="no-referrer"
+                                  data-sanity={
+                                    dataAttribute && aboutSectionKey
+                                      ? dataAttribute(['sections', { _key: aboutSectionKey }, 'companyImage2'])
+                                      : undefined
+                                  }
+                                  data-sanity-edit-target
+                                />
+                              </div>
                             ) : null}
                           </div>
                         </div>
@@ -257,7 +292,7 @@ export default async function AboutPage() {
           </>
         ) : null}
 
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

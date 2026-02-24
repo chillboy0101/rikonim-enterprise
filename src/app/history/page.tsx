@@ -34,7 +34,7 @@ export default async function HistoryPage() {
           />
         ) : null}
         <PageBreadcrumb current="History" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

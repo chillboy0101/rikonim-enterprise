@@ -34,7 +34,7 @@ export default async function BlogPage() {
           />
         ) : null}
         <PageBreadcrumb current="Blog" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

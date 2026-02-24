@@ -34,7 +34,7 @@ export default async function MediaPage() {
           />
         ) : null}
         <PageBreadcrumb current="Media" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

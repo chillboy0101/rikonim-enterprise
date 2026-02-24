@@ -33,8 +33,8 @@ export default async function PrivacyPolicyPage() {
             videoUrl={hero.videoUrl}
           />
         ) : null}
-        <PageBreadcrumb current="Privacy Policy" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageBreadcrumb current="Privacy policy" />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

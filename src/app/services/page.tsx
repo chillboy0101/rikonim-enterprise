@@ -224,7 +224,7 @@ export default async function ServicesPage() {
           </>
         ) : null}
 
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

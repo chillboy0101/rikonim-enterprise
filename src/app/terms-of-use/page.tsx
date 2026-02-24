@@ -34,7 +34,7 @@ export default async function TermsOfUsePage() {
           />
         ) : null}
         <PageBreadcrumb current="Terms of Use" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

@@ -5,14 +5,18 @@ import { PageHero } from '@/components/PageHero';
 import { markdownToHtml } from '@/lib/markdownToHtml';
 import type { SanityPageSection } from '@/lib/sanityPages';
 import { PortableText } from 'next-sanity';
+import { createDataAttribute } from '@sanity/visual-editing';
 
 export async function PageRenderer({
   sections,
-  skipHero
+  skipHero,
+  pageId
 }: {
   sections: SanityPageSection[];
   skipHero?: boolean;
+  pageId?: string;
 }) {
+  const dataAttribute = pageId ? createDataAttribute({ id: pageId, type: 'page' }) : null;
   const rendered = [] as Array<ReactElement>;
 
   for (let idx = 0; idx < sections.length; idx += 1) {
@@ -77,6 +81,11 @@ export async function PageRenderer({
       const html = await markdownToHtml(section.markdown ?? '');
       const hasVideo = Boolean(section.videoUrl);
       const hasImage = Boolean(section.imageUrl);
+      const sectionKey = (section as unknown as { _key?: string })?._key;
+      const imageDataSanity =
+        dataAttribute && sectionKey
+          ? dataAttribute(['sections', { _key: sectionKey }, 'image'])
+          : undefined;
 
       rendered.push(
         <Section key={`media-${idx}`}>
@@ -94,11 +103,19 @@ export async function PageRenderer({
                       <source src={section.videoUrl} type="video/mp4" />
                     </video>
                   ) : (
-                    <img
-                      src={section.imageUrl}
-                      alt={section.title ? `${section.title} media` : 'Page media'}
-                      className="h-full w-full object-cover"
-                    />
+                    <div
+                      data-sanity={imageDataSanity}
+                      data-sanity-edit-target
+                      className="h-full w-full"
+                    >
+                      <img
+                        src={section.imageUrl}
+                        alt="Page media"
+                        className="h-full w-full object-cover"
+                        data-sanity={imageDataSanity}
+                        data-sanity-edit-target
+                      />
+                    </div>
                   )}
                 </div>
               </div>

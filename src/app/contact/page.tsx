@@ -150,7 +150,7 @@ export default async function ContactPage() {
           </>
         ) : null}
 
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

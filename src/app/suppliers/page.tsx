@@ -34,7 +34,7 @@ export default async function SuppliersPage() {
           />
         ) : null}
         <PageBreadcrumb current="Suppliers" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

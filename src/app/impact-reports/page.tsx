@@ -34,7 +34,7 @@ export default async function ImpactReportsPage() {
           />
         ) : null}
         <PageBreadcrumb current="Impact Reports" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }

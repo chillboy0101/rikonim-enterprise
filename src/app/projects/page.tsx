@@ -107,7 +107,7 @@ export default async function ProjectsPage() {
           />
         ) : null}
         <PageBreadcrumb current="Projects" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
 
         <Section>
           <Container>

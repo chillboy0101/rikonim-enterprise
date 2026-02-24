@@ -34,7 +34,7 @@ export default async function CareersPage() {
           />
         ) : null}
         <PageBreadcrumb current="Careers" />
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }
