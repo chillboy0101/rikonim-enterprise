@@ -30,6 +30,7 @@ export default async function LeadershipPage() {
     );
 
     const leadershipSectionKey = (leadership as unknown as { _key?: string })?._key;
+    const leadershipSectionIndex = page.sections.findIndex((s) => s === leadership);
     const dataAttribute = page?._id ? createDataAttribute({ id: page._id, type: 'page' }) : null;
 
     return (
@@ -72,7 +73,7 @@ export default async function LeadershipPage() {
             <Section>
               <Container>
                 <div className="grid gap-8 md:grid-cols-2">
-                  {(leadership.members ?? []).map((l) => (
+                  {(leadership.members ?? []).map((l, memberIdx) => (
                     <div
                       key={l._key ?? l.role ?? l.name ?? ''}
                       className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-white shadow-[0_18px_50px_rgba(11,18,32,0.08)]"
@@ -81,18 +82,29 @@ export default async function LeadershipPage() {
                         <div className="md:col-span-5">
                           <div className="aspect-[4/5] w-full bg-brand-mist">
                             {l.imageUrl ? (
-                              <div
-                                data-sanity={
-                                  dataAttribute && leadershipSectionKey && l._key
+                              (() => {
+                                const sectionSelector = leadershipSectionKey
+                                  ? { _key: leadershipSectionKey }
+                                  : leadershipSectionIndex >= 0
+                                    ? leadershipSectionIndex
+                                    : 0;
+
+                                const memberSelector = l._key ? { _key: l._key } : memberIdx;
+
+                                const imageTarget =
+                                  dataAttribute
                                     ? dataAttribute([
                                         'sections',
-                                        { _key: leadershipSectionKey },
+                                        sectionSelector as never,
                                         'members',
-                                        { _key: l._key },
+                                        memberSelector as never,
                                         'image'
                                       ])
-                                    : undefined
-                                }
+                                    : undefined;
+
+                                return (
+                              <div
+                                data-sanity={imageTarget}
                                 data-sanity-edit-target
                                 className="h-full w-full"
                               >
@@ -103,20 +115,12 @@ export default async function LeadershipPage() {
                                   loading="lazy"
                                   decoding="async"
                                   referrerPolicy="no-referrer"
-                                  data-sanity={
-                                    dataAttribute && leadershipSectionKey && l._key
-                                      ? dataAttribute([
-                                          'sections',
-                                          { _key: leadershipSectionKey },
-                                          'members',
-                                          { _key: l._key },
-                                          'image'
-                                        ])
-                                      : undefined
-                                  }
+                                  data-sanity={imageTarget}
                                   data-sanity-edit-target
                                 />
                               </div>
+                                );
+                              })()
                             ) : null}
                           </div>
                         </div>
@@ -168,7 +172,7 @@ export default async function LeadershipPage() {
           </>
         ) : null}
 
-        <PageRenderer sections={page.sections} skipHero />
+        <PageRenderer sections={page.sections} skipHero pageId={page._id} />
       </>
     );
   }
