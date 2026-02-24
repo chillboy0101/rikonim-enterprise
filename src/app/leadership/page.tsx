@@ -82,29 +82,14 @@ export default async function LeadershipPage() {
                         <div className="md:col-span-5">
                           <div className="aspect-[4/5] w-full bg-brand-mist">
                             {l.imageUrl ? (
-                              (() => {
-                                const sectionSelector = leadershipSectionKey
-                                  ? { _key: leadershipSectionKey }
-                                  : leadershipSectionIndex >= 0
-                                    ? leadershipSectionIndex
-                                    : 0;
-
-                                const memberSelector = l._key ? { _key: l._key } : memberIdx;
-
-                                const imageTarget =
-                                  dataAttribute
-                                    ? dataAttribute([
-                                        'sections',
-                                        sectionSelector as never,
-                                        'members',
-                                        memberSelector as never,
-                                        'image'
-                                      ])
-                                    : undefined;
-
-                                return (
                               <div
-                                data-sanity={imageTarget}
+                                data-sanity={
+                                  dataAttribute
+                                    ? dataAttribute(
+                                        `sections[${leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0}].members[${memberIdx}].image`
+                                      )
+                                    : undefined
+                                }
                                 data-sanity-edit-target
                                 className="h-full w-full"
                               >
@@ -115,12 +100,16 @@ export default async function LeadershipPage() {
                                   loading="lazy"
                                   decoding="async"
                                   referrerPolicy="no-referrer"
-                                  data-sanity={imageTarget}
+                                  data-sanity={
+                                    dataAttribute
+                                      ? dataAttribute(
+                                          `sections[${leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0}].members[${memberIdx}].image`
+                                        )
+                                      : undefined
+                                  }
                                   data-sanity-edit-target
                                 />
                               </div>
-                                );
-                              })()
                             ) : null}
                           </div>
                         </div>
