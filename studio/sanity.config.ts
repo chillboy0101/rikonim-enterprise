@@ -5,6 +5,7 @@ import { presentationTool } from 'sanity/presentation';
 import { media } from 'sanity-plugin-media';
 import { createElement } from 'react';
 import faviconUrl from '../public/favicon.png';
+import './mobile.css';
 
 import { schemaTypes } from '../sanity/schemaTypes';
 import { structure } from '../sanity/deskStructure';

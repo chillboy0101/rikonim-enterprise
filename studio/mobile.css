@@ -1,0 +1,28 @@
+@media (max-width: 768px) {
+  .SplitPane {
+    flex-direction: column !important;
+  }
+
+  .SplitPane .Pane1,
+  .SplitPane .Pane2 {
+    width: 100% !important;
+    height: 50% !important;
+    overflow: auto !important;
+  }
+
+  .SplitPane .Resizer {
+    width: 100% !important;
+    height: 14px !important;
+    cursor: row-resize !important;
+  }
+
+  .SplitPane .Resizer:before {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 4px;
+    margin: 5px auto;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
