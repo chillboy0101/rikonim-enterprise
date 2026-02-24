@@ -73,6 +73,17 @@ function ProjectMedia({
   );
 }
 
+function ViewDetailsButton({ href }: { href: string }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center justify-center rounded-full bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-blueDark"
+    >
+      View details
+    </Link>
+  );
+}
+
 export default async function ProjectsPage() {
   const page = await getSanityPageByRoute('/projects');
   const projects = await getProjects();
@@ -148,12 +159,7 @@ export default async function ProjectsPage() {
                         />
                         {p.summary ? <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p> : null}
                         <div className="mt-4">
-                          <Link
-                            href={`/projects/${p.slug}`}
-                            className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
-                          >
-                            View details
-                          </Link>
+                          <ViewDetailsButton href={`/projects/${p.slug}`} />
                         </div>
                       </div>
                     </>
@@ -169,12 +175,7 @@ export default async function ProjectsPage() {
                         />
                         {p.summary ? <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p> : null}
                         <div className="mt-4">
-                          <Link
-                            href={`/projects/${p.slug}`}
-                            className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
-                          >
-                            View details
-                          </Link>
+                          <ViewDetailsButton href={`/projects/${p.slug}`} />
                         </div>
                       </div>
 
@@ -217,12 +218,7 @@ export default async function ProjectsPage() {
                         </div>
                         {p.summary ? <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p> : null}
                         <div className="mt-4">
-                          <Link
-                            href={`/projects/${p.slug}`}
-                            className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
-                          >
-                            View details
-                          </Link>
+                          <ViewDetailsButton href={`/projects/${p.slug}`} />
                         </div>
                       </div>
                     </>
@@ -298,12 +294,7 @@ export default async function ProjectsPage() {
                         <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
                       ) : null}
                       <div className="mt-4">
-                        <Link
-                          href={`/projects/${p.slug}`}
-                          className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
-                        >
-                          View details
-                        </Link>
+                        <ViewDetailsButton href={`/projects/${p.slug}`} />
                       </div>
                     </div>
                   </>
@@ -321,12 +312,7 @@ export default async function ProjectsPage() {
                         <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
                       ) : null}
                       <div className="mt-4">
-                        <Link
-                          href={`/projects/${p.slug}`}
-                          className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
-                        >
-                          View details
-                        </Link>
+                        <ViewDetailsButton href={`/projects/${p.slug}`} />
                       </div>
                     </div>
 
@@ -373,12 +359,7 @@ export default async function ProjectsPage() {
                         <p className="text-sm leading-relaxed text-brand-steel">{p.summary}</p>
                       ) : null}
                       <div className="mt-4">
-                        <Link
-                          href={`/projects/${p.slug}`}
-                          className="text-sm font-semibold text-brand-blue underline decoration-brand-blue/30 hover:decoration-brand-blue/60"
-                        >
-                          View details
-                        </Link>
+                        <ViewDetailsButton href={`/projects/${p.slug}`} />
                       </div>
                     </div>
                   </>
