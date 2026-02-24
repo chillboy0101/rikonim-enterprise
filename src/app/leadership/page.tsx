@@ -81,13 +81,7 @@ export default async function LeadershipPage() {
                         <div className="md:col-span-5">
                           <div className="aspect-[4/5] w-full bg-brand-mist">
                             {l.imageUrl ? (
-                              <img
-                                src={l.imageUrl}
-                                alt={`${l.name ?? ''} — ${l.role ?? ''}`}
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                referrerPolicy="no-referrer"
+                              <div
                                 data-sanity={
                                   dataAttribute && leadershipSectionKey && l._key
                                     ? dataAttribute(
@@ -95,7 +89,18 @@ export default async function LeadershipPage() {
                                       )
                                     : undefined
                                 }
-                              />
+                                data-sanity-edit-target
+                                className="h-full w-full"
+                              >
+                                <img
+                                  src={l.imageUrl}
+                                  alt="Leadership member"
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                  decoding="async"
+                                  referrerPolicy="no-referrer"
+                                />
+                              </div>
                             ) : null}
                           </div>
                         </div>
