@@ -23,9 +23,9 @@ Rikonim Enterprise is delivering a 2-bedroom apartment development at Katamanso,
 
 ## Project media
 
-![Photo 1](/uploads/projects/katamanso-2bedroom-apartments-1.jpg)
+![Photo 1](/uploads/projects/katamanso-2bedroom-apartments-photo-1.jpg)
 
-![Photo 2](/uploads/projects/katamanso-2bedroom-apartments-2.jpg)
+![Photo 2](/uploads/projects/katamanso-2bedroom-apartments-photo-2.jpg)
 
 [Watch video](/uploads/projects/katamanso-2bedroom-apartments-1.mp4)
 
