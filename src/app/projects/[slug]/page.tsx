@@ -149,13 +149,13 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </div>
                 ) : null}
                 {gallery.length ? (
-                  <div className="mb-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="mb-7 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                     {gallery.map((g, idx) => (
                       <div
                         key={`${g.url}-${idx}`}
                         className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.12)]"
                       >
-                        <div className="relative aspect-[4/3] w-full">
+                        <div className="relative aspect-[16/10] w-full">
                           <img
                             src={g.url}
                             alt={g.alt ?? `${project.title} gallery image ${idx + 1}`}
