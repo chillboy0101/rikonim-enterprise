@@ -5,7 +5,6 @@ import { deskTool } from 'sanity/desk';
 import { presentationTool } from 'sanity/presentation';
 import { media } from 'sanity-plugin-media';
 import { createElement } from 'react';
-import faviconUrl from '../public/favicon.png';
 import './mobile.css';
 
 import { schemaTypes } from '../sanity/schemaTypes';
@@ -29,7 +28,7 @@ export default defineConfig({
   basePath: '/',
   icon: () =>
     createElement('img', {
-      src: faviconUrl,
+      src: '/favicon.png',
       alt: 'Rikonim Enterprise',
       style: {
         width: 22,
@@ -39,7 +38,7 @@ export default defineConfig({
       }
     }),
   plugins: [
-    dashboardTool(),
+    dashboardTool({}),
     deskTool({ structure }),
     media(),
     presentationTool({
