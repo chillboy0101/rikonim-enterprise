@@ -122,7 +122,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 ) : null}
                 <div
                   dir="ltr"
-                  className="prose prose-slate max-w-none text-left prose-p:leading-relaxed prose-a:text-brand-blue prose-headings:font-bold prose-headings:text-brand-ink prose-h2:text-2xl prose-h2:tracking-tightest prose-h3:text-xl prose-h3:tracking-tightest"
+                  className="prose prose-slate max-w-none text-left prose-p:leading-relaxed prose-a:text-brand-blue prose-headings:font-bold prose-headings:text-brand-ink prose-h2:text-2xl prose-h2:tracking-tightest prose-h3:text-xl prose-h3:tracking-tightest prose-img:my-6 prose-img:w-full prose-img:rounded-3xl prose-img:border prose-img:border-brand-ink/10 prose-img:bg-brand-mist prose-img:shadow-[0_18px_50px_rgba(11,18,32,0.12)]"
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
               </div>

@@ -21,4 +21,10 @@ Rikonim Enterprise is delivering a 4-bedroom residence project at Agyementi, Abu
 
 ## Project media
 
+![Photo 1](/uploads/projects/4-bedroom-residence-agyementi-aburi-1.jpg)
+
+![Photo 2](/uploads/projects/4-bedroom-residence-agyementi-aburi-2.jpg)
+
+![Photo 3](/uploads/projects/4-bedroom-residence-agyementi-aburi-3.jpg)
+
 [Watch video](/uploads/projects/4-bedroom-residence-agyementi-aburi.mp4)
