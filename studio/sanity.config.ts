@@ -1,4 +1,5 @@
 import { defineConfig } from 'sanity';
+import { dashboardTool } from '@sanity/dashboard';
 import { visionTool } from '@sanity/vision';
 import { deskTool } from 'sanity/desk';
 import { presentationTool } from 'sanity/presentation';
@@ -38,6 +39,7 @@ export default defineConfig({
       }
     }),
   plugins: [
+    dashboardTool(),
     deskTool({ structure }),
     media(),
     presentationTool({

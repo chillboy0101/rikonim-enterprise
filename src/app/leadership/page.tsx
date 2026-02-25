@@ -74,75 +74,83 @@ export default async function LeadershipPage() {
               <Container>
                 <div className="grid gap-8 md:grid-cols-2">
                   {(leadership.members ?? []).map((l, memberIdx) => (
-                    <div
-                      key={l._key ?? l.role ?? l.name ?? ''}
-                      className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-white shadow-[0_18px_50px_rgba(11,18,32,0.08)]"
-                    >
-                      <div className="grid gap-0 md:grid-cols-12">
-                        <div className="md:col-span-5">
-                          <div className="aspect-[4/5] w-full bg-brand-mist">
-                            {l.imageUrl ? (
-                              <div
-                                data-sanity={
-                                  dataAttribute
-                                    ? dataAttribute(
-                                        `sections[${leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0}].members[${memberIdx}].image`
-                                      )
-                                    : undefined
-                                }
-                                data-sanity-edit-target
-                                className="relative h-full w-full"
-                              >
-                                <div
-                                  data-sanity={
-                                    dataAttribute
-                                      ? dataAttribute(
-                                          `sections[${leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0}].members[${memberIdx}].image`
-                                        )
-                                      : undefined
-                                  }
-                                  data-sanity-edit-target
-                                  className="absolute inset-0 z-10"
-                                />
-                                <img
-                                  src={l.imageUrl}
-                                  alt="Leadership member"
-                                  className="h-full w-full object-cover"
-                                  loading="lazy"
-                                  decoding="async"
-                                  referrerPolicy="no-referrer"
-                                  data-sanity={
-                                    dataAttribute
-                                      ? dataAttribute(
-                                          `sections[${leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0}].members[${memberIdx}].image`
-                                        )
-                                      : undefined
-                                  }
-                                  data-sanity-edit-target
-                                />
+                    (() => {
+                      const memberKey = (l as unknown as { _key?: string })?._key;
+                      const imageDataSanity =
+                        dataAttribute && leadershipSectionKey && memberKey
+                          ? dataAttribute([
+                              'sections',
+                              { _key: leadershipSectionKey },
+                              'members',
+                              { _key: memberKey },
+                              'image'
+                            ])
+                          : dataAttribute && leadershipSectionKey
+                            ? dataAttribute([
+                                'sections',
+                                { _key: leadershipSectionKey },
+                                'members',
+                                memberIdx,
+                                'image'
+                              ])
+                            : dataAttribute
+                              ? dataAttribute([
+                                  'sections',
+                                  leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0,
+                                  'members',
+                                  memberIdx,
+                                  'image'
+                                ])
+                              : undefined;
+                      return (
+                        <div
+                          key={l._key ?? l.role ?? l.name ?? ''}
+                          className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-white shadow-[0_18px_50px_rgba(11,18,32,0.08)]"
+                        >
+                          <div className="grid gap-0 md:grid-cols-12">
+                            <div className="md:col-span-5">
+                              <div className="aspect-[4/5] w-full bg-brand-mist">
+                                {l.imageUrl ? (
+                                  <div
+                                    data-sanity={imageDataSanity}
+                                    data-sanity-edit-target
+                                    className="h-full w-full"
+                                  >
+                                    <img
+                                      src={l.imageUrl}
+                                      alt="Leadership member"
+                                      className="h-full w-full object-cover"
+                                      loading="lazy"
+                                      decoding="async"
+                                      referrerPolicy="no-referrer"
+                                      data-sanity={imageDataSanity}
+                                      data-sanity-edit-target
+                                    />
+                                  </div>
+                                ) : null}
                               </div>
-                            ) : null}
+                            </div>
+                            <div className="p-6 md:col-span-7 md:p-7">
+                              <p className="text-[11px] font-semibold tracking-[0.14em] text-brand-steel">{l.role}</p>
+                              <p className="mt-2 text-2xl font-semibold tracking-tightest text-brand-ink">{l.name}</p>
+                              {l.bio ? (
+                                <p className="mt-4 text-sm leading-relaxed text-brand-steel">{l.bio}</p>
+                              ) : null}
+                              {Array.isArray(l.highlights) && l.highlights.length > 0 ? (
+                                <ul className="mt-5 space-y-2">
+                                  {l.highlights.map((h) => (
+                                    <li key={h} className="text-sm text-brand-steel">
+                                      <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
+                                      {h}
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : null}
+                            </div>
                           </div>
                         </div>
-                        <div className="p-6 md:col-span-7 md:p-7">
-                          <p className="text-[11px] font-semibold tracking-[0.14em] text-brand-steel">{l.role}</p>
-                          <p className="mt-2 text-2xl font-semibold tracking-tightest text-brand-ink">{l.name}</p>
-                          {l.bio ? (
-                            <p className="mt-4 text-sm leading-relaxed text-brand-steel">{l.bio}</p>
-                          ) : null}
-                          {Array.isArray(l.highlights) && l.highlights.length > 0 ? (
-                            <ul className="mt-5 space-y-2">
-                              {l.highlights.map((h) => (
-                                <li key={h} className="text-sm text-brand-steel">
-                                  <span className="mr-3 inline-block h-[6px] w-[6px] translate-y-[-2px] rounded-full bg-brand-orange" />
-                                  {h}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : null}
-                        </div>
-                      </div>
-                    </div>
+                      );
+                    })()
                   ))}
                 </div>
               </Container>
