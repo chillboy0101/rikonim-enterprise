@@ -21,4 +21,10 @@ Rikonim Enterprise is supporting a proposed 3-bedroom apartment development at K
 
 ## Project media
 
+![Photo 1](/uploads/projects/katamanso-3bed-apartments-1.jpg)
+
+![Photo 2](/uploads/projects/katamanso-3bed-apartments-2.jpg)
+
+![Photo 3](/uploads/projects/katamanso-3bed-apartments-3.jpg)
+
 [Watch video](/uploads/projects/katamanso-3bed-apartments.mp4)
