@@ -70,6 +70,10 @@ export async function getSanityProjects() {
             title,
             "slug": slug.current,
             image,
+            "gallery": gallery[]{
+              "url": asset->url,
+              "alt": alt
+            },
             video,
             video2,
             video2Poster,
@@ -149,6 +153,10 @@ const cachedProjects = unstable_cache(
             title,
             "slug": slug.current,
             image,
+            "gallery": gallery[]{
+              "url": asset->url,
+              "alt": alt
+            },
             video,
             video2,
             video2Poster,

@@ -48,7 +48,35 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   if (!project) return notFound();
 
-  const html = await markdownToHtml(project.content);
+  const cmsGallery = Array.isArray(project.gallery) ? project.gallery : [];
+
+  const mediaHeading = '## Project media';
+  const contentRaw = project.content ?? '';
+  const mediaIdx = contentRaw.indexOf(mediaHeading);
+  const afterMedia = mediaIdx >= 0 ? contentRaw.slice(mediaIdx) : '';
+  const nextHeadingMatch = mediaIdx >= 0 ? afterMedia.slice(mediaHeading.length).match(/\n##\s+/) : null;
+  const mediaSection =
+    mediaIdx >= 0
+      ? contentRaw.slice(
+          mediaIdx,
+          nextHeadingMatch ? mediaIdx + mediaHeading.length + (nextHeadingMatch.index ?? 0) : contentRaw.length
+        )
+      : '';
+
+  const imageMatches = Array.from(mediaSection.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g));
+  const derivedGallery = imageMatches
+    .map((m) => ({ url: m[2], alt: m[1] }))
+    .filter((g) => typeof g.url === 'string' && g.url.trim().length > 0)
+    .map((g) => ({ url: g.url.trim(), alt: g.alt?.trim() ? g.alt.trim() : undefined }));
+
+  const gallery = cmsGallery.length ? cmsGallery : derivedGallery;
+
+  const markdownForHtml =
+    !cmsGallery.length && derivedGallery.length && mediaSection
+      ? contentRaw.replace(mediaSection, mediaSection.replace(/!\[[^\]]*\]\([^)]+\)\s*/g, ''))
+      : contentRaw;
+
+  const html = await markdownToHtml(markdownForHtml);
 
   return (
     <>
@@ -120,9 +148,28 @@ export default async function ProjectDetailPage({ params }: Props) {
                     </div>
                   </div>
                 ) : null}
+                {gallery.length ? (
+                  <div className="mb-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {gallery.map((g, idx) => (
+                      <div
+                        key={`${g.url}-${idx}`}
+                        className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.12)]"
+                      >
+                        <div className="relative aspect-[4/3] w-full">
+                          <img
+                            src={g.url}
+                            alt={g.alt ?? `${project.title} gallery image ${idx + 1}`}
+                            className="absolute inset-0 h-full w-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
                 <div
                   dir="ltr"
-                  className="prose prose-slate max-w-none text-left prose-p:leading-relaxed prose-a:text-brand-blue prose-headings:font-bold prose-headings:text-brand-ink prose-h2:text-2xl prose-h2:tracking-tightest prose-h3:text-xl prose-h3:tracking-tightest prose-img:my-6 prose-img:w-full prose-img:rounded-3xl prose-img:border prose-img:border-brand-ink/10 prose-img:bg-brand-mist prose-img:shadow-[0_18px_50px_rgba(11,18,32,0.12)]"
+                  className="prose prose-slate max-w-none text-left prose-p:leading-relaxed prose-a:text-brand-blue prose-headings:font-bold prose-headings:text-brand-ink prose-h2:text-2xl prose-h2:tracking-tightest prose-h3:text-xl prose-h3:tracking-tightest prose-img:my-6 prose-img:mx-auto prose-img:w-full prose-img:max-h-[70vh] prose-img:object-contain prose-img:rounded-3xl prose-img:border prose-img:border-brand-ink/10 prose-img:bg-brand-mist prose-img:shadow-[0_18px_50px_rgba(11,18,32,0.12)]"
                   dangerouslySetInnerHTML={{ __html: html }}
                 />
               </div>

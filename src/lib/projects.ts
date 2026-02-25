@@ -4,6 +4,7 @@ export type Project = {
   slug: string;
   title: string;
   image?: string;
+  gallery?: Array<{ url: string; alt?: string }>;
   video?: string;
   video2?: string;
   video2Poster?: string;
@@ -20,6 +21,7 @@ export async function getProjects(): Promise<Project[]> {
     slug?: string;
     title?: string;
     image?: string;
+    gallery?: Array<{ url?: string; alt?: string }>;
     video?: string;
     video2?: string;
     video2Poster?: string;
@@ -38,6 +40,11 @@ export async function getProjects(): Promise<Project[]> {
         slug,
         title: String(p.title ?? slug),
         image: p.image ? String(p.image) : undefined,
+        gallery: Array.isArray(p.gallery)
+          ? p.gallery
+              .filter((g) => typeof g?.url === 'string' && g.url.trim().length > 0)
+              .map((g) => ({ url: String(g.url), alt: g.alt ? String(g.alt) : undefined }))
+          : undefined,
         video: p.video ? String(p.video) : undefined,
         video2: p.video2 ? String(p.video2) : undefined,
         video2Poster: p.video2Poster ? String(p.video2Poster) : undefined,

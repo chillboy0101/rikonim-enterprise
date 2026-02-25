@@ -13,6 +13,23 @@ export const projectType = defineType({
     defineField({ name: 'status', type: 'string' }),
     defineField({ name: 'summary', type: 'text' }),
     defineField({ name: 'image', type: 'string' }),
+    defineField({
+      name: 'gallery',
+      title: 'Gallery',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt text'
+            }
+          ]
+        }
+      ]
+    }),
     defineField({ name: 'video', type: 'string' }),
     defineField({ name: 'video2', type: 'string' }),
     defineField({ name: 'video2Poster', type: 'string' }),
