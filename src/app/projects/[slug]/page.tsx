@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageBreadcrumb } from '@/components/PageBreadcrumb';
@@ -149,18 +150,21 @@ export default async function ProjectDetailPage({ params }: Props) {
                   </div>
                 ) : null}
                 {gallery.length ? (
-                  <div className="mb-7 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+                  <div className="mb-7 grid gap-8 md:grid-cols-2 2xl:grid-cols-3">
                     {gallery.map((g, idx) => (
                       <div
                         key={`${g.url}-${idx}`}
                         className="overflow-hidden rounded-3xl border border-brand-ink/10 bg-brand-mist shadow-[0_18px_50px_rgba(11,18,32,0.12)]"
                       >
-                        <div className="relative aspect-[16/10] w-full">
-                          <img
+                        <div className="relative aspect-[16/9] w-full">
+                          <Image
                             src={g.url}
                             alt={g.alt ?? `${project.title} gallery image ${idx + 1}`}
-                            className="absolute inset-0 h-full w-full object-cover"
-                            loading="lazy"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1536px) 50vw, 33vw"
+                            className="object-cover"
+                            quality={70}
+                            priority={idx === 0}
                           />
                         </div>
                       </div>
