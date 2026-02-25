@@ -76,6 +76,7 @@ export default async function LeadershipPage() {
                   {(leadership.members ?? []).map((l, memberIdx) => (
                     (() => {
                       const memberKey = (l as unknown as { _key?: string })?._key;
+                      const memberUsesImageUrl = Boolean(l.imageUrl) && !Boolean(l.image);
                       const imageDataSanity =
                         dataAttribute && leadershipSectionKey && memberKey
                           ? dataAttribute([
@@ -83,7 +84,7 @@ export default async function LeadershipPage() {
                               { _key: leadershipSectionKey },
                               'members',
                               { _key: memberKey },
-                              'image'
+                              memberUsesImageUrl ? 'imageUrl' : 'image'
                             ])
                           : dataAttribute && leadershipSectionKey
                             ? dataAttribute([
@@ -91,7 +92,7 @@ export default async function LeadershipPage() {
                                 { _key: leadershipSectionKey },
                                 'members',
                                 memberIdx,
-                                'image'
+                                memberUsesImageUrl ? 'imageUrl' : 'image'
                               ])
                             : dataAttribute
                               ? dataAttribute([
@@ -99,7 +100,7 @@ export default async function LeadershipPage() {
                                   leadershipSectionIndex >= 0 ? leadershipSectionIndex : 0,
                                   'members',
                                   memberIdx,
-                                  'image'
+                                  memberUsesImageUrl ? 'imageUrl' : 'image'
                                 ])
                               : undefined;
                       return (
