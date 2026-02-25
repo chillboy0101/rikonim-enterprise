@@ -114,8 +114,15 @@ export default async function LeadershipPage() {
                                   <div
                                     data-sanity={imageDataSanity}
                                     data-sanity-edit-target
-                                    className="h-full w-full"
+                                    className="relative h-full w-full"
                                   >
+                                    <button
+                                      type="button"
+                                      aria-label="Edit leadership image"
+                                      data-sanity={imageDataSanity}
+                                      data-sanity-edit-target
+                                      className="absolute inset-0 z-10 h-full w-full bg-transparent"
+                                    />
                                     <img
                                       src={l.imageUrl}
                                       alt="Leadership member"
