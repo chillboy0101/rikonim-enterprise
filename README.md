@@ -31,6 +31,51 @@ This repository contains two deployable apps:
 - Node.js (recommended: latest LTS)
 - npm
 
+## Codex Cloud
+
+Create one Codex Cloud environment for this repository with Node.js `24.x` and
+the following setup script:
+
+```bash
+bash scripts/codex-cloud-setup.sh
+```
+
+Add the application variables below to the environment. Do not commit their
+values or copy Vercel's temporary `VERCEL_*`, `TURBO_*`, or `NX_*` variables.
+
+**Website and shared CMS configuration**
+
+- `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- `NEXT_PUBLIC_SANITY_DATASET`
+- `NEXT_PUBLIC_SANITY_API_VERSION`
+- `NEXT_PUBLIC_SANITY_STUDIO_URL`
+- `NEXT_PUBLIC_SITE_URL`
+- `SANITY_API_READ_TOKEN`
+- `SANITY_API_WRITE_TOKEN`
+- `CMS_ADMIN_USER`
+- `CMS_ADMIN_PASS`
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `SMTP_FROM`
+
+The cloud container can then run both applications:
+
+```bash
+npm run dev
+npm --prefix studio run dev
+```
+
+Before opening a pull request, verify both builds:
+
+```bash
+npm run build
+npm --prefix studio run build
+```
+
 ### 1) Install dependencies
 
 From the repo root:
