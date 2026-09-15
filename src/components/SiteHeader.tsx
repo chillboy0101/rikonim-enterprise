@@ -461,7 +461,7 @@ export function SiteHeader() {
       <Container>
         <div className="relative z-10 flex items-center py-4 md:py-5">
           <Link href="/" className="flex items-center gap-3">
-            <BrandLogo className="h-10 w-[200px] sm:h-11 sm:w-[240px] md:h-11 md:w-[260px] lg:h-12 lg:w-[300px]" />
+            <BrandLogo className="h-14 w-[200px] sm:h-14 sm:w-[240px] md:h-16 md:w-[260px] lg:h-16 lg:w-[300px]" />
           </Link>
 
           <div className="ml-auto hidden items-center gap-4 lg:flex">
@@ -910,7 +910,7 @@ export function SiteHeader() {
                       className="flex items-center gap-3"
                       onClick={() => setMenuOpen(false)}
                     >
-                      <BrandLogo className="h-9 w-[170px]" />
+                      <BrandLogo className="h-14 w-[170px]" />
                     </Link>
 
                     <div className="flex items-center gap-3">

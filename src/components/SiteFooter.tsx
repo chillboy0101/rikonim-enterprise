@@ -125,7 +125,7 @@ export function SiteFooter({ siteSettings }: { siteSettings?: SiteSettings }) {
             <div className="order-1 mx-auto flex w-full max-w-[520px] min-w-0 flex-row items-start justify-start gap-4 md:contents">
               <div className="min-w-0 shrink-0">
                 <Link href="/" className="inline-flex items-start">
-                  <BrandLogo className="h-12 w-[210px] sm:h-12 sm:w-[240px]" />
+                  <BrandLogo className="h-32 w-[210px] sm:h-32 sm:w-[240px]" />
                 </Link>
               </div>
 
