@@ -71,6 +71,11 @@ export default async function ProjectDetailPage({ params }: Props) {
     .map((g) => ({ url: g.url.trim(), alt: g.alt?.trim() ? g.alt.trim() : undefined }));
 
   const gallery = cmsGallery.length ? cmsGallery : derivedGallery;
+  const distinctGalleryPoster = gallery.find((g) => g.url !== project.image)?.url;
+  const secondaryVideoPoster =
+    project.video2Poster && project.video2Poster !== project.image
+      ? project.video2Poster
+      : distinctGalleryPoster ?? project.video2Poster ?? project.image;
 
   const markdownForHtml =
     !cmsGallery.length && derivedGallery.length && mediaSection
@@ -131,7 +136,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     <div className="aspect-[16/9] w-full">
                       <ProjectVideoPlayer
                         src={project.video2}
-                        poster={project.video2Poster ?? project.image ?? undefined}
+                        poster={secondaryVideoPoster ?? undefined}
                         buttonPlacement="bottomLeft"
                         className="h-full w-full"
                       />
