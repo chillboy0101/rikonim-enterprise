@@ -17,6 +17,13 @@ type Props = {
   params: { slug: string } | Promise<{ slug: string }>;
 };
 
+const primeSchoolSlug = 'prime-school-administration-block-abokobi';
+
+function getPrimeSchoolVideoPoster(slug: string, video?: string) {
+  if (slug !== primeSchoolSlug || !video?.startsWith('/uploads/projects/')) return undefined;
+  return video.replace(/\.mp4$/i, '-poster.jpg');
+}
+
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map((p) => ({ slug: p.slug }));
@@ -71,11 +78,13 @@ export default async function ProjectDetailPage({ params }: Props) {
     .map((g) => ({ url: g.url.trim(), alt: g.alt?.trim() ? g.alt.trim() : undefined }));
 
   const gallery = cmsGallery.length ? cmsGallery : derivedGallery;
+  const primaryVideoPoster = getPrimeSchoolVideoPoster(project.slug, project.video) ?? project.image;
   const distinctGalleryPoster = gallery.find((g) => g.url !== project.image)?.url;
   const secondaryVideoPoster =
-    project.video2Poster && project.video2Poster !== project.image
+    getPrimeSchoolVideoPoster(project.slug, project.video2) ??
+    (project.video2Poster && project.video2Poster !== project.image
       ? project.video2Poster
-      : distinctGalleryPoster ?? project.video2Poster ?? project.image;
+      : distinctGalleryPoster ?? project.video2Poster ?? project.image);
 
   const markdownForHtml =
     !cmsGallery.length && derivedGallery.length && mediaSection
@@ -124,7 +133,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     <div className="aspect-[16/9] w-full">
                       <ProjectVideoPlayer
                         src={project.video}
-                        poster={project.image ?? undefined}
+                        poster={primaryVideoPoster ?? undefined}
                         buttonPlacement="bottomLeft"
                         className="h-full w-full"
                       />
